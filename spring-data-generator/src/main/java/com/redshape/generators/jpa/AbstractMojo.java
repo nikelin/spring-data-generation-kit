@@ -18,11 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created with IntelliJ IDEA.
- * User: cyril
- * Date: 10/18/12
- * Time: 11:56 AM
- * To change this template use File | Settings | File Templates.
+ * @implementation com.redshape.generators.jpa.GeneratorMojo
  */
 public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo {
 

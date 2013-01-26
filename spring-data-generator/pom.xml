@@ -11,6 +11,7 @@
 
     <groupId>com.redshape.utils.generation-kit</groupId>
     <artifactId>spring-data-generator</artifactId>
+    <packaging>maven-plugin</packaging>
     <name>Redshape Generation Kit: Spring Data JPA Generator</name>
 
     <build>

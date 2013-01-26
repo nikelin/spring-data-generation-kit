@@ -1,11 +1,14 @@
 package com.redshape.generators.annotations;
 
 /**
- * Created with IntelliJ IDEA.
- * User: cyril
- * Date: 11/23/12
- * Time: 12:05 PM
- * To change this template use File | Settings | File Templates.
+ * Conventional queries collection representation.
+ *
+ * Each child @ConventionalQuery would be represented as a
+ * separate method in the resulting spring-data repository.
+ *
+ * @see {@link ConventionalQuery}
+ *
+ * @author Cyril A. Karpenko <self@nikelin.ru>
  */
 public @interface ConventionalQueries {
 

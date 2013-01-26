@@ -24,12 +24,21 @@ public @interface Parameter {
     public String value() default "";
 
     /**
-     * Type of requested parameter referenced by {@link com.redshape.odd.data.annotations.Parameter#value()}
+     * Type of requested parameter referenced by {@link com.redshape.generators.annotations.Parameter#value()}
      *
      * @return {@link Class}
      */
     public Class<?> type();
 
+    /**
+     * Needs because of problem in Thoughtworks QDox annotation parser which ignore "[]" in annotation
+     * field type name.
+     *
+     * If true, then query parameter would be placed as array:
+     * {@code Example findByIdIn( @Parameter("ids") long[] ids ); }
+     *
+     * @return
+     */
     public boolean isArray() default false;
 
 }

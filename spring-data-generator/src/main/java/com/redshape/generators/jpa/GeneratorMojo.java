@@ -27,37 +27,32 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 /**
- * @goal jpa-generate
+ * @goal generate
  * @phase generate-source
  * @requiresDependencyResolution compile
  */
 public class GeneratorMojo extends AbstractMojo {
     private static final String ENTITY_ANNOTATION_CLASS_NAME = "javax.persistence.Entity";
     private static final String COLLECTION_CLASS_NAME = "java.util.Collection";
-    private static final String CONVENTION_QUERY_CLASS_NAME = "com.redshape.odd.data.annotations.ConventionalQuery";
-    private static final String CONVENTION_QUERIES_CLASS_NAME = "com.redshape.odd.data.annotations.ConventionalQueries";
-    private static final String NATIVE_QUERY_CLASS_NAME = "com.redshape.odd.data.annotations.NativeQuery";
-    private static final String NATIVE_QUERIES_CLASS_NAME = "com.redshape.odd.data.annotations.NativeQueries";
-    private static final String DTO_GROUPS_CLASS_NAME = "com.redshape.odd.data.annotations.dto.DtoGroups";
-    private static final String DTO_GROUP_CLASS_NAME = "com.redshape.odd.data.annotations.dto.DtoGroup";
-    private static final String TARGET_GROUP_CLASS_NAME = "com.redshape.odd.data.annotations.dto.TargetGroup";
-    private static final String TARGET_GROUPS_CLASS_NAME = "com.redshape.odd.data.annotations.dto.TargetGroup";
-    private static final String DTO_INCLUDE_CLASS_NAME = "com.redshape.odd.data.annotations.dto.DtoInclude";
-    private static final String DTO_EXTEND_CLASS_NAME = "com.redshape.odd.data.annotations.dto.DtoExtend";
-    private static final String DTO_EXCLUDE_CLASS_NAME = "com.redshape.odd.data.annotations.dto.DtoExclude";
+    private static final String CONVENTION_QUERY_CLASS_NAME = "com.redshape.generators.annotations.ConventionalQuery";
+    private static final String CONVENTION_QUERIES_CLASS_NAME = "com.redshape.generators.annotations.ConventionalQueries";
+    private static final String NATIVE_QUERY_CLASS_NAME = "com.redshape.generators.annotations.NativeQuery";
+    private static final String NATIVE_QUERIES_CLASS_NAME = "com.redshape.generators.annotations.NativeQueries";
+    private static final String DTO_GROUPS_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoGroups";
+    private static final String DTO_GROUP_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoGroup";
+    private static final String TARGET_GROUP_CLASS_NAME = "com.redshape.generators.annotations.dto.TargetGroup";
+    private static final String TARGET_GROUPS_CLASS_NAME = "com.redshape.generators.annotations.dto.TargetGroup";
+    private static final String DTO_INCLUDE_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoInclude";
+    private static final String DTO_EXTEND_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoExtend";
+    private static final String DTO_EXCLUDE_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoExclude";
 
-    private static final String BASE_PACKAGE_PATH = "com.redshape.odd.data.entities";
-    private static final String DTO_PACKAGE_PATH = "com.redshape.odd.data.entities.dto";
-    private static final String DAO_PACKAGE_PATH = "com.redshape.odd.data.dao";
-    private static final String SKIP_DAO_CLASS_NAME = "com.redshape.odd.data.annotations.dto.SkipDao";
+    private static final String SKIP_DAO_CLASS_NAME = "com.redshape.generators.annotations.dto.SkipDao";
 
-    private static final String CONVERSATION_SERVICE_PACKAGE_NAME = "com.redshape.odd.services";
-    private static final String CONVERSION_SERVICE_CLASS_NAME = "DtoConversationService";
 
     /**
      * Target entities base package path pattern
      *
-     * @parameter expression="${plugin.entityPattern}" default-value="**\/actions\/**\/*.java"
+     * @parameter expression="${plugin.entityPattern}" default-value="**\/entities\/**\/*.java"
      */
     private String entityPattern;
 
@@ -69,9 +64,35 @@ public class GeneratorMojo extends AbstractMojo {
     private String targetModule;
 
     /**
-     * @Parameter expression="${plugin.failOnError}" default-value="false"
+     * @parameter expression="${plugin.failOnError}" default-value="false"
      */
     private Boolean failOnError;
+
+    /**
+     * @parameter expression="${plugin.basePackagePath}" required="true"
+     */
+    private String basePackagePath;
+
+
+    /**
+     * @parameter expression="${plugin.dtoPackagePath}"  required="true"
+     */
+    private String dtoPackagePath;
+
+    /**
+     * @parameter expression="${plugin.conversionServicePackagePath}" required="true"
+     */
+    private String conversationServicePackagePath;
+
+    /**
+     * @parameter expression="${plugin.daoPackagePath}" required="true"
+     */
+    private String daoPackagePath;
+
+    /**
+     * @parameter expression="${plugin.conversionServiceClass}" default-value="DtoConversionService"
+     */
+    private String conversationServiceClass;
 
     /**
      * @parameter expression="${project.build.sourceEncoding}"
@@ -141,7 +162,7 @@ public class GeneratorMojo extends AbstractMojo {
     private boolean scanAndGenerate( File sourceRoot, JavaDocBuilder builder )
             throws Exception
     {
-        getLog().info("Entity pattern: " + entityPattern );
+        getLog().debug("Entity pattern: " + entityPattern );
 
         try {
             DirectoryScanner scanner = new DirectoryScanner();
@@ -177,11 +198,11 @@ public class GeneratorMojo extends AbstractMojo {
     }
 
     protected String getDtoPackagePath( String name ) {
-        return name.replace(BASE_PACKAGE_PATH, DTO_PACKAGE_PATH);
+        return name.replace(this.basePackagePath, this.dtoPackagePath);
     }
 
     protected String getDaoPackagePath( String name ) {
-        return name.replace(BASE_PACKAGE_PATH, DAO_PACKAGE_PATH);
+        return name.replace(this.basePackagePath, this.daoPackagePath);
     }
 
     protected String getDtoPath( String packagePath, String className ) {
@@ -287,8 +308,8 @@ public class GeneratorMojo extends AbstractMojo {
     protected void generateConversionService( Collection<DtoGenerationProfile> profiles )
         throws IOException, TemplateException {
         Map<String, Object> templateData = new HashMap<String, Object>();
-        templateData.put("package", CONVERSATION_SERVICE_PACKAGE_NAME );
-        templateData.put("className", CONVERSION_SERVICE_CLASS_NAME );
+        templateData.put("package", this.conversationServicePackagePath );
+        templateData.put("className", this.conversationServiceClass );
 
         Collection<Map<String, Object>> entities = new ArrayList<Map<String, Object>>();
         for ( DtoGenerationProfile profile : profiles ) {
@@ -310,8 +331,8 @@ public class GeneratorMojo extends AbstractMojo {
         templateData.put("entities", entities);
 
         FileWriter writer = new FileWriter(
-            this.getOutputTarget(CONVERSATION_SERVICE_PACKAGE_NAME.replaceAll("\\.", "\\/"),
-                    CONVERSION_SERVICE_CLASS_NAME + ".java" )
+            this.getOutputTarget(this.conversationServicePackagePath.replaceAll("\\.", "\\/"),
+                    this.conversationServiceClass + ".java" )
         );
 
         this.conversionServiceTemplate.process(templateData, writer );
@@ -429,8 +450,6 @@ public class GeneratorMojo extends AbstractMojo {
         FileWriter writer = new FileWriter( this.getDaoOutputTarget(profile.entity) );
 
         this.daoTemplate.process(parameters, writer);
-
-        getLog().info( writer.toString() );
     }
 
     protected boolean isExcludedField( JavaClass clazz ) {
