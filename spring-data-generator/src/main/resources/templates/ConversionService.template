@@ -1,0 +1,61 @@
+<#import "functions.template" as fn>
+<#include "functions.template">
+
+package ${package};
+
+<#assign timeNow = .now>
+
+import org.springframework.stereotype.Service;
+import org.apache.commons.collections.FastHashMap;
+import java.lang.reflect.Method;
+import java.util.Collections;
+import java.util.Map;
+
+/**
+* Automatically generated JPA -> DTO conversion service.
+*
+* @package ${package}
+* @date ${timeNow?iso_utc}
+*/
+@Service
+public class ${className} {
+
+    <#if entities?size == 0>
+        /**
+        * NO CONVERSION METHODS DEFINED
+        **/
+    <#else>
+        <#list entities as entity>
+            <#include "ConversionService.Method.template">
+        </#list>
+    </#if>
+
+    public <T> T convertToDto( Object record ) throws Exception {
+        if ( record == null ) {
+            return null;
+        }
+
+         Method conversionMethod = METHODS.get(record.getClass());
+         if ( conversionMethod == null ) {
+             throw new Exception("Conversion method not found: " + record.getClass().getCanonicalName() );
+         }
+
+         return (T) conversionMethod.invoke(this, new Object[] { record } );
+     }
+
+     private static final Map<Class<?>, Method> METHODS = Collections.synchronizedMap(new FastHashMap());
+
+     static {
+         for ( Method method : ${className}.class.getMethods() ) {
+             if ( !method.getName().equals("convertToDto") ) {
+                 continue;
+             }
+
+             if ( method.getParameterTypes().length == 0 || method.getParameterTypes()[0].equals(Object.class) ) {
+                 continue;
+             }
+
+             METHODS.put( method.getParameterTypes()[0], method );
+         }
+     }
+}
