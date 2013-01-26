@@ -1,4 +1,4 @@
-Spring Data Generation Kit
+## Spring Data Generation Kit
 -----
 
 Can be used as a generation-time plugin for your Maven project.
@@ -7,7 +7,7 @@ Plugin will help you to forget about manual edition & creation of
 the DTOs and the repositories for your domain objects.
 
 Example maven configuration:
-
+```
 <plugin>
     <groupId>com.redshape.utils.generation-kit</groupId>
     <artifactId>spring-data-generator</artifactId>
@@ -21,7 +21,10 @@ Example maven configuration:
         <basePackagePath>org.example.data.entities</basePackagePath>
     </configuration>
 </plugin>
+```
 
+Public plugins repository:
+```
 <pluginRepositories>
     <pluginRepository>
         <id>redshape.central</id>
@@ -32,10 +35,11 @@ Example maven configuration:
         </snapshots>
     </pluginRepository>
 </pluginRepositories>
+```
 
 If you select directory which different from src/main/java, you also needs to add build-helper plugin, which
 add this directory as a source root:
-
+```
 <plugin>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>build-helper-maven-plugin</artifactId>
@@ -55,17 +59,20 @@ add this directory as a source root:
         </execution>
     </executions>
 </plugin>
+```
 
-Also you must place in <dependencies/> link to annotation classes which must
+Also you must place in `<dependencies/>` link to annotation classes which must
 be used to markdown JPA entities and its fields:
+```
 <dependency>
     <groupId>com.redshape.utils.generation-kit</groupId>
     <artifactId>generator-annotations</artifactId>
     <version>1.0-SNAPSHOT</version>
 </dependency>
+```
 
 Here is some basic example of generator annotations usage:
-
+```
 @Entity
 @ConventionalQueries({
     @ConventionalQuery( name = "findByAuthor", isPageable = true, parameters = {
@@ -124,5 +131,24 @@ public class Proposition implements Serializable {
 
     // Accessors and everything else goes here..
 }
+```
 
+=== Authors
 
++ Cyril A. Karpenko <self@nikelin.ru>
+
+=== License
+
+Copyright 2013, Cyril A. Karpenko
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
