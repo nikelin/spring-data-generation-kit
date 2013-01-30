@@ -16,6 +16,9 @@
 
 package com.redshape.generators.annotations.dto;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+
 /**
  * Created with IntelliJ IDEA.
  * User: cyril
@@ -23,6 +26,7 @@ package com.redshape.generators.annotations.dto;
  * Time: 6:04 PM
  * To change this template use File | Settings | File Templates.
  */
+@Target(ElementType.TYPE)
 public @interface SkipDao {
 
     public boolean value() default true;

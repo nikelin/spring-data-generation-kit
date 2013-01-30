@@ -1,12 +1,12 @@
 package com.redshape.generators.annotations;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+
 /**
- * Created with IntelliJ IDEA.
- * User: cyril
- * Date: 11/20/12
- * Time: 3:07 PM
- * To change this template use File | Settings | File Templates.
+ * @author Cyril A. Karpenko <self@nikelin.ru>
  */
+@Target(ElementType.ANNOTATION_TYPE)
 public @interface Parameter {
 
     /**

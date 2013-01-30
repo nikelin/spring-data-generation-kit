@@ -1,5 +1,8 @@
 package com.redshape.generators.annotations;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+
 /**
  * Annotation which can be used to add new querying method into
  * the resulting repository for a mappable class.
@@ -27,6 +30,7 @@ package com.redshape.generators.annotations;
  * by this link: {@linkplain http://static.springsource.org/spring-data/commons/docs/current/reference/html/}
  *
  */
+@Target(ElementType.TYPE)
 public @interface ConventionalQuery {
 
     /**

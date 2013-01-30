@@ -1,5 +1,8 @@
 package com.redshape.generators.annotations;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+
 /**
  * In a contrast to {@link ConventionalQuery} logic of all queries mapped by this
  * annotation declares only by its {@link NativeQuery#value()} field value and not by
@@ -29,6 +32,7 @@ package com.redshape.generators.annotations;
  * by this link: {@linkplain http://static.springsource.org/spring-data/commons/docs/current/reference/html/}
  *
  */
+@Target(ElementType.TYPE)
 public @interface NativeQuery {
 
     /**

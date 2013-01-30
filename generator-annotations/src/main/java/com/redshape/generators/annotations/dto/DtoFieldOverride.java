@@ -4,14 +4,16 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 /**
- * @author nikelin
- * @date 15:11
+ * @user Nikelin
+ * @date 27.01.13
+ * @time 21:02
+ * @package com.redshape.generators.annotations.dto
  */
 @Target(ElementType.FIELD)
-public @interface DtoInclude {
-
-    public AggregationType value();
+public @interface DtoFieldOverride {
 
     public String name() default "";
+
+    public Class<?> type() default Void.class;
 
 }

@@ -1,5 +1,8 @@
 package com.redshape.generators.annotations.dto;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
+
 /**
  * Created with IntelliJ IDEA.
  * User: cyril
@@ -7,6 +10,7 @@ package com.redshape.generators.annotations.dto;
  * Time: 3:15 PM
  * To change this template use File | Settings | File Templates.
  */
+@Target(ElementType.FIELD)
 public @interface TargetGroup {
 
     /**
@@ -17,7 +21,7 @@ public @interface TargetGroup {
     /**
      * If value provided, then marked field and its value would be
      * included/excluded in/from resulted DTO structure when profile referenced
-     * by {@link com.redshape.odd.data.annotations.dto.TargetGroup#value()} would be requested to be
+     * by {@link TargetGroup#value()} would be requested to be
      * be generated
      *
      * @return

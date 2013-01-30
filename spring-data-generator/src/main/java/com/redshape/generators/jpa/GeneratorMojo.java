@@ -47,6 +47,7 @@ public class GeneratorMojo extends AbstractMojo {
     private static final String DTO_EXCLUDE_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoExclude";
 
     private static final String SKIP_DAO_CLASS_NAME = "com.redshape.generators.annotations.dto.SkipDao";
+    private static final String DTO_FIELD_OVERRIDE_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoFieldOverride";
 
 
     /**
@@ -162,7 +163,7 @@ public class GeneratorMojo extends AbstractMojo {
     private boolean scanAndGenerate( File sourceRoot, JavaDocBuilder builder )
             throws Exception
     {
-        getLog().debug("Entity pattern: " + entityPattern );
+        getLog().debug("Entity pattern: " + entityPattern);
 
         try {
             DirectoryScanner scanner = new DirectoryScanner();
@@ -332,7 +333,7 @@ public class GeneratorMojo extends AbstractMojo {
 
         FileWriter writer = new FileWriter(
             this.getOutputTarget(this.conversationServicePackagePath.replaceAll("\\.", "\\/"),
-                    this.conversationServiceClass + ".java" )
+                    this.conversationServiceClass + ".java")
         );
 
         this.conversionServiceTemplate.process(templateData, writer );
@@ -505,6 +506,8 @@ public class GeneratorMojo extends AbstractMojo {
                     this.processDtoInclude(annotation, dtoProfile.defaultGroup, property);
                 } else if ( annotation.getType().getJavaClass().isA(DTO_EXCLUDE_CLASS_NAME) ) {
                     property.isExcluded = true;
+                } else if ( annotation.getType().getJavaClass().isA(DTO_FIELD_OVERRIDE_CLASS_NAME) ) {
+                    this.processDtoFieldOverride( annotation, property );
                 }
             }
 
@@ -535,6 +538,18 @@ public class GeneratorMojo extends AbstractMojo {
 
         profile.daoProfiles.add( daoProfile );
         profile.dtoProfiles.add( dtoProfile );
+    }
+
+    private void processDtoFieldOverride(Annotation annotation, DtoProperty property) {
+        Object typeOverride = annotation.getNamedParameter("type");
+        if ( typeOverride != null ) {
+            property.propertyType = String.valueOf( typeOverride ).replace(".class", "");
+        }
+
+        Object nameOverride = annotation.getNamedParameter("name");
+        if ( nameOverride != null ) {
+            property.name = normalizeAnnotationValue( String.valueOf( nameOverride ) );
+        }
     }
 
     protected void processDtoExtend( Annotation annotation, DtoGenerationProfile profile ) {

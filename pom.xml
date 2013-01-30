@@ -38,7 +38,6 @@
     <distributionManagement>
         <repository>
             <id>redshape.central</id>
-            <name>Cloudbees Maven Repository</name>
             <url>dav:http://78.47.14.237:8081/artifactory/plugins-public-snapshots</url>
         </repository>
     </distributionManagement>
