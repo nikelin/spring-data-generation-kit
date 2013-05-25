@@ -233,6 +233,12 @@ public class GeneratorMojo extends AbstractMojo {
         return file;
     }
 
+    protected File getServiceOutputTarget( String packagePath, String path ) {
+        File file = new File( this.getServicesGenerateDirectory(), packagePath + "/" + path );
+        file.getParentFile().mkdirs();
+        return file;
+    }
+
     protected File getOutputTarget( String classPath ) {
         File file =  new File( this.getDtoGenerateDirectory(), classPath );
         file.getParentFile().mkdirs();
@@ -332,7 +338,7 @@ public class GeneratorMojo extends AbstractMojo {
         templateData.put("entities", entities);
 
         FileWriter writer = new FileWriter(
-            this.getOutputTarget(this.conversationServicePackagePath.replaceAll("\\.", "\\/"),
+            this.getServiceOutputTarget(this.conversationServicePackagePath.replaceAll("\\.", "\\/"),
                     this.conversationServiceClass + ".java")
         );
 

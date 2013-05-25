@@ -80,6 +80,14 @@ public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo 
     private File dtoGenerateDirectory;
 
     /**
+     * Folder where generated-source for spring services
+     * will be created (automatically added to compile classpath).
+     *
+     * @parameter default-value="${project.build.directory}/generated-sources" required="true"
+     */
+    private File servicesGenerateDirectory;
+
+    /**
      * Folder where generated-source for data access objects
      * will be created (automatically added to compile classpath).
      *
@@ -176,6 +184,10 @@ public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo 
 
     public void setProject(MavenProject project) {
         this.project = project;
+    }
+
+    public File getServicesGenerateDirectory() {
+        return servicesGenerateDirectory;
     }
 
     public File getDtoGenerateDirectory() {

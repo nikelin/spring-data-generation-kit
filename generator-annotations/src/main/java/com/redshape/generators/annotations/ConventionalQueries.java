@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  *
  * @author Cyril A. Karpenko <self@nikelin.ru>
  */
-@Target(ElementType.ANNOTATION_TYPE)
+@Target(ElementType.TYPE)
 public @interface ConventionalQueries {
 
     public ConventionalQuery[] value() default {};
