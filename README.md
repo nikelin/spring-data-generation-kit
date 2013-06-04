@@ -1,7 +1,20 @@
 ## Spring Data Generation Kit
 -----
+Version: 1.0.2-SNAPSHOT
+Contact e-mail: self@nikelin.ru
 
-Can be used as a generation-time plugin for your Maven project.
+## Main Features
+- Basic features of simple POJO generation to transfer between separate JVM processes or
+to be used in a sophisticated environments with some API restrictions such like Android or GWT
+- Inheritance relations coverage
+- Wide abilities to affect on a generation result
+- - Fields excluding / including
+- - Extending entity DTO result by a fields from another entities
+- - Ability to create DTO groups
+- Automatic Spring Data repositories generation API (conventional-like and JPQL-based)
+- Automatic conversation service from JPA to DTO
+
+## Description
 
 Plugin will help you to forget about manual edition & creation of
 the DTOs and the repositories for your domain objects.
@@ -22,6 +35,22 @@ Example maven configuration:
     </configuration>
 </plugin>
 ```
+
+Also, to cover situation which are often in a real life, when domain entities is not holding under a
+single root-package, in 1.0.2 version introduced ability to define several base packages to process and scan:
+```
+    <configuration>
+        ....
+        <basePackagePaths>
+            <basePackagePath>com.a5000.platform.expo.model</basePackagePath>
+            <basePackagePath>com.a5000.platform.common.model</basePackagePath>
+        </basePackagePaths>
+        ....
+    </configuration>
+```
+
+
+
 
 Public plugins repository:
 ```

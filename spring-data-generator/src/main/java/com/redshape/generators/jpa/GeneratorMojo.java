@@ -64,16 +64,38 @@ public class GeneratorMojo extends AbstractMojo {
      */
     private String targetModule;
 
-    /**
-     * @parameter expression="${plugin.failOnError}" default-value="false"
-     */
-    private Boolean failOnError;
 
     /**
+     * Base package where plugin would be looking for a source entities to process
+     *
      * @parameter expression="${plugin.basePackagePath}" required="true"
      */
     private String basePackagePath;
 
+    /**
+     * Base package where plugin would be looking for a source entities to process
+     *
+     * @parameter expression="${plugin.basePackagePaths}" required="false"
+     */
+    private List<String> basePackagePaths = new ArrayList<String>();
+
+    /**
+     * Skip generation of DAO classes from source entities
+     * @parameter expression="${plugin.skipDaoGeneration}" required="false"  default-value="false"
+     */
+    private boolean skipDaoGeneration;
+
+    /**
+     * Skip generation of DTO classes from source entities
+     * @parameter expression="${plugin.skipDtoGeneration}" required="false" default-value="false"
+     */
+    private boolean skipDtoGeneration;
+
+    /**
+     * Skip generation of a Spring service classes from source entities
+     * @parameter expression="${plugin.skipServicesGeneration}" required="false" default-value="false"
+     */
+    private boolean skipServicesGeneration;
 
     /**
      * @parameter expression="${plugin.dtoPackagePath}"  required="true"
@@ -198,12 +220,28 @@ public class GeneratorMojo extends AbstractMojo {
         return name + "DTO";
     }
 
+    protected String replacePaths( List<String> paths, String replacement, String value ) {
+        for ( String path : paths ) {
+            value = value.replace(path, replacement);
+        }
+
+        return value;
+    }
+
     protected String getDtoPackagePath( String name ) {
-        return name.replace(this.basePackagePath, this.dtoPackagePath);
+        if ( basePackagePaths != null && !basePackagePaths.isEmpty() ) {
+            return replacePaths(basePackagePaths,  dtoPackagePath, name);
+        } else {
+            return replacePaths( Commons.list(basePackagePath), dtoPackagePath, name );
+        }
     }
 
     protected String getDaoPackagePath( String name ) {
-        return name.replace(this.basePackagePath, this.daoPackagePath);
+        if ( basePackagePaths != null && !basePackagePaths.isEmpty() ) {
+            return replacePaths(basePackagePaths, daoPackagePath, name );
+        } else {
+            return replacePaths( Commons.list(basePackagePath), daoPackagePath, name );
+        }
     }
 
     protected String getDtoPath( String packagePath, String className ) {
@@ -225,6 +263,18 @@ public class GeneratorMojo extends AbstractMojo {
         return getDaoPackagePath(group.packagePath == null ? group.parent.packagePath : group.packagePath)
                 .replaceAll(Pattern.quote("."), "\\" + File.separator)
                 + File.separator + this.getDaoClassName(group.className) + ".java";
+    }
+
+    public boolean isSkipDaoGeneration() {
+        return skipDaoGeneration;
+    }
+
+    public boolean isSkipDtoGeneration() {
+        return skipDtoGeneration;
+    }
+
+    public boolean isSkipServicesGeneration() {
+        return skipServicesGeneration;
     }
 
     protected File getDaoOutputTarget( DtoGroup profile ) {
@@ -257,15 +307,27 @@ public class GeneratorMojo extends AbstractMojo {
         this.getDtoGenerateDirectory().delete();
         this.getDaoGenerateDirectory().delete();
 
-        for ( DtoGenerationProfile profile : this.profile.dtoProfiles ) {
-            generateDto( profile );
+        if ( !this.isSkipDtoGeneration() ) {
+            for ( DtoGenerationProfile profile : this.profile.dtoProfiles ) {
+                generateDto( profile );
+            }
+        } else {
+            getLog().info("DTO entities generation has been skipped by the configuration setting...");
         }
 
-        for ( DaoGenerationProfile profile : this.profile.daoProfiles ) {
-            generateDao( profile );
+        if ( !this.isSkipDaoGeneration() ) {
+            for ( DaoGenerationProfile profile : this.profile.daoProfiles ) {
+                generateDao( profile );
+            }
+        } else {
+            getLog().info("DAO services generation has been skipped by the configuration setting...");
         }
 
-        generateConversionService( this.profile.dtoProfiles );
+        if ( !this.isSkipServicesGeneration() ) {
+            generateConversionService( this.profile.dtoProfiles );
+        } else {
+            getLog().info("Conversation service generation has been skipped by the configuration setting...");
+        }
     }
 
     protected Map<String, Object> convertDtoGroupToMap( DtoGroup group ) {
