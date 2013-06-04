@@ -49,7 +49,29 @@ single root-package, in 1.0.2 version introduced ability to define several base 
     </configuration>
 ```
 
+If you not need in one or more plugin generation aspect(s), this aspect(s) could be skipped by providing
+appropriate configuration option:
+```
+    <configuration>
+        ...
+        <skipDaoGeneration>true</skipDaoGeneration>
+        <skipDtoGeneration>false</skipDtoGeneration>
+        <skipServicesGeneration>true</skipServicesGeneration>
+        ...
+    </configuration>
+```
 
+==== Entities lookup & matching
+
+Base regular expression to lookup entities in accessible classpath environment is ```**\/entities\/**\/*.java```.
+It can be changed through <entityPattern/> configuration option in the next way:
+```
+    <configuration>
+        ...
+        <entityPattern>**/model/**/*.java</entityPattern>
+        ...
+    </configuration>
+```
 
 
 Public plugins repository:
