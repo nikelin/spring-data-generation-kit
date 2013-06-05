@@ -376,6 +376,18 @@ public class GeneratorMojo extends AbstractMojo {
         return parameters;
     }
 
+    protected boolean hasAncestors( DtoGroup group ) {
+        boolean result = false;
+        for ( DtoGenerationProfile profile : this.profile.dtoProfiles ) {
+            if ( profile.defaultGroup.parentClass.equals( group.packagePath + "." + group.className ) ) {
+                result = true;
+                break;
+            }
+        }
+
+        return result;
+    }
+
     protected void generateConversionService( Collection<DtoGenerationProfile> profiles )
         throws IOException, TemplateException {
         Map<String, Object> templateData = new HashMap<String, Object>();
@@ -512,6 +524,7 @@ public class GeneratorMojo extends AbstractMojo {
             parameters.put("parentClass", "");
         }
 
+        parameters.put("hasAncestors", hasAncestors(profile.entity) );
         parameters.put("isAbstract", profile.entity.isAbstract );
         parameters.put("entityName", profile.entity.className );
         parameters.put("package", this.getDaoPackagePath(profile.entity.packagePath) );

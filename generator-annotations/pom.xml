@@ -5,13 +5,12 @@
     <parent>
         <artifactId>generation-kit</artifactId>
         <groupId>com.redshape.utils</groupId>
-        <version>1.0.3-SNAPSHOT</version>
+        <version>1.0.4-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.redshape.utils.generation-kit</groupId>
     <artifactId>generator-annotations</artifactId>
     <name>Redshape Generation Kit: Annotations</name>
-
 
 </project>

@@ -1,6 +1,6 @@
 ## Spring Data Generation Kit
 -----
-Version: 1.0.2-SNAPSHOT
+Version: 1.0.4-SNAPSHOT
 Contact e-mail: self@nikelin.ru
 
 ## Main Features
