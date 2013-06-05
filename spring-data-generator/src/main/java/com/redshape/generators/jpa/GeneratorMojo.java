@@ -1,10 +1,9 @@
 package com.redshape.generators.jpa;
 
 import com.redshape.generators.jpa.utils.Commons;
+import com.redshape.generators.jpa.utils.StringUtils;
 import com.thoughtworks.qdox.JavaDocBuilder;
-import com.thoughtworks.qdox.model.Annotation;
-import com.thoughtworks.qdox.model.JavaClass;
-import com.thoughtworks.qdox.model.JavaField;
+import com.thoughtworks.qdox.model.*;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -230,7 +229,7 @@ public class GeneratorMojo extends AbstractMojo {
 
     protected String getDtoPackagePath( String name ) {
         if ( basePackagePaths != null && !basePackagePaths.isEmpty() ) {
-            return replacePaths(basePackagePaths,  dtoPackagePath, name);
+            return replacePaths(basePackagePaths, dtoPackagePath, name);
         } else {
             return replacePaths( Commons.list(basePackagePath), dtoPackagePath, name );
         }
@@ -309,7 +308,7 @@ public class GeneratorMojo extends AbstractMojo {
 
         if ( !this.isSkipDtoGeneration() ) {
             for ( DtoGenerationProfile profile : this.profile.dtoProfiles ) {
-                generateDto( profile );
+                generateDto(profile);
             }
         } else {
             getLog().info("DTO entities generation has been skipped by the configuration setting...");
@@ -358,6 +357,9 @@ public class GeneratorMojo extends AbstractMojo {
 
             HashMap<String, Object> propertyData = new HashMap<String, Object>();
             propertyData.put("name", property.name );
+            propertyData.put("accessModifier", property.accessModifier );
+            propertyData.put("isFinal", property.isFinal );
+            propertyData.put("accessorName", property.accessorName );
             propertyData.put("type", property.propertyType );
             propertyData.put("hasMutator", property.hasMutator );
             propertyData.put("hasAccessor", property.hasAccessor );
@@ -391,6 +393,7 @@ public class GeneratorMojo extends AbstractMojo {
             originalData.put("packagePath", profile.defaultGroup.packagePath );
             originalData.put("className", profile.defaultGroup.className );
             entityData.put("original", originalData );
+            entityData.put("isAbstract", profile.defaultGroup.isAbstract );
 
             entityData.put("dtoClassName",
                 this.getDtoPath( profile.defaultGroup.packagePath, profile.defaultGroup.className )
@@ -561,7 +564,7 @@ public class GeneratorMojo extends AbstractMojo {
                 continue;
             }
 
-            DtoProperty property = this.processProperty(field, dtoProfile);
+            DtoProperty property = this.processProperty(clazz, field, dtoProfile);
 
             boolean forcedInclude = false;
             for ( Annotation annotation : field.getAnnotations() ) {
@@ -669,11 +672,29 @@ public class GeneratorMojo extends AbstractMojo {
         }
     }
 
-    protected DtoProperty processProperty( JavaField field, DtoGenerationProfile profile  ) {
+    protected boolean isMethodExists( JavaClass clazz, String methodName, Type[] methodParameters ) {
+        JavaMethod accessorMethod = clazz.getMethodBySignature( methodName,
+                new Type[] {}  );
+        return accessorMethod != null;
+    }
+
+    protected DtoProperty processProperty( JavaClass clazz, JavaField field, DtoGenerationProfile profile  ) {
         DtoProperty property = new DtoProperty();
         property.name = field.getName();
-        property.hasAccessor = true;
-        property.hasMutator = true;
+        property.accessorName = "get";
+        property.isFinal = field.isFinal();
+        property.accessModifier = field.isPrivate() ? "private" : ( field.isProtected() ? "protected" : "public" );
+
+        if ( field.getType().getFullQualifiedName().contains("boolean")
+                || field.getType().getFullQualifiedName().equals("java.lang.Boolean") ) {
+            if ( isMethodExists(clazz, "is" + StringUtils.ucfirst(property.name), new Type[] {} ) ) {
+                property.accessorName = "is";
+            }
+        }
+
+        property.hasAccessor = property.accessorName == "is"
+                || isMethodExists(clazz, "get" + StringUtils.ucfirst(property.name), new Type[] {} ) ;
+        property.hasMutator = isMethodExists(clazz, "set" + StringUtils.ucfirst(property.name), new Type[] {} );
         property.propertyType = field.getType().getFullQualifiedName();
         return property;
     }
@@ -927,7 +948,10 @@ public class GeneratorMojo extends AbstractMojo {
 
     public class DtoProperty {
         public String name;
+        public boolean isFinal;
+        public String accessModifier;
         public String propertyType;
+        public String accessorName;
         public Collection<TargetGroup> groups = new ArrayList<TargetGroup>();
         public boolean isSynthetic;
         public boolean isExcluded;

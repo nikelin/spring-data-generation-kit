@@ -1,7 +1,7 @@
 public ${entity.dtoClassName} convertToDto(${entity.original.packagePath}.${entity.original.className} record ) {
     ${entity.dtoClassName} dto = new ${entity.dtoClassName}();
     <#list entity.original.fields as property>
-        <#if !property.isSynthetic>
+        <#if !property.isSynthetic && property.hasAccessor && property.accessModifier == "public">
             <#if property.isAggregated>
                 <#if property.aggregationType == "DTO" >
                     if ( record.get${ucfirst(property.name)}() != null ) {
@@ -12,12 +12,12 @@ public ${entity.dtoClassName} convertToDto(${entity.original.packagePath}.${enti
                         );
                     }
                 <#else>
-                    if ( record.get${ucfirst(property.name)?replace("Id", "")}() != null ) {
-                        dto.set${ucfirst(property.name)}( record.get${ucfirst(property.name)?replace("Id", "")}().getId() );
+                    if ( record.$[property.accessorName}${ucfirst(property.name)?replace("Id", "")}() != null ) {
+                        dto.set${ucfirst(property.name)}( record.${property.accessorName}${ucfirst(property.name)?replace("Id", "")}().getId() );
                     }
                 </#if>
             <#else>
-                dto.set${ucfirst(property.name)}( record.get${ucfirst(property.name)}() );
+                dto.set${ucfirst(property.name)}( record.${property.accessorName}${ucfirst(property.name)}() );
             </#if>
         </#if>
     </#list>
