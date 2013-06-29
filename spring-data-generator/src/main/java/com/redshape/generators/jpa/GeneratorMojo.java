@@ -4,6 +4,7 @@ import com.redshape.generators.jpa.utils.Commons;
 import com.redshape.generators.jpa.utils.StringUtils;
 import com.thoughtworks.qdox.JavaDocBuilder;
 import com.thoughtworks.qdox.model.*;
+import com.thoughtworks.qdox.model.annotation.AnnotationValue;
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
@@ -47,6 +48,18 @@ public class GeneratorMojo extends AbstractMojo {
 
     private static final String SKIP_DAO_CLASS_NAME = "com.redshape.generators.annotations.dto.SkipDao";
     private static final String DTO_FIELD_OVERRIDE_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoFieldOverride";
+    
+    private static final String MANY_TO_ONE_CLASS_NAME = "javax.persistence.ManyToOne";
+    private static final String MANY_TO_MANY_CLASS_NAME = "javax.persistence.ManyToMany";
+    private static final String ONE_TO_MANY_CLASS_NAME = "javax.persistence.OneToMany";
+    private static final String ONE_TO_ONE_CLASS_NAME = "javax.persistence.OneToOne";
+    
+    private static final String[] JPA_RELATIONS_CLASS_LIST = new String[] {
+            MANY_TO_MANY_CLASS_NAME,
+            MANY_TO_ONE_CLASS_NAME,
+            ONE_TO_MANY_CLASS_NAME,
+            ONE_TO_ONE_CLASS_NAME
+    };
 
 
     /**
@@ -541,6 +554,16 @@ public class GeneratorMojo extends AbstractMojo {
         return this.isEligibleForGeneration(clazz);
     }
 
+    protected boolean isJPARelationType( JavaClass clazz ) {
+        for ( String relationClass : JPA_RELATIONS_CLASS_LIST ) {
+            if ( clazz.isA(relationClass) ) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+    
     protected String getEntityClassName( DtoGroup group ) {
         StringBuilder builder = new StringBuilder();
         builder.append( group.packagePath == null ? group.parent.packagePath : group.packagePath ).append(".");
@@ -592,6 +615,12 @@ public class GeneratorMojo extends AbstractMojo {
                     property.isExcluded = true;
                 } else if ( annotation.getType().getJavaClass().isA(DTO_FIELD_OVERRIDE_CLASS_NAME) ) {
                     this.processDtoFieldOverride( annotation, property );
+                } else if ( isJPARelationType(annotation.getType().getJavaClass() ) ) {
+                    AnnotationValue targetEntityParameter = annotation.getProperty("targetEntity");
+                    if ( targetEntityParameter != null ) {
+                        property.realPropertyType = String.valueOf(targetEntityParameter.getParameterValue())
+                                .replace(".class", "");
+                    }
                 }
             }
 
@@ -696,7 +725,7 @@ public class GeneratorMojo extends AbstractMojo {
         property.name = field.getName();
         property.accessorName = "get";
         property.isFinal = field.isFinal();
-        property.accessModifier = field.isPrivate() ? "private" : ( field.isProtected() ? "protected" : "public" );
+        property.accessModifier = "public"; //field.isPrivate() ? "private" : ( field.isProtected() ? "protected" : "public" );
 
         if ( field.getType().getFullQualifiedName().contains("boolean")
                 || field.getType().getFullQualifiedName().equals("java.lang.Boolean") ) {
@@ -964,6 +993,7 @@ public class GeneratorMojo extends AbstractMojo {
         public boolean isFinal;
         public String accessModifier;
         public String propertyType;
+        public String realPropertyType;
         public String accessorName;
         public Collection<TargetGroup> groups = new ArrayList<TargetGroup>();
         public boolean isSynthetic;

@@ -12,7 +12,7 @@ public ${entity.dtoClassName} convertToDto(${entity.original.packagePath}.${enti
                         );
                     }
                 <#else>
-                    if ( record.$[property.accessorName}${ucfirst(property.name)?replace("Id", "")}() != null ) {
+                    if ( record.${property.accessorName}${ucfirst(property.name)?replace("Id", "")}() != null ) {
                         dto.set${ucfirst(property.name)}( record.${property.accessorName}${ucfirst(property.name)?replace("Id", "")}().getId() );
                     }
                 </#if>
