@@ -2,6 +2,8 @@
 
 package ${package};
 
+import ${originalPackage}.*;
+
 <#assign timeNow = .now>
 
 import java.io.Serializable;

@@ -7,7 +7,7 @@
     <groupId>com.redshape.utils</groupId>
     <artifactId>generation-kit</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.6-SNAPSHOT</version>
+    <version>1.0.8-SNAPSHOT</version>
     <name>Redshape Generation Kit</name>
 
     <modules>
@@ -35,43 +35,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>com.github.github</groupId>
-                <artifactId>site-maven-plugin</artifactId>
-                <version>0.8</version>
-                <configuration>
-                    <message>Maven artifacts for ${project.groupId}:${project.artifactId}:${project.version}</message>
-                    <noJekyll>true</noJekyll>
-                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
-                    <merge>true</merge>
-                    <branch>refs/heads/master</branch>
-                    <includes><include>**/*</include></includes>
-                    <repositoryName>maven-repository</repositoryName>
-                    <repositoryOwner>A5000ES</repositoryOwner>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>site</goal>
-                        </goals>
-                        <phase>deploy</phase>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo</altDeploymentRepository>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-release-plugin</artifactId>
-                <configuration>
-                    <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <updateVersionsToSnapshot>true</updateVersionsToSnapshot>
-                </configuration>
-            </plugin>
         </plugins>
         <extensions>
             <extension>
@@ -89,8 +52,8 @@
 
     <distributionManagement>
         <repository>
-            <id>redshape.central</id>
-            <url>dav:http://78.47.14.237:8081/artifactory/plugins-public-snapshots</url>
+            <id>a5000.repository</id>
+            <url>dav:https://repository-a5000.forge.cloudbees.com/snapshot</url>
         </repository>
     </distributionManagement>
 

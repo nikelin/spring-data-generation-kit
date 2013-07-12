@@ -550,8 +550,12 @@ public class GeneratorMojo extends AbstractMojo {
         this.daoTemplate.process(parameters, writer);
     }
 
+    protected boolean isSimpleType( JavaClass clazz ) {
+        return clazz.getFullyQualifiedName().startsWith("java.lang");
+    }
+
     protected boolean isExcludedField( JavaClass clazz ) {
-        return this.isEligibleForGeneration(clazz);
+        return !isSimpleType(clazz) && this.isEligibleForGeneration(clazz);
     }
 
     protected boolean isJPARelationType( JavaClass clazz ) {
@@ -569,6 +573,23 @@ public class GeneratorMojo extends AbstractMojo {
         builder.append( group.packagePath == null ? group.parent.packagePath : group.packagePath ).append(".");
         builder.append( group.className == null ? group.parent.className : group.className );
         return builder.toString();
+    }
+
+    protected Collection<JavaField> getAllClassFields(JavaClass clazz) {
+        Set<JavaField> fields = new HashSet<JavaField>();
+
+        fields.addAll( Arrays.asList( clazz.getFields() ) );
+
+        JavaClass parent = clazz.getSuperJavaClass();
+        while ( parent != null ) {
+            System.out.print(parent);
+            fields.addAll( Arrays.asList( parent.getFields() ) );
+            parent = parent.getSuperJavaClass();
+        }
+
+        System.out.println( fields );
+
+        return fields;
     }
 
     protected void process(JavaClass clazz)
@@ -595,7 +616,7 @@ public class GeneratorMojo extends AbstractMojo {
 
         daoProfile.entity = dtoProfile.defaultGroup;
 
-        for ( JavaField field : clazz.getFields() ) {
+        for ( JavaField field : getAllClassFields(clazz) ) {
             if ( field.isStatic() || field.getType().getJavaClass().isA(COLLECTION_CLASS_NAME) ) {
                 continue;
             }
@@ -715,8 +736,12 @@ public class GeneratorMojo extends AbstractMojo {
     }
 
     protected boolean isMethodExists( JavaClass clazz, String methodName, Type[] methodParameters ) {
-        JavaMethod accessorMethod = clazz.getMethodBySignature( methodName,
-                new Type[] {}  );
+        JavaMethod accessorMethod = null;
+        while ( accessorMethod == null && clazz != null ) {
+            accessorMethod = clazz.getMethodBySignature( methodName,
+                    new Type[] {}  );
+            clazz = clazz.getSuperJavaClass();
+        }
         return accessorMethod != null;
     }
 
