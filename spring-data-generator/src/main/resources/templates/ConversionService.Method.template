@@ -6,7 +6,7 @@ public ${entity.dtoClassName} convertToDto(${entity.original.packagePath}.${enti
                 <#if property.aggregationType == "DTO" >
                     if ( record.get${ucfirst(property.name)}() != null ) {
                         dto.set${ucfirst(property.name)}(
-                            this.convertToDto(
+                            (${entity.dtoClassName})  this.convertToDto(
                                 record.get${ucfirst(property.name)}()
                             )
                         );

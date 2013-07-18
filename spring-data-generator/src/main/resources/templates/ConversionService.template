@@ -32,17 +32,21 @@ public class ${className} {
         </#list>
     </#if>
 
-    public <T> T convertToDto( Object record ) throws Exception {
+    public <T> T convertToDto( Object record ) {
         if ( record == null ) {
             return null;
         }
 
          Method conversionMethod = METHODS.get(record.getClass());
          if ( conversionMethod == null ) {
-             throw new Exception("Conversion method not found: " + record.getClass().getCanonicalName() );
+             throw new IllegalStateException("Conversion method not found: " + record.getClass().getCanonicalName() );
          }
 
-         return (T) conversionMethod.invoke(this, new Object[] { record } );
+         try {
+            return (T) conversionMethod.invoke(this, new Object[] { record } );
+         } catch ( Exception e ) {
+            throw new IllegalStateException( e.getMessage(), e );
+         }
      }
 
      private static final Map<Class<?>, Method> METHODS = Collections.synchronizedMap(new FastHashMap());
