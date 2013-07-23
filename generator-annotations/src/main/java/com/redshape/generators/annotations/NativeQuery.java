@@ -49,6 +49,12 @@ public @interface NativeQuery {
     public String name();
 
     /**
+     * Detect is this native query requiring new transaction open to be correctly executed
+     * @return
+     */
+    public boolean isTransactional();
+
+    /**
      * Type of execution result; if {@link NativeQuery#isCollection()} has been set as true,
      * the {@link NativeQuery#resultType()} would be used as a generic parameter value under a
      * list type.

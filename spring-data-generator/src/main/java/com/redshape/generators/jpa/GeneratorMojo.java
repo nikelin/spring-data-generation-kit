@@ -826,26 +826,26 @@ public class GeneratorMojo extends AbstractMojo {
     }
 
     protected void processConventionQuery( Annotation annotation, DtoGroup dtoGroup, DaoGenerationProfile profile ) {
-        ConventionQueryGenerationProfile nativeQuery = new ConventionQueryGenerationProfile();
+        ConventionQueryGenerationProfile query = new ConventionQueryGenerationProfile();
 
-        nativeQuery.name = String.valueOf( annotation.getNamedParameter("name") ).replace("\"", "");
+        query.name = String.valueOf( annotation.getNamedParameter("name") ).replace("\"", "");
         if ( annotation.getNamedParameter("isCollection") != null ) {
-            nativeQuery.isCollection = Boolean.valueOf(String.valueOf(annotation.getNamedParameter("isCollection")));
+            query.isCollection = Boolean.valueOf(String.valueOf(annotation.getNamedParameter("isCollection")));
         } else {
-            nativeQuery.isCollection = true;
+            query.isCollection = true;
         }
 
         if ( annotation.getNamedParameter("isPageable") != null ) {
-            nativeQuery.isPageable = Boolean.valueOf(String.valueOf(annotation.getNamedParameter("isPageable")));
+            query.isPageable = Boolean.valueOf(String.valueOf(annotation.getNamedParameter("isPageable")));
         } else {
-            nativeQuery.isPageable = false;
+            query.isPageable = false;
         }
 
-        nativeQuery.resultType = annotation.getNamedParameter("resultType") != null ?
+        query.resultType = annotation.getNamedParameter("resultType") != null ?
                 String.valueOf(annotation.getNamedParameter("resultType")) :
                 this.getEntityClassName(dtoGroup);
-        this.processQueryParameters( dtoGroup, nativeQuery,  annotation );
-        profile.queries.add(nativeQuery);
+        this.processQueryParameters( dtoGroup, query,  annotation );
+        profile.queries.add(query);
     }
 
     protected void processConventionQueries( Annotation annotation, DtoGroup dtoGroup, DaoGenerationProfile profile ) {
@@ -879,7 +879,7 @@ public class GeneratorMojo extends AbstractMojo {
         }
 
         nativeQuery.resultType = annotation.getNamedParameter("resultType") != null ?
-                String.valueOf(annotation.getNamedParameter("resultType")) :
+                String.valueOf(annotation.getNamedParameter("resultType")).replace(".class", "") :
                 this.getEntityClassName(dtoGroup);
         this.processQueryParameters( dtoGroup, nativeQuery,  annotation );
         profile.queries.add( nativeQuery );

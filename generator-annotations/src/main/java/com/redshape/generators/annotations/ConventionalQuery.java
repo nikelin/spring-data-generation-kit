@@ -65,6 +65,12 @@ public @interface ConventionalQuery {
     public boolean isCollection() default true;
 
     /**
+     * Detect is this conventional query requiring new transaction open to be correctly executed
+     * @return
+     */
+    public boolean isTransactional();
+
+    /**
      * In a cases when query processing requires input parameters, their can be given as a value of this
      * field.
      *
