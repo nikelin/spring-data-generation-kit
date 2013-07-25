@@ -45,6 +45,7 @@ public class GeneratorMojo extends AbstractMojo {
     private static final String DTO_INCLUDE_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoInclude";
     private static final String DTO_EXTEND_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoExtend";
     private static final String DTO_EXCLUDE_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoExclude";
+    private static final String DTO_TRANSIENT_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoTransient";
 
     private static final String SKIP_DAO_CLASS_NAME = "com.redshape.generators.annotations.dto.SkipDao";
     private static final String DTO_FIELD_OVERRIDE_CLASS_NAME = "com.redshape.generators.annotations.dto.DtoFieldOverride";
@@ -372,6 +373,7 @@ public class GeneratorMojo extends AbstractMojo {
             propertyData.put("name", property.name );
             propertyData.put("accessModifier", property.accessModifier );
             propertyData.put("isFinal", property.isFinal );
+            propertyData.put("isTransient", property.isTransient );
             propertyData.put("accessorName", property.accessorName );
             propertyData.put("type", property.propertyType );
             propertyData.put("hasMutator", property.hasMutator );
@@ -476,6 +478,7 @@ public class GeneratorMojo extends AbstractMojo {
         queryProfile.put( "resultType", resultType );
         queryProfile.put( "isCollection", query.isCollection );
         queryProfile.put( "isPageable", query.isPageable );
+        queryProfile.put( "isTransactional", query.isTransactional);
 
         Collection<Map<String, Object>> params = new ArrayList<Map<String, Object>>();
         List<QueryParameter> parameters = new ArrayList<QueryParameter>(query.parameters);
@@ -544,6 +547,7 @@ public class GeneratorMojo extends AbstractMojo {
         parameters.put("entityPackage", profile.entity.packagePath );
         parameters.put("className", this.getDaoClassName( profile.entity.className )  );
         parameters.put("queries", queries );
+        parameters.put("isTransactional", profile.isTransactional );
 
         FileWriter writer = new FileWriter( this.getDaoOutputTarget(profile.entity) );
 
@@ -634,6 +638,8 @@ public class GeneratorMojo extends AbstractMojo {
                     this.processDtoInclude(annotation, dtoProfile.defaultGroup, property);
                 } else if ( annotation.getType().getJavaClass().isA(DTO_EXCLUDE_CLASS_NAME) ) {
                     property.isExcluded = true;
+                } else if ( annotation.getType().getJavaClass().isA(DTO_TRANSIENT_CLASS_NAME) ) {
+                    property.isTransient = true;
                 } else if ( annotation.getType().getJavaClass().isA(DTO_FIELD_OVERRIDE_CLASS_NAME) ) {
                     this.processDtoFieldOverride( annotation, property );
                 } else if ( isJPARelationType(annotation.getType().getJavaClass() ) ) {
@@ -835,6 +841,12 @@ public class GeneratorMojo extends AbstractMojo {
             query.isCollection = true;
         }
 
+        if ( annotation.getNamedParameter("isTransactional") != null ) {
+            query.isTransactional  = Boolean.valueOf( String.valueOf( annotation.getNamedParameter("isTransactional") ) );
+        } else {
+            query.isTransactional = false;
+        }
+
         if ( annotation.getNamedParameter("isPageable") != null ) {
             query.isPageable = Boolean.valueOf(String.valueOf(annotation.getNamedParameter("isPageable")));
         } else {
@@ -852,11 +864,23 @@ public class GeneratorMojo extends AbstractMojo {
         for ( Annotation queryMeta : ( (List<Annotation>) annotation.getNamedParameter("value") ) ) {
             this.processConventionQuery( queryMeta, dtoGroup, profile );
         }
+
+        if ( annotation.getNamedParameter("isTransactional") != null ) {
+            profile.isTransactional = Boolean.valueOf( String.valueOf( annotation.getNamedParameter("isTransactional") ) );
+        } else {
+            profile.isTransactional = false;
+        }
     }
 
     protected void processNativeQueries( Annotation annotation, DtoGroup dtoGroup, DaoGenerationProfile profile ) {
         for ( Annotation queryMeta : ( (List<Annotation>) annotation.getNamedParameter("value") ) ) {
             this.processNativeQuery( queryMeta, dtoGroup, profile );
+        }
+
+        if ( annotation.getNamedParameter("isTransactional") != null ) {
+            profile.isTransactional = Boolean.valueOf( String.valueOf( annotation.getNamedParameter("isTransactional") ) );
+        } else {
+            profile.isTransactional = false;
         }
     }
 
@@ -865,6 +889,12 @@ public class GeneratorMojo extends AbstractMojo {
         nativeQuery.name = String.valueOf( annotation.getNamedParameter("name") ).replace("\"", "");
         nativeQuery.isModifying = Boolean.valueOf(String.valueOf(annotation.getNamedParameter("isModifying")));
         nativeQuery.query = String.valueOf(annotation.getNamedParameter("value"));
+
+        if ( annotation.getNamedParameter("isTransactional") != null ) {
+            nativeQuery.isTransactional = Boolean.valueOf( String.valueOf( annotation.getNamedParameter("isTransactional") ) );
+        } else {
+            nativeQuery.isTransactional = false;
+        }
 
         if ( annotation.getNamedParameter("isCollection") != null ) {
             nativeQuery.isCollection = Boolean.valueOf(String.valueOf(annotation.getNamedParameter("isCollection")));
@@ -994,12 +1024,14 @@ public class GeneratorMojo extends AbstractMojo {
         public String  resultType;
         public boolean isCollection;
         public boolean isPageable;
+        public boolean isTransactional;
         public List<QueryParameter> parameters = new ArrayList<QueryParameter>();
     }
 
     public class DaoGenerationProfile {
         public String name;
         public DtoGroup entity;
+        public boolean isTransactional;
         public Collection<QueryGenerationProfile> queries = new ArrayList<QueryGenerationProfile>();
     }
 
@@ -1015,6 +1047,7 @@ public class GeneratorMojo extends AbstractMojo {
 
     public class DtoProperty {
         public String name;
+        public boolean isTransient;
         public boolean isFinal;
         public String accessModifier;
         public String propertyType;

@@ -11,4 +11,6 @@ public @interface NativeQueries {
 
     public NativeQuery[] value();
 
+    public boolean isTransactional() default false;
+
 }

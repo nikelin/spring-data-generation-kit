@@ -18,4 +18,6 @@ public @interface ConventionalQueries {
 
     public ConventionalQuery[] value() default {};
 
+    public boolean isTransactional() default false;
+
 }

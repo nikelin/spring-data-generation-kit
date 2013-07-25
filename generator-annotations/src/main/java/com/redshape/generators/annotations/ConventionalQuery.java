@@ -68,7 +68,7 @@ public @interface ConventionalQuery {
      * Detect is this conventional query requiring new transaction open to be correctly executed
      * @return
      */
-    public boolean isTransactional();
+    public boolean isTransactional() default false;
 
     /**
      * In a cases when query processing requires input parameters, their can be given as a value of this

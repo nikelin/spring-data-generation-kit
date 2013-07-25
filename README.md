@@ -1,7 +1,11 @@
 ## Spring Data Generation Kit
 -----
-Version: 1.0.4-SNAPSHOT
+Version: 1.0.12-SNAPSHOT
 Contact e-mail: self@nikelin.ru
+
+1.0.12 features
+
+- transient fields support
 
 ## Main Features
 - Basic features of simple POJO generation to transfer between separate JVM processes or

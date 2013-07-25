@@ -18,7 +18,7 @@ import java.io.Serializable;
 public <#if isAbstract>abstract</#if> class ${className}DTO <#if parentClass?length != 0>extends ${parentClass}</#if> implements Serializable {
 
     <#list fields as field>
-        private ${field.type?replace(r"$", ".")} ${field.name}<#if field.value??>= ${field.value}</#if>;
+        private <#if field.isTransient>transient</#if> ${field.type?replace(r"$", ".")} ${field.name}<#if field.value??>= ${field.value}</#if>;
 
         /**
         * @return

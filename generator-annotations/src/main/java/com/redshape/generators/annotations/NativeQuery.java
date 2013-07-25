@@ -52,7 +52,7 @@ public @interface NativeQuery {
      * Detect is this native query requiring new transaction open to be correctly executed
      * @return
      */
-    public boolean isTransactional();
+    public boolean isTransactional() default false;
 
     /**
      * Type of execution result; if {@link NativeQuery#isCollection()} has been set as true,
