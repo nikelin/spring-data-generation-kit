@@ -380,6 +380,7 @@ public class GeneratorMojo extends AbstractMojo {
             propertyData.put("hasAccessor", property.hasAccessor );
             propertyData.put("isSynthetic", property.isSynthetic );
             propertyData.put("isAggregated", property.isAggregation );
+            propertyData.put("isInherited", property.isInherited );
             if ( property.aggregationType != null ) {
                 propertyData.put("aggregationType", property.aggregationType.name() );
             }
@@ -586,12 +587,9 @@ public class GeneratorMojo extends AbstractMojo {
 
         JavaClass parent = clazz.getSuperJavaClass();
         while ( parent != null ) {
-            System.out.print(parent);
             fields.addAll( Arrays.asList( parent.getFields() ) );
             parent = parent.getSuperJavaClass();
         }
-
-        System.out.println( fields );
 
         return fields;
     }
@@ -626,6 +624,7 @@ public class GeneratorMojo extends AbstractMojo {
             }
 
             DtoProperty property = this.processProperty(clazz, field, dtoProfile);
+            property.isInherited = !field.getParentClass().equals( clazz );
 
             boolean forcedInclude = false;
             for ( Annotation annotation : field.getAnnotations() ) {
@@ -736,7 +735,7 @@ public class GeneratorMojo extends AbstractMojo {
             field.isAggregation = true;
             field.aggregationType = AggregationType.DTO;
             field.propertyType = this.getDtoPath(
-                    group.packagePath == null ? group.parent.packagePath : group.packagePath,
+                    field.propertyType.substring(0, field.propertyType.lastIndexOf(".") ),
                     field.propertyType.substring( field.propertyType.lastIndexOf(".") + 1 ) );
         }
     }
@@ -1060,6 +1059,7 @@ public class GeneratorMojo extends AbstractMojo {
         public boolean hasMutator;
         public boolean isAggregation;
         public AggregationType aggregationType;
+        public boolean isInherited;
     }
 
     public class DtoGroup {
