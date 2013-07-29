@@ -7,6 +7,10 @@ Contact e-mail: self@nikelin.ru
 
 - import issue fix
 
+1.0.14 features
+
+- Support for @Transactional on generated conventional and native queries
+
 1.0.12 features
 
 - transient fields support
