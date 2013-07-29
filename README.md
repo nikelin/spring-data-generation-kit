@@ -1,7 +1,11 @@
 ## Spring Data Generation Kit
 -----
-Version: 1.0.12-SNAPSHOT
+Version: 1.0.16-SNAPSHOT
 Contact e-mail: self@nikelin.ru
+
+1.0.16 features
+
+- import issue fix
 
 1.0.12 features
 
