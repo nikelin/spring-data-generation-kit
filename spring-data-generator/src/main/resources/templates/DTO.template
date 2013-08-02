@@ -17,6 +17,7 @@ public <#if isAbstract>abstract</#if> class ${className}DTO <#if parentClass?len
 
     <#list fields as field>
         <#if !field.isInherited>
+            <#if field.isTransient>@javax.xml.bind.annotation.XmlTransient</#if>
             private <#if field.isTransient>transient</#if> ${field.type?replace(r"$", ".")} ${field.name}<#if field.value??>= ${field.value}</#if>;
 
             /**
