@@ -32,13 +32,13 @@ public class ${className} {
         </#list>
     </#if>
 
-    public <T, V> java.util.List<T> convertToDto( java.util.List<V> records ) {
+    public java.util.List<Object> convertToDto( java.util.List<Object> records ) {
         if ( records == null ) {
             throw new IllegalArgumentException("<null>");
         }
 
-        java.util.List<T> result = new java.util.ArrayList<T>();
-        for ( V record : records ) {
+        java.util.List<Object> result = new java.util.ArrayList<Object>();
+        for ( Object record : records ) {
             if ( record == null ) {
                 continue;
             }
