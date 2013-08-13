@@ -34,6 +34,9 @@ import java.util.regex.Pattern;
 public class GeneratorMojo extends AbstractMojo {
     private static final String ENTITY_ANNOTATION_CLASS_NAME = "javax.persistence.Entity";
     private static final String COLLECTION_CLASS_NAME = "java.util.Collection";
+    private static final String LIST_CLASS_NAME = "java.util.List";
+    private static final String SET_CLASS_NAME = "java.util.Set";
+    private static final String GENERIC_LIST_TYPE = "java.util.List<%s>";
     private static final String CONVENTION_QUERY_CLASS_NAME = "com.redshape.generators.annotations.ConventionalQuery";
     private static final String CONVENTION_QUERIES_CLASS_NAME = "com.redshape.generators.annotations.ConventionalQueries";
     private static final String NATIVE_QUERY_CLASS_NAME = "com.redshape.generators.annotations.NativeQuery";
@@ -619,7 +622,7 @@ public class GeneratorMojo extends AbstractMojo {
         daoProfile.entity = dtoProfile.defaultGroup;
 
         for ( JavaField field : getAllClassFields(clazz) ) {
-            if ( field.isStatic() || field.getType().getJavaClass().isA(COLLECTION_CLASS_NAME) ) {
+            if ( field.isStatic() ) {
                 continue;
             }
 
@@ -734,10 +737,38 @@ public class GeneratorMojo extends AbstractMojo {
         } else {
             field.isAggregation = true;
             field.aggregationType = AggregationType.DTO;
-            field.propertyType = this.getDtoPath(
+
+            String listTypeName = getListType( field.propertyType );
+            if ( listTypeName == null ) {
+                field.propertyType = this.getDtoPath(
                     field.propertyType.substring(0, field.propertyType.lastIndexOf(".") ),
                     field.propertyType.substring( field.propertyType.lastIndexOf(".") + 1 ) );
+            } else {
+                field.propertyType = this.generifyType(listTypeName, this.getDtoPath(
+                        field.realPropertyType.substring(0, field.realPropertyType.lastIndexOf(".")),
+                        field.realPropertyType.substring(field.realPropertyType.lastIndexOf(".") + 1)));
+            }
         }
+    }
+
+    protected String generifyType( String collectionTypeName, String rawType ) {
+        return collectionTypeName + "<" + rawType + ">";
+    }
+
+    protected String getListType( String typeName ) {
+        if ( typeName.startsWith(LIST_CLASS_NAME) ) {
+            return LIST_CLASS_NAME;
+        }
+
+        if ( typeName.startsWith(COLLECTION_CLASS_NAME) ) {
+            return COLLECTION_CLASS_NAME;
+        }
+
+        if ( typeName.startsWith(SET_CLASS_NAME) ) {
+            return SET_CLASS_NAME;
+        }
+
+        return null;
     }
 
     protected boolean isMethodExists( JavaClass clazz, String methodName, Type[] methodParameters ) {

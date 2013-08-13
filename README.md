@@ -3,6 +3,10 @@
 Version: 1.0.16-SNAPSHOT
 Contact e-mail: self@nikelin.ru
 
+1.0.18 features
+
+- Support for conversing lists from JPA to DTO entities
+
 1.0.16 features
 
 - import issue fix
