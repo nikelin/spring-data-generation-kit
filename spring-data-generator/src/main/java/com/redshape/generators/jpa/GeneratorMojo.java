@@ -627,6 +627,7 @@ public class GeneratorMojo extends AbstractMojo {
             }
 
             DtoProperty property = this.processProperty(clazz, field, dtoProfile);
+            property.isList = getListType(property.propertyType) != null;
             property.isInherited = !field.getParentClass().equals( clazz );
 
             boolean forcedInclude = false;
@@ -653,7 +654,8 @@ public class GeneratorMojo extends AbstractMojo {
                 }
             }
 
-            if ( !isExcludedField(field.getType().getJavaClass()) || forcedInclude ) {
+            if ( !(property.isList || isExcludedField(field.getType().getJavaClass()))
+                    || forcedInclude ) {
                 dtoProfile.defaultGroup.properties.add( property );
             }
         }
@@ -1079,6 +1081,7 @@ public class GeneratorMojo extends AbstractMojo {
         public String name;
         public boolean isTransient;
         public boolean isFinal;
+        public boolean isList;
         public String accessModifier;
         public String propertyType;
         public String realPropertyType;
