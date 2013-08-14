@@ -32,7 +32,7 @@ public class ${className} {
         </#list>
     </#if>
 
-    public java.util.List<Object> convertToDto( java.util.List<Object> records ) {
+    public java.util.List<Object> convertToDtoList( java.util.Collection<Object> records ) {
         if ( records == null ) {
             throw new IllegalArgumentException("<null>");
         }
@@ -43,7 +43,7 @@ public class ${className} {
                 continue;
             }
 
-            result.add( convertToDto(record) );
+            result.add( convertToDto(record, true) );
         }
 
         return result;
@@ -54,16 +54,20 @@ public class ${className} {
             return null;
         }
 
-         Method conversionMethod = METHODS.get(record.getClass());
-         if ( conversionMethod == null ) {
-             throw new IllegalStateException("Conversion method not found: " + record.getClass().getCanonicalName() );
-         }
+        if ( record instanceof java.util.Collection ) {
+            return (T) convertToDtoList( (java.util.Collection) record );
+        }
 
-         try {
-            return (T) conversionMethod.invoke(this, new Object[] { record } );
-         } catch ( Exception e ) {
-            throw new IllegalStateException( e.getMessage(), e );
-         }
+        Method conversionMethod = METHODS.get(record.getClass());
+        if ( conversionMethod == null ) {
+            throw new IllegalStateException("Conversion method not found: " + record.getClass().getCanonicalName() );
+        }
+
+        try {
+           return (T) conversionMethod.invoke(this, new Object[] { record } );
+        } catch ( Exception e ) {
+           throw new IllegalStateException( e.getMessage(), e );
+        }
      }
 
      private static final Map<Class<?>, Method> METHODS = Collections.synchronizedMap(new FastHashMap());
