@@ -67,9 +67,16 @@
 
     <distributionManagement>
         <repository>
-            <id>a5000.repository</id>
-            <url>dav:https://repository-a5000.forge.cloudbees.com/snapshot</url>
+            <id>a5000-Server</id>
+            <name>a5000-Server-snapshots</name>
+            <url>http://192.168.20.112:8081/artifactory/a5000-snapshots</url>
         </repository>
+        <snapshotRepository>
+            <id>a5000-Server</id>
+            <name>a5000-Server-snapshots</name>
+            <url>http://192.168.20.112:8081/artifactory/a5000-snapshots</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
     </distributionManagement>
 
 </project>

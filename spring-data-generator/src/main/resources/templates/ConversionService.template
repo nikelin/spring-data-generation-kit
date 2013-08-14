@@ -43,7 +43,7 @@ public class ${className} {
                 continue;
             }
 
-            result.add( convertToDto(record, true) );
+            result.add( convertToDto(record) );
         }
 
         return result;
