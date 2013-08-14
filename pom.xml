@@ -7,7 +7,7 @@
     <groupId>com.redshape.utils</groupId>
     <artifactId>generation-kit</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.19-SNAPSHOT</version>
+    <version>1.0.20-SNAPSHOT</version>
     <name>Redshape Generation Kit</name>
 
     <modules>
