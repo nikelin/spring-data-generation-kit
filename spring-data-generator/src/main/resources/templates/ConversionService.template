@@ -17,7 +17,6 @@ import java.util.Map;
 * @package ${package}
 * @date ${timeNow?iso_utc}
 */
-@Service
 public class ${className} {
 
     <#if entities?size == 0>

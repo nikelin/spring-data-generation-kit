@@ -7,7 +7,7 @@
     <groupId>com.redshape.utils</groupId>
     <artifactId>generation-kit</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.20-SNAPSHOT</version>
+    <version>1.0.21-SNAPSHOT</version>
     <name>Redshape Generation Kit</name>
 
     <modules>
@@ -75,7 +75,6 @@
             <id>a5000-Server</id>
             <name>a5000-Server-snapshots</name>
             <url>http://192.168.20.112:8081/artifactory/a5000-snapshots</url>
-            <uniqueVersion>false</uniqueVersion>
         </snapshotRepository>
     </distributionManagement>
 

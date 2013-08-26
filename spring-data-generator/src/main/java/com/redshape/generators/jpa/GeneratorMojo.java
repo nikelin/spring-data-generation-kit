@@ -577,10 +577,7 @@ public class GeneratorMojo extends AbstractMojo {
     }
     
     protected String getEntityClassName( DtoGroup group ) {
-        StringBuilder builder = new StringBuilder();
-        builder.append( group.packagePath == null ? group.parent.packagePath : group.packagePath ).append(".");
-        builder.append( group.className == null ? group.parent.className : group.className );
-        return builder.toString();
+        return (group.packagePath == null ? group.parent.packagePath : group.packagePath) + "." + (group.className == null ? group.parent.className : group.className);
     }
 
     protected Collection<JavaField> getAllClassFields(JavaClass clazz) {

@@ -3,6 +3,10 @@
 Version: 1.0.16-SNAPSHOT
 Contact e-mail: self@nikelin.ru
 
+1.0.21 features
+
+- Conversion service template changed to improve synthetic fields handling
+
 1.0.18 features
 
 - Support for conversing lists from JPA to DTO entities

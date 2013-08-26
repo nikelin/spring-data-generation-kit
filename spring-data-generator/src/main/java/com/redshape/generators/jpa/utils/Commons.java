@@ -97,12 +97,7 @@ public final class Commons {
 	}
 
 	public static <T> List<T> list( T... items ) {
-		List<T> result = new ArrayList<T>();
-		for ( T item : items ) {
-			result.add(item);
-		}
-
-		return result;
+		return Arrays.asList(items);
 	}
 
 	public static <T> Set<T> set( T... items ) {
