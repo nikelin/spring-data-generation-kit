@@ -3,6 +3,9 @@
 Version: 1.0.16-SNAPSHOT
 Contact e-mail: self@nikelin.ru
 
+1.0.22 features
+- Ability to specify custom interface which would be implemented by generated DTO classes
+
 1.0.21 features
 
 - Conversion service template changed to improve synthetic fields handling

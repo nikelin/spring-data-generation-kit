@@ -138,6 +138,11 @@ public class GeneratorMojo extends AbstractMojo {
      */
     private String encoding;
 
+    /**
+     * @parameter expression="${plugin.dtoInterfaceClassName}" default-value="java.io.Serializable"
+     */
+    private String dtoInterfaceClass;
+
     private GenerationProfile profile = new GenerationProfile();
 
     protected Template daoTemplate;
@@ -355,6 +360,8 @@ public class GeneratorMojo extends AbstractMojo {
         } else {
             parameters.put("parentClass", "");
         }
+
+        parameters.put("dtoInterfaceClassName", Commons.select(dtoInterfaceClass, "java.io.Serializable") );
 
         parameters.put("isAbstract", group.isAbstract );
         parameters.put("package", group.packagePath == null ? group.parent.packagePath :  this.getDtoPackagePath(group.packagePath));
