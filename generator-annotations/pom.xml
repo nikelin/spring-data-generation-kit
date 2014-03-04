@@ -2,12 +2,12 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>generation-kit</artifactId>
-        <groupId>com.a5000.platform.utils</groupId>
-        <version>3.1-SNAPSHOT</version>
+        <groupId>com.a5000.platform.opensource</groupId>
+        <version>1.1.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.a5000.platform.utils.generation-kit</groupId>
+    <groupId>com.a5000.platform.opensource.generation-kit</groupId>
     <artifactId>generator-annotations</artifactId>
     <packaging>jar</packaging>
     <name>A5000 - Platform - Utils - Generation Kit - Annotations</name>

@@ -1,4 +1,0 @@
-<#if isTransactional>
-@Transactional
-</#if>
-public <#if isAbstract><#if query.isCollection>java.util.Collection<</#if>T<#if query.isCollection>></#if><#else>${query.resultType}</#if> ${query.name}(<@renderParameters parameters=query.parameters/>);

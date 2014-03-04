@@ -60,19 +60,45 @@ the DTOs and the repositories for your domain objects.
 
 Example maven configuration:
 ```
-<plugin>
-    <groupId>com.redshape.utils.generation-kit</groupId>
-    <artifactId>spring-data-generator</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <configuration>
-        <dtoGenerateDirectory>src/main/generated</dtoGenerateDirectory>
-        <daoGenerateDirectory>src/main/generated</daoGenerateDirectory>
-        <dtoPackagePath>org.example.data.entities.dto</dtoPackagePath>
-        <daoPackagePath>org.example.data.entities.dao</daoPackagePath>
-        <conversationServicePackagePath>org.example.example.services</conversationServicePackagePath>
-        <basePackagePath>org.example.data.entities</basePackagePath>
-    </configuration>
-</plugin>
+            <plugin>
+                <groupId>com.a5000.platform.utils.generation-kit</groupId>
+                <artifactId>generator-mojos</artifactId>
+                <configuration>
+                    <sourceRoot>${project.build.sourceDirectory}</sourceRoot>
+                    <entityPattern>**/model/**/*.java</entityPattern>
+                    <basePackage>com.a5000.platform.api.model</basePackage>
+                    <dtoPackage>com.a5000.platform.api.model.domain</dtoPackage>
+                    <convertersPackage>com.a5000.platform.api.services</convertersPackage>
+                    <daoPackage>com.a5000.platform.dao</daoPackage>
+
+                    <dtoAnnotationClasses>
+                        <dtoAnnotationClass>com.gwtent.reflection.client.Reflectable</dtoAnnotationClass>
+                    </dtoAnnotationClasses>
+
+                    <dtoInterfaceClasses>
+                        <dtoInterfaceClass>java.io.Serializable</dtoInterfaceClass>
+                        <dtoInterfaceClass>com.a5000.platform.api.model.domain.api.Identifiable</dtoInterfaceClass>
+                    </dtoInterfaceClasses>
+
+                    <skipStaticFields>true</skipStaticFields>
+
+                    <attachPostfixes>true</attachPostfixes>
+                    <attachPrefixes>true</attachPrefixes>
+                    <attachSuffixes>false</attachSuffixes>
+
+                    <outputPath>${project.basedir}/src/main/generated</outputPath>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>gen-dao</goal>
+                            <goal>gen-dto</goal>
+                            <goal>gen-jpa-converter</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
 ```
 
 Also, to cover situation which are often in a real life, when domain entities is not holding under a
@@ -81,8 +107,10 @@ single root-package, in 1.0.2 version introduced ability to define several base 
     <configuration>
         ....
         <basePackagePaths>
-            <basePackagePath>com.a5000.platform.expo.model</basePackagePath>
-            <basePackagePath>com.a5000.platform.common.model</basePackagePath>
+                <basePackage>com.a5000.platform.api.model</basePackage>
+                <dtoPackage>com.a5000.platform.api.model.domain</dtoPackage>
+                <convertersPackage>com.a5000.platform.api.services</convertersPackage>
+                <daoPackage>com.a5000.platform.dao</daoPackage>
         </basePackagePaths>
         ....
     </configuration>
@@ -96,6 +124,7 @@ appropriate configuration option:
         <skipDaoGeneration>true</skipDaoGeneration>
         <skipDtoGeneration>false</skipDtoGeneration>
         <skipServicesGeneration>true</skipServicesGeneration>
+        <skipStaticFields>true</skipStaticFields>
         ...
     </configuration>
 ```
@@ -112,28 +141,12 @@ It can be changed through <entityPattern/> configuration option in the next way:
     </configuration>
 ```
 
-
-Public plugins repository:
-```
-<pluginRepositories>
-    <pluginRepository>
-        <id>redshape.central</id>
-        <url>http://78.47.14.237:8081/artifactory/plugins-public-snapshots</url>
-        <name>Redshape Central Repository</name>
-        <snapshots>
-            <enabled>true</enabled>
-        </snapshots>
-    </pluginRepository>
-</pluginRepositories>
-```
-
 If you select directory which different from src/main/java, you also needs to add build-helper plugin, which
 add this directory as a source root:
 ```
 <plugin>
     <groupId>org.codehaus.mojo</groupId>
     <artifactId>build-helper-maven-plugin</artifactId>
-    <version>1.7</version>
     <executions>
         <execution>
             <id>add-source</id>
@@ -155,9 +168,9 @@ Also you must place in `<dependencies/>` link to annotation classes which must
 be used to markdown JPA entities and its fields:
 ```
 <dependency>
-    <groupId>com.redshape.utils.generation-kit</groupId>
+    <groupId>com.a5000.platform.opensource.generation-kit</groupId>
     <artifactId>generator-annotations</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <scope>provided</scope>
 </dependency>
 ```
 
@@ -202,7 +215,11 @@ Here is some basic example of generator annotations usage:
     })
 })
 @DtoExtend({
-    @Parameter( value = "propositionsCount", type = int.class )
+    @Parameter( value = "propositionsCount", type = int.class ),
+    /**
+     * PropositionDTO gain new field - {@code String relatedAuthorName} with value getAuthor().getName()
+     **/
+    @Parameter( value = "relatedAuthorName", expression = "author.name", type = String.class )
 })
 public class Proposition implements Serializable {
 
@@ -211,7 +228,6 @@ public class Proposition implements Serializable {
 
     @ManyToOne
     @JoinColumn( name = "author_id" )
-    @DtoInclude(AggregationType.DTO)
     private User author;
 
     @ManyToOne
@@ -220,6 +236,14 @@ public class Proposition implements Serializable {
     private Specialisation specialisation;
 
     // Accessors and everything else goes here..
+
+    /**
+     * All methods marked as a @DtoMethod will survive in DTO entity
+     **/
+    @DtoMethod
+    public void calculateId() {
+        return (this.id + this.author.getName()).hashCode();
+    }
 }
 ```
 
@@ -229,7 +253,7 @@ public class Proposition implements Serializable {
 
 === License
 
-Copyright 2013, Cyril A. Karpenko
+Copyright 2013-2014, Cyril A. Karpenko
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

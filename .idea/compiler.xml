@@ -22,7 +22,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="spring-data-generator" />
+        <module name="generator-annotations" />
+        <module name="generator-mojos" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
