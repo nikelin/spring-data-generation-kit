@@ -1,0 +1,17 @@
+com\a5000\platform\api\annotations\paging\Sorting.class
+com\a5000\platform\api\annotations\generators\NativeQueries.class
+com\a5000\platform\api\annotations\dto\DtoExclude.class
+com\a5000\platform\api\annotations\paging\SortDirection.class
+com\a5000\platform\api\annotations\dto\DtoExtend.class
+com\a5000\platform\api\annotations\paging\PageRequest.class
+com\a5000\platform\api\annotations\generators\ConventionalQuery.class
+com\a5000\platform\api\annotations\paging\PageResponse.class
+com\a5000\platform\api\annotations\dto\SkipDao.class
+com\a5000\platform\api\annotations\generators\ConventionalQueries.class
+com\a5000\platform\api\annotations\dto\DtoInclude.class
+com\a5000\platform\api\annotations\generators\Parameter.class
+com\a5000\platform\api\annotations\dto\DtoMethod.class
+com\a5000\platform\api\annotations\dto\DtoTransient.class
+com\a5000\platform\api\annotations\dto\AggregationType.class
+com\a5000\platform\api\annotations\generators\NativeQuery.class
+com\a5000\platform\api\annotations\paging\PageSize.class

@@ -1,0 +1,8 @@
+javax\persistence\Id.class
+javax\persistence\ManyToOne.class
+com\a5000\platform\api\annotations\generators\jpa\entities\TestParent.class
+com\a5000\platform\api\annotations\generators\jpa\v2\GenDaoMojoTest.class
+com\a5000\platform\api\annotations\generators\jpa\entities\Test.class
+javax\persistence\OneToMany.class
+com\a5000\platform\api\annotations\generators\jpa\entities\ITest.class
+javax\persistence\Entity.class

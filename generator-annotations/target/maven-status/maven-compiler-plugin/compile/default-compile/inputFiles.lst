@@ -1,0 +1,17 @@
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\generators\Parameter.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\paging\PageResponse.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\dto\DtoMethod.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\generators\NativeQueries.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\dto\AggregationType.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\paging\Sorting.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\dto\DtoExtend.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\generators\ConventionalQuery.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\dto\SkipDao.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\paging\PageSize.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\dto\DtoExclude.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\paging\SortDirection.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\dto\DtoInclude.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\generators\ConventionalQueries.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\dto\DtoTransient.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\generators\NativeQuery.java
+C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\paging\PageRequest.java
