@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/generation-kit.iml" filepath="$PROJECT_DIR$/generation-kit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/generator-annotations/generator-annotations.iml" filepath="$PROJECT_DIR$/generator-annotations/generator-annotations.iml" />
+      <module fileurl="file://$PROJECT_DIR$/generator-mojos/generator-mojos.iml" filepath="$PROJECT_DIR$/generator-mojos/generator-mojos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spring-data-generator/spring-data-generator.iml" filepath="$PROJECT_DIR$/spring-data-generator/spring-data-generator.iml" />
+    </modules>
+  </component>
+</project>
+

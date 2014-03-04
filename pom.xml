@@ -1,81 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.redshape.utils</groupId>
+    <groupId>com.a5000.platform.utils</groupId>
     <artifactId>generation-kit</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.22-SNAPSHOT</version>
-    <name>Redshape Generation Kit</name>
+    <name>A5000 - Platform - Utils - Generation Kit</name>
+    <version>1.1.2-SNAPSHOT</version>
 
     <modules>
-        <module>spring-data-generator</module>
+        <module>generator-mojos</module>
         <module>generator-annotations</module>
     </modules>
-
-    <properties>
-        <maven.compiler.target>1.6</maven.compiler.target>
-        <mavenVersion>2.0.9</mavenVersion>
-    </properties>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>2.1</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>update-child-modules</goal>
-                        </goals>
-                        <phase>deploy</phase>
-                        <configuration>
-                            <allowSnapshots>true</allowSnapshots>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-        <extensions>
-            <extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-webdav</artifactId>
-                <version>1.0-beta-2</version>
-            </extension>
-        </extensions>
-    </build>
-
-    <scm>
-        <developerConnection>scm:git:https://github.com/nikelin/spring-data-generation-kit.git</developerConnection>
-        <url>https://github.com/nikelin/spring-data-generation-kit</url>
-    </scm>
-
-    <distributionManagement>
-        <repository>
-            <id>a5000-Server</id>
-            <name>a5000-Server-snapshots</name>
-            <url>http://192.168.20.112:8081/artifactory/a5000-snapshots</url>
-        </repository>
-        <snapshotRepository>
-            <id>a5000-Server</id>
-            <name>a5000-Server-snapshots</name>
-            <url>http://192.168.20.112:8081/artifactory/a5000-snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 
 </project>

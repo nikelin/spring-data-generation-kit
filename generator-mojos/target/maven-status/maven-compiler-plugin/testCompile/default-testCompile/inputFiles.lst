@@ -1,0 +1,8 @@
+C:\projects\maven-spring-generation-kit\generator-mojos\src\test\java\com\a5000\platform\api\annotations\generators\jpa\entities\Test.java
+C:\projects\maven-spring-generation-kit\generator-mojos\src\test\java\javax\persistence\Entity.java
+C:\projects\maven-spring-generation-kit\generator-mojos\src\test\java\javax\persistence\Id.java
+C:\projects\maven-spring-generation-kit\generator-mojos\src\test\java\com\a5000\platform\api\annotations\generators\jpa\entities\ITest.java
+C:\projects\maven-spring-generation-kit\generator-mojos\src\test\java\com\a5000\platform\api\annotations\generators\jpa\entities\TestParent.java
+C:\projects\maven-spring-generation-kit\generator-mojos\src\test\java\javax\persistence\ManyToOne.java
+C:\projects\maven-spring-generation-kit\generator-mojos\src\test\java\javax\persistence\OneToMany.java
+C:\projects\maven-spring-generation-kit\generator-mojos\src\test\java\com\a5000\platform\api\annotations\generators\jpa\v2\GenDaoMojoTest.java

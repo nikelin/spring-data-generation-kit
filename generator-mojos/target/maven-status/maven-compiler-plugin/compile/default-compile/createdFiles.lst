@@ -1,0 +1,13 @@
+com\a5000\platform\api\annotations\generators\jpa\mojo\GenDtoMojo.class
+com\a5000\platform\api\annotations\generators\jpa\AbstractMojo.class
+com\a5000\platform\api\annotations\generators\jpa\AbstractGeneratorMojo.class
+com\a5000\platform\api\annotations\generators\jpa\ClasspathBuilderException.class
+com\a5000\platform\api\annotations\generators\jpa\mojo\GenJpaToDtoConverterMojo.class
+com\a5000\platform\api\annotations\generators\jpa\utils\StringUtils.class
+com\a5000\platform\api\annotations\generators\jpa\mojo\GenJpaToDtoConverterMojo$CollectedJavaField.class
+com\a5000\platform\api\annotations\generators\jpa\mojo\GenDaoMojo$QuerySpec.class
+com\a5000\platform\api\annotations\generators\jpa\mojo\GenDaoMojo.class
+com\a5000\platform\api\annotations\generators\jpa\mojo\GenDtoToJpaConverterMojo.class
+com\a5000\platform\api\annotations\generators\jpa\utils\Commons.class
+com\a5000\platform\api\annotations\generators\jpa\ClasspathBuilder.class
+com\a5000\platform\api\annotations\generators\jpa\mojo\GenDaoMojo$QuerySpecParam.class

@@ -1,4 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<<<<<<< HEAD
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>generation-kit</artifactId>
+        <groupId>com.a5000.platform.utils</groupId>
+        <version>2.45-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.a5000.platform.utils.generation-kit</groupId>
+    <artifactId>generator-annotations</artifactId>
+    <packaging>jar</packaging>
+    <name>A5000 - Platform - Utils - Generation Kit - Annotations</name>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.java</include>
+                    <include>**/*.gwt.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+=======
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -12,5 +52,6 @@
     <groupId>com.redshape.utils.generation-kit</groupId>
     <artifactId>generator-annotations</artifactId>
     <name>Redshape Generation Kit: Annotations</name>
+>>>>>>> cf311483f063c5533b9b97db3de433f5ecfab502
 
 </project>
