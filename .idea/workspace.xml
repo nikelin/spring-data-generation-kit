@@ -1,7 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="86caa5b0-c43b-487d-a1ab-df36788cc359" name="Default" comment="" />
+    <list default="true" id="86caa5b0-c43b-487d-a1ab-df36788cc359" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/java/com/redshape/generators/jpa/AbstractMojo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/dto/AggregationType.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/java/com/redshape/generators/jpa/ClasspathBuilder.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/java/com/redshape/generators/jpa/ClasspathBuilderException.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/java/com/redshape/generators/jpa/utils/Commons.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/ConventionalQueries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/ConventionalQuery.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/resources/templates/ConversionService.Method.template" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/resources/templates/ConversionService.template" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/resources/templates/DAO.template" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/resources/templates/DTO.template" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/dto/DtoExclude.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/dto/DtoExtend.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/dto/DtoFieldOverride.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/dto/DtoGroup.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/dto/DtoGroups.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/dto/DtoInclude.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/dto/DtoTransient.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/java/com/redshape/generators/jpa/GeneratorMojo.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/NativeQueries.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/NativeQuery.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/paging/PageRequest.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/paging/PageResponse.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/paging/PageSize.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/Parameter.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/resources/templates/Query.Conventional.template" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/resources/templates/Query.Native.template" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/resources/templates/Service.Implementation.template" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/resources/templates/Service.Interface.template" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/dto/SkipDao.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/paging/SortDirection.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/paging/Sorting.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/java/com/redshape/generators/jpa/utils/StringUtils.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/dto/TargetGroup.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/redshape/generators/annotations/dto/TargetGroups.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/src/main/resources/templates/functions.template" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/pom.xml.versionsBackup" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/spring-data-generator/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/generator-mojos.iml" afterPath="$PROJECT_DIR$/generator-mojos/generator-mojos.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/pom.xml.versionsBackup" afterPath="$PROJECT_DIR$/generator-annotations/pom.xml.versionsBackup" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    </list>
     <ignored path="generation-kit.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,21 +110,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-              <caret line="11" column="20" selection-start="539" selection-end="539" />
+            <state vertical-scroll-proportion="0.307971" vertical-offset="0" max-vertical-offset="552">
+              <caret line="10" column="13" selection-start="518" selection-end="518" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="pom.xml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/generator-mojos/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.7096774" vertical-offset="680" max-vertical-offset="2533">
-              <caret line="18" column="24" selection-start="899" selection-end="899" />
+            <state vertical-scroll-proportion="-14.96" vertical-offset="680" max-vertical-offset="2533">
+              <caret line="62" column="21" selection-start="2462" selection-end="2462" />
               <folding />
             </state>
           </provider>
@@ -97,7 +143,7 @@
       <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.76" vertical-offset="0" max-vertical-offset="3876">
+            <state vertical-scroll-proportion="-4.76" vertical-offset="0" max-vertical-offset="4250">
               <caret line="7" column="100" selection-start="248" selection-end="248" />
               <folding />
             </state>
@@ -117,8 +163,8 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -481,12 +527,12 @@
       <changelist id="86caa5b0-c43b-487d-a1ab-df36788cc359" name="Default" comment="" />
       <created>1393911259070</created>
       <updated>1393911259070</updated>
-      <workItem from="1393911261564" duration="430000" />
+      <workItem from="1393911261564" duration="613000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="430000" />
+    <option name="totallyTimeSpent" value="613000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1" y="1" width="1903" height="1039" extended-state="0" />
@@ -514,7 +560,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2498645" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3291714" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3291714" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -545,7 +591,7 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.76" vertical-offset="0" max-vertical-offset="3876">
+        <state vertical-scroll-proportion="-4.76" vertical-offset="0" max-vertical-offset="4250">
           <caret line="7" column="100" selection-start="248" selection-end="248" />
           <folding />
         </state>
@@ -559,18 +605,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/generator-mojos/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="357">
-          <caret line="11" column="20" selection-start="539" selection-end="539" />
+        <state vertical-scroll-proportion="-14.96" vertical-offset="680" max-vertical-offset="2533">
+          <caret line="62" column="21" selection-start="2462" selection-end="2462" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/pom.xml">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.7096774" vertical-offset="680" max-vertical-offset="2533">
-          <caret line="18" column="24" selection-start="899" selection-end="899" />
+        <state vertical-scroll-proportion="0.307971" vertical-offset="0" max-vertical-offset="552">
+          <caret line="10" column="13" selection-start="518" selection-end="518" />
           <folding />
         </state>
       </provider>

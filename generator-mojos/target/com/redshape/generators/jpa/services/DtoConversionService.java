@@ -37,7 +37,7 @@ public class DtoConversionService {
         }
         Method method = METHODS.get(value.getClass());
         if (method == null) {
-            throw new IllegalStateException("Conversion method not found: com.sun.codemodel.JInvocation@187321aa");
+            throw new IllegalStateException("Conversion method not found: com.sun.codemodel.JInvocation@4490bc23");
         }
         try {
             return ((T) method.invoke(this, new Object[] {value }));
