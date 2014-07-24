@@ -6,5 +6,6 @@ package com.a5000.platform.api.annotations.dto;
  */
 public enum AggregationType {
     ID,
-    DTO
+    DTO,
+    ENUM
 }

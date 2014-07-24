@@ -39,7 +39,13 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
     public static final String DTO_EXTENDS_ANNOTATION_CLASS_NAME = "DtoExtend";
     public static final String DTO_METHOD_ANNOTATION_CLASS_NAME = "DtoMethod";
     private static final String MAPPED_SUPERCLASS_ANNOTATION_CLASS_NAME = "javax.persistence.MappedSuperclass";
+    private static final String INHERITANCE_ANNOTATION_CLASS_NAME = "javax.persistence.Inheritance";
     private static final String BOOLEAN_TYPE_NAME = "java.lang.Boolean";
+    private static final String DOUBLE_TYPE_NAME = "java.lang.Double";
+    private static final String INTEGER_TYPE_NAME = "java.lang.Integer";
+    private static final String BYTE_TYPE_NAME = "java.lang.Byte";
+    private static final String FLOAT_TYPE_NAME = "java.lang.Float";
+    private static final String LONG_TYPE_NAME = "java.lang.Long";
 
     protected final JCodeModel codeModel;
     protected JavaDocBuilder classMetaBuilder;
@@ -142,7 +148,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        getLog().info( String.format( WELCOME_MESSAGE, generatorName ) );
+        getLog().info( String.format(WELCOME_MESSAGE, generatorName) );
         getLog().info("Looking for classes matching '" + entityPattern + "' pattern in " + sourceRoot );
         String[] classes = findClasses( sourceRoot, entityPattern );
 
@@ -247,7 +253,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
         Object annotationValue = extendsAnnotation.getNamedParameter("value");
         if ( annotationValue instanceof Annotation ) {
             targetAnnotation = (Annotation) annotationValue;
-        } else if ( annotationValue instanceof List ) {
+        } else if ( annotationValue instanceof List) {
             for ( Annotation annotation : (List<Annotation>) annotationValue ) {
                 if ( normalizeAnnotationValue(
                         (String) annotation.getNamedParameter("value") )
@@ -259,6 +265,10 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
         }
 
         return targetAnnotation;
+    }
+
+    protected boolean isInterface(String fullyQualifiedName) {
+        return !classMetaBuilder.getClassByName( fullyQualifiedName ).isInterface();
     }
 
     protected boolean isJpaRelationType(JavaClass annotationTypeName) {
@@ -360,6 +370,11 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
         return hasAnnotation(clazz, ENTITY_ANNOTATION_CLASS_NAME )
                 || hasAnnotation(clazz, MAPPED_SUPERCLASS_ANNOTATION_CLASS_NAME);
     }
+
+    protected boolean isInheritanceClass(JavaClass clazz){
+        return hasAnnotation(clazz, INHERITANCE_ANNOTATION_CLASS_NAME);
+    }
+
 
     protected boolean hasAnnotation(AbstractBaseJavaEntity clazz, String className ) {
         return hasAnnotation( clazz, className, false );
@@ -467,7 +482,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
 
         JavaClass parent = javaClass;
         while ( parent != null ) {
-            result.addAll( Arrays.asList( parent.getFields() ) );
+            result.addAll( Arrays.asList(parent.getFields()) );
             parent = parent.getSuperJavaClass();
         }
 
@@ -480,7 +495,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
     }
 
     protected String generateSetterName( String fieldName ) {
-        return "set" + StringUtils.ucfirst( fieldName );
+        return "set" + StringUtils.ucfirst(fieldName);
     }
 
     protected void generateSetter( JDefinedClass clazz, JFieldVar clazzField ) {
@@ -499,9 +514,30 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
                generateGetterName(clazzField.name()) );
 
         JExpression returnStm = JExpr.refthis( clazzField.name() );
-        if ( clazzField.type().isReference() && clazzField.type().fullName().equals(BOOLEAN_TYPE_NAME)) {
+        if ( clazzField.type().isReference()
+                && isSimpleType( classMetaBuilder.getClassByName(clazzField.type().fullName()) ) ) {
             JConditional nullHandler = getterMethod.body()._if(returnStm.eq(JExpr._null()));
-            nullHandler._then()._return( JExpr.lit(false) );
+
+            String typeName = clazzField.type().fullName();
+
+            JExpression lit;
+            if (typeName.equals(BOOLEAN_TYPE_NAME) ) {
+                lit = JExpr.lit(false);
+            } else if ( typeName.equals(INTEGER_TYPE_NAME) ) {
+                lit = JExpr.lit(0);
+            } else if ( typeName.equals(BYTE_TYPE_NAME) ) {
+                lit = JExpr.lit((byte) 0);
+            } else if ( typeName.equals(FLOAT_TYPE_NAME) ) {
+                lit = JExpr.lit(0.0f);
+            } else if ( typeName.equals(DOUBLE_TYPE_NAME) ) {
+                lit = JExpr.lit(0.0d);
+            } else if ( typeName.equals(LONG_TYPE_NAME) ) {
+                lit = JExpr.lit(0L);
+            } else {
+                lit = JExpr._null();
+            }
+
+            nullHandler._then()._return( lit );
             nullHandler._else()._return( returnStm );
         } else {
             getterMethod.body()._return(returnStm);
@@ -548,7 +584,11 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
     }
 
     protected String prepareClassName( String generatedPackage, String name ) {
-        return prepareClassName( generatedPackage, name, generatorPrefix, generatorSuffix, generatorPostfix);
+        try {
+            return prepareClassName(generatedPackage, name, generatorPrefix, generatorSuffix, generatorPostfix);
+        } catch ( Throwable e ) {
+            throw new IllegalStateException("Failed to prepare class name: " + generatedPackage + "/" + name, e );
+        }
     }
 
     protected String prepareClassName( String generatedPackage, String name,
@@ -563,7 +603,6 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
             int bIndex = name.lastIndexOf(".");
             name = name.substring(0, bIndex ) + "." + prefix + name.substring( bIndex + 1 );
         }
-
 
         if ( postfix != null && !disableAffixesAttach && attachPostfixes ) {
             name = name + postfix;

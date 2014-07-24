@@ -38,7 +38,7 @@ public final class Commons {
 	
 	@SuppressWarnings("unchecked")
 	public static <K, V> Map<K, V> map( List<K> keys, List<V> values ) {
-		return Commons.map( (K[]) keys.toArray(), (V[]) values.toArray() );
+		return Commons.map((K[]) keys.toArray(), (V[]) values.toArray());
 	}
 	
 	/**

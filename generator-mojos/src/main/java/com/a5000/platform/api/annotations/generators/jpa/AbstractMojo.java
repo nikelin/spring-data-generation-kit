@@ -35,7 +35,7 @@ public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo 
 
     /**
      * @return the project classloader
-     * @throws DependencyResolutionRequiredException failed to resolve project dependencies
+     * @throws org.apache.maven.artifact.DependencyResolutionRequiredException failed to resolve project dependencies
      * @throws java.net.MalformedURLException configuration issue ?
      */
     protected ClassLoader getProjectClassLoader()
@@ -56,8 +56,8 @@ public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo 
 
     protected String normalizeAnnotationValue( String value ) {
         value = StringUtils.trim(value, "\"");
-        value = StringUtils.trim( value, "/");
-        value = StringUtils.trim( value, "\\");
+        value = StringUtils.trim(value, "/");
+        value = StringUtils.trim(value, "\\");
         value = value.replaceAll("\" \\+ \"", "");
         return value;
     }

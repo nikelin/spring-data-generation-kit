@@ -1,7 +1,6 @@
 package com.a5000.platform.api.annotations.generators.jpa.mojo;
 
 import com.a5000.platform.api.annotations.generators.jpa.AbstractGeneratorMojo;
-import com.a5000.platform.api.annotations.generators.jpa.utils.Commons;
 import com.sun.codemodel.*;
 import com.thoughtworks.qdox.model.Annotation;
 import com.thoughtworks.qdox.model.JavaClass;
@@ -28,6 +27,9 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
     private static final String METHODS_CACHE_FIELD_NAME = "METHODS";
     private static final String CONVERSATION_METHOD_NOT_FOUND_EXCEPTION = "Conversion method not found: %s";
     private static final String LIST_CONVERTER_METHOD_NAME = "convertToDtoList";
+    private static final String CONVERT_TO_IDS_LIST_METHOD_NAME = "convertToIdsList";
+    private static final String ISTORED_BEAN_CLASS_NAME = "com.a5000.platform.api.model.domain.api.IStoredBean";
+    private static final String A5_READONLY_TRANSACTIONAL_ANNOTATION_CLASS = "com.a5000.platform.api.services.A5TransactionalReadOnly";
 
     private final AtomicBoolean initialized = new AtomicBoolean(false);
 
@@ -45,7 +47,8 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
 
         this.converterClazz = codeModel._package(convertersPackage)
                 ._class( JMod.PUBLIC, CONVERTER_CLASS_NAME );
-        this.converterClazz.annotate( codeModel.ref(SERVICE_ANNOTATION_CLASS_NAME) );
+        this.converterClazz.annotate( codeModel.ref(SERVICE_ANNOTATION_CLASS_NAME) )
+                .param("value", "DtoConversionServiceImpl");
     }
     @Override
     protected void generateClass(JavaClass entityClazz) throws MojoExecutionException {
@@ -61,6 +64,7 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             init();
+            generateConvertToIdsListMethod(converterClazz);
             generateTemplateConvertMethod(converterClazz);
             generateTemplateListConvertMethod(converterClazz);
 
@@ -68,6 +72,30 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
         } catch (JClassAlreadyExistsException e) {
             throw new MojoExecutionException( e.getMessage(), e );
         }
+    }
+
+    protected void generateConvertToIdsListMethod( JDefinedClass converterClazz ) {
+        JMethod converterMethod = converterClazz.method(JMod.PRIVATE | JMod.STATIC,
+                codeModel.ref(List.class).narrow(Long.class),
+                CONVERT_TO_IDS_LIST_METHOD_NAME );
+        JClass entityTypeRef = codeModel.ref(ISTORED_BEAN_CLASS_NAME);
+        JClass listTypeRef = codeModel.ref(List.class);
+        JVar inputArg = converterMethod.param( listTypeRef.narrow( entityTypeRef.wildcard() ), "arg" );
+        JBlock block = converterMethod.body();
+
+        JVar resultVar = block.decl( listTypeRef.narrow(Long.class), "result",
+                JExpr._new( codeModel.ref(ArrayList.class).narrow(Long.class) ) );
+        block._if( JOp.eq( inputArg, JExpr._null() ) )
+             ._then()._return(resultVar);
+
+        JBlock foreachBlock = block.forEach( entityTypeRef, "record", inputArg )
+             .body();
+        foreachBlock._if( JOp.eq( JExpr._null(), JExpr.ref("record") ) )
+            ._then()
+                ._continue();
+        foreachBlock.invoke( resultVar, "add").arg( JExpr.ref("record").invoke("getId") ) ;
+
+        block._return(resultVar);
     }
 
     protected void generateConverter( JavaClass entityClazz ) {
@@ -104,35 +132,36 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
             String setterName;
             JClass resultType;
             if ( collectedField.isConvertible && !collectedField.isSynthetic ) {
-                boolean dtoAggregationType = false;
+                String aggregationType = "AggregationType.ID";
                 for ( Annotation annotation : field.getAnnotations() ) {
                     if ( !isA(annotation.getType().getJavaClass(), DTO_INCLUDE_ANNOTATION_CLASS_NAME ) ) {
                         continue;
                     }
 
-                    String aggregationType = Commons.select((String) annotation.getNamedParameter("value"),
-                            "AggregationType.DTO");
-                    dtoAggregationType = aggregationType.equals("AggregationType.DTO");
+                    if ( annotation.getNamedParameter("value") != null ) {
+                        aggregationType = normalizeAnnotationValue((String) annotation.getNamedParameter("value"));
+                    }
                 }
 
-                if ( dtoAggregationType ) {
+                boolean isList = false;
+                if ("AggregationType.DTO".equals(aggregationType)) {
                     fieldName = field.getName();
 
-                    if ( isCollectionType( field.getType().getJavaClass() ) ) {
-                        if ( isListType( field.getType().getJavaClass() ) ) {
-                            resultType = codeModel.ref( List.class );
-                        } else if ( isSetType( field.getType().getJavaClass() ) ) {
+                    if (isCollectionType(field.getType().getJavaClass())) {
+                        if (isListType(field.getType().getJavaClass())) {
+                            resultType = codeModel.ref(List.class);
+                        } else if (isSetType(field.getType().getJavaClass())) {
                             resultType = codeModel.ref(Set.class);
                         } else {
                             resultType = codeModel.ref(Collection.class);
                         }
 
                         resultType = resultType.narrow(
-                            codeModel.ref(
-                                prepareClassName( dtoPackage,
-                                        field.getType().getActualTypeArguments()[0].getFullyQualifiedName(),
-                                        DTO_GENERATOR_PREFIX, DTO_GENERATOR_SUFFIX, DTO_GENERATOR_POSTFIX )
-                            )
+                                codeModel.ref(
+                                        prepareClassName(dtoPackage,
+                                                field.getType().getActualTypeArguments()[0].getFullyQualifiedName(),
+                                                DTO_GENERATOR_PREFIX, DTO_GENERATOR_SUFFIX, DTO_GENERATOR_POSTFIX)
+                                )
                         );
                     } else {
                         resultType = codeModel.ref(
@@ -142,20 +171,52 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                     }
 
                     valueExpr = JExpr.cast(
-                        resultType,
-                        JExpr._this().invoke(CONVERTER_METHOD_NAME).arg(
-                            converterMethodParam.invoke( getterName = generateGetterName(field.getName()) )
-                        )
+                            resultType,
+                            JExpr._this().invoke(CONVERTER_METHOD_NAME).arg(
+                                    converterMethodParam.invoke(getterName = generateGetterName(field.getName()))
+                            )
                     );
+                    break;
+                } else if ( "AggregationType.ENUM".equals(aggregationType) ) {
+                    fieldName = field.getName();
+                    getterName = generateGetterName(field.getName());
+                    if (isCollectionType(field.getType().getJavaClass())) {
+                        if (isListType(field.getType().getJavaClass())) {
+                            resultType = codeModel.ref(List.class);
+                        } else if (isSetType(field.getType().getJavaClass())) {
+                            resultType = codeModel.ref(Set.class);
+                        } else {
+                            resultType = codeModel.ref(Collection.class);
+                        }
+                    } else {
+                        resultType = codeModel.ref(field.getType().getFullyQualifiedName());
+                    }
+                    valueExpr = JOp.cond(
+                            JOp.not(converterMethodParam.invoke(getterName).eq(JExpr._null())),
+                            JExpr._new(codeModel.ref(ArrayList.class)).arg(converterMethodParam.invoke(getterName)),
+                            JExpr._null());
+                    break;
                 } else {
-                    fieldName = field.getName() + "Id";
-                    resultType = codeModel.ref( Long.class);
+                        fieldName = field.getName() + "Id";
 
-                    JInvocation valueAccessInvocation =
-                            converterMethodParam.invoke( getterName = generateGetterName( field.getName() ) );
-                    valueExpr = JOp.cond( JOp.not( valueAccessInvocation.eq( JExpr._null() ) ),
-                               valueAccessInvocation.invoke( generateGetterName("id") ),
-                               JExpr._null() );
+                        if ( field.getType().getJavaClass().isA(List.class.getCanonicalName()) ) {
+                            resultType = codeModel.ref(List.class).narrow(Long.class);
+                            isList = true;
+                        } else {
+                            resultType = codeModel.ref(Long.class);
+                        }
+
+                        JInvocation valueAccessInvocation =
+                                converterMethodParam.invoke(getterName = generateGetterName(field.getName()));
+                        valueExpr = !isList ?
+                            JOp.cond(
+                                JOp.not(valueAccessInvocation.eq(JExpr._null())),
+                                valueAccessInvocation.invoke(generateGetterName("id")),
+                                JExpr._null()
+                            ) :
+                            JExpr._this().invoke(CONVERT_TO_IDS_LIST_METHOD_NAME).arg( valueAccessInvocation );
+
+                        break;
                 }
             } else  {
                 resultType = codeModel.ref( field.getType().getFullyQualifiedName() );
@@ -229,6 +290,8 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
             LIST_CONVERTER_METHOD_NAME
         );
 
+        method.annotate(codeModel.ref(A5_READONLY_TRANSACTIONAL_ANNOTATION_CLASS));
+
         JTypeVar returnType = method.generify("T");
         JTypeVar methodParamType = method.generify("V");
 
@@ -298,7 +361,7 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                 ._then()._throw(
                     JExpr._new( codeModel.ref(IllegalStateException.class) )
                         .arg( String.format(CONVERSATION_METHOD_NOT_FOUND_EXCEPTION,
-                                methodParam.invoke("getClass").invoke("getCanonicalName") ) )
+                                methodParam.invoke("getClass").invoke("getCanonicalName")) )
                 );
 
         JTryBlock convertBlock = method.body()._try();
@@ -417,7 +480,7 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                 }
 
                 Object value = annotation.getNamedParameter("value");
-                if ( value instanceof List ) {
+                if ( value instanceof List) {
                     for ( Annotation paramAnnotation : (List<Annotation>) value ) {
                         JavaField field = new JavaField(
                             classMetaBuilder.getClassByName(

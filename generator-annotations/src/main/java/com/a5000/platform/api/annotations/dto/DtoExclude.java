@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
  *
  * @author Cyril A. Karpenko
  */
-@Target(ElementType.FIELD)
+@Target({ElementType.FIELD, ElementType.TYPE})
 public @interface DtoExclude {
 
 }

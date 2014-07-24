@@ -43,4 +43,5 @@ public @interface Parameter {
 
     public String expression() default "";
 
+    Class<?>[] typeParameters() default {};
 }

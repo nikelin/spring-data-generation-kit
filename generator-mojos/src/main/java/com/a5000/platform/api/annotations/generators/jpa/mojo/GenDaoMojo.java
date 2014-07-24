@@ -120,7 +120,7 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
             codeModel.ref(JPA_REPOSITORY_ANNOTATION_CLASS_NAME)
         );
         repositoryAnnotation.param("value",
-                    StringUtils.lcfirst( daoClass.name() ) );
+                    StringUtils.lcfirst(daoClass.name()) );
 
         return daoClass;
     }
@@ -224,7 +224,7 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
         List<QuerySpec> querySpec = new ArrayList<QuerySpec>();
         if ( isAnnotationsList(annotation.getType().getJavaClass()) ) {
             Object value = annotation.getNamedParameter("value");
-            if ( value instanceof List ) {
+            if ( value instanceof List) {
                 for ( Annotation childAnnotation : (List<Annotation>) value) {
                     querySpec.add( createQuerySpec( childAnnotation ) );
                 }
@@ -251,14 +251,14 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
         }
         if ( spec.isNative ) {
             spec.value = normalizeAnnotationValue(
-                Commons.select( (String) annotation.getNamedParameter("value"), "" )
+                Commons.select((String) annotation.getNamedParameter("value"), "")
             );
         }
 
         spec.isModifying = Boolean.valueOf(
-                Commons.select( (String) annotation.getNamedParameter("isModifying"), "false") ) ;
+                Commons.select((String) annotation.getNamedParameter("isModifying"), "false")) ;
         spec.isSortable = Boolean.valueOf(
-                Commons.select( (String) annotation.getNamedParameter("isSortable"), "false") ) ;
+                Commons.select((String) annotation.getNamedParameter("isSortable"), "false")) ;
         spec.isTransactional = Boolean.valueOf(
                 Commons.select((String) annotation.getNamedParameter("isTransactional"), "false"));
         spec.isCollection = Boolean.valueOf(
@@ -266,9 +266,9 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
         spec.isPageable = Boolean.valueOf(
                 Commons.select((String) annotation.getNamedParameter("isPageable"), "false"));
 
-        Object parametersValue = Commons.select( annotation.getNamedParameter("parameters"),
-                new ArrayList<Annotation>() );
-        if ( parametersValue instanceof List ) {
+        Object parametersValue = Commons.select(annotation.getNamedParameter("parameters"),
+                new ArrayList<Annotation>());
+        if ( parametersValue instanceof List) {
             for ( Annotation parameterAnnotation : (List<Annotation>) parametersValue ) {
                 spec.parameters.add( createQuerySpecParam(parameterAnnotation) );
             }

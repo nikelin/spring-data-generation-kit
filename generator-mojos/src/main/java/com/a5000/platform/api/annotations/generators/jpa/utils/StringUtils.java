@@ -7,7 +7,7 @@ import java.util.List;
 
 @SuppressWarnings("restriction")
 public final class StringUtils {
-    public static List<String> camelCaseDelimiters = Arrays.asList( "_", "-" );
+    public static List<String> camelCaseDelimiters = Arrays.asList("_", "-");
 	private static final String RANDOM_STRING_SOURCE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 	public static String trim( String source ) {
