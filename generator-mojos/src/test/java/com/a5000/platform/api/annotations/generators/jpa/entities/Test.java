@@ -31,7 +31,9 @@ import java.util.List;
     @NativeQuery(
         name = "deleteWhereUserIdIs",
         isModifying = true,
+        resultType = void.class,
         isTransactional = true,
+        isCollection = false,
         value = "delete from Test where id = :id",
         parameters = {
             @Parameter( value = "id", type = Long.class )
@@ -41,6 +43,7 @@ import java.util.List;
         name = "deleteWhereUserIdIn",
         isModifying = true,
         isTransactional = true,
+        isCollection = false,
         resultType = void.class,
         value = "delete from Test where id in (:id)",
         parameters = {
@@ -49,6 +52,7 @@ import java.util.List;
     ),
     @NativeQuery(
         name = "countById",
+        isCollection = false,
         value = "select count(id) from Test where :id",
         resultType = Long.class,
         parameters = {
@@ -69,7 +73,7 @@ public class Test extends TestParent {
     @DtoInclude(AggregationType.ID)
     private Test relatedTestA;
 
-    @OneToMany( targetEntity = Test.class )
+    @OneToMany
     @DtoInclude(AggregationType.DTO)
     private List<Test> relatedTests;
 

@@ -1,6 +1,12 @@
 ## Spring Data Generation Kit
 -----
-Version: 1.1.2-SNAPSHOT
+Version: 1.1.3-SNAPSHOT
+
+1.1.3 changes
+
+- Versions plugin added
+- Added some unit tests to check the correctness of generated classes
+- Fixing issue #11 (if no type information provided as a value of targetEntity for JPA relation (one-to-many, many-to-many, etc., then the list generic value would be used )
 
 1.1.2 changes
 

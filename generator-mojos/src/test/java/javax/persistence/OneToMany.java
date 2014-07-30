@@ -5,6 +5,6 @@ package javax.persistence;
  */
 public @interface OneToMany {
 
-    public Class<?> targetEntity();
+    public Class<?> targetEntity() default void.class;
 
 }

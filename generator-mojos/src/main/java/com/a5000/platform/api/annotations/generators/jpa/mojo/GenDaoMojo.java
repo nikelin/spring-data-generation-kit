@@ -203,7 +203,7 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
                 processedParaNames.add( param.name );
             }
 
-            JVar methodParam = method.param( codeModel.ref( param.isArray ? param.type + "[]" : param.type),
+            JVar methodParam = method.param( param.isArray ? codeModel.ref( param.type).array() : codeModel.ref(param.type),
                     param.name );
             JAnnotationUse paramAnnotation = methodParam.annotate( codeModel.ref(PARAM_ANNOTATION_CLASS_NAME) );
             paramAnnotation.param("value", param.name );
