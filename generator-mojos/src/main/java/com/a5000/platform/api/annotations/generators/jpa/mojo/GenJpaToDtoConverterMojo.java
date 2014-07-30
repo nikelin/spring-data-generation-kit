@@ -176,7 +176,6 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                                     converterMethodParam.invoke(getterName = generateGetterName(field.getName()))
                             )
                     );
-                    break;
                 } else if ( "AggregationType.ENUM".equals(aggregationType) ) {
                     fieldName = field.getName();
                     getterName = generateGetterName(field.getName());
@@ -195,7 +194,6 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                             JOp.not(converterMethodParam.invoke(getterName).eq(JExpr._null())),
                             JExpr._new(codeModel.ref(ArrayList.class)).arg(converterMethodParam.invoke(getterName)),
                             JExpr._null());
-                    break;
                 } else {
                         fieldName = field.getName() + "Id";
 
@@ -215,8 +213,6 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                                 JExpr._null()
                             ) :
                             JExpr._this().invoke(CONVERT_TO_IDS_LIST_METHOD_NAME).arg( valueAccessInvocation );
-
-                        break;
                 }
             } else  {
                 resultType = codeModel.ref( field.getType().getFullyQualifiedName() );
