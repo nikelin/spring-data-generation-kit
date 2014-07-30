@@ -285,9 +285,13 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
                         prepareClassName(dtoPackage, className)
                     );
                 } else {
-                    realType = codeModel.ref(
-                        prepareClassName(dtoPackage, field.getType().getActualTypeArguments()[0].getFullyQualifiedName() )
-                    );
+                    if ( field.getType().getActualTypeArguments() != null
+                            && field.getType().getActualTypeArguments().length != 0
+                            && field.getType().getActualTypeArguments()[0] != null ) {
+                        realType = codeModel.ref(
+                                prepareClassName(dtoPackage, field.getType().getActualTypeArguments()[0].getFullyQualifiedName())
+                        );
+                    }
                 }
 
                 if ( isCollectionType( field.getType().getJavaClass() ) )  {
