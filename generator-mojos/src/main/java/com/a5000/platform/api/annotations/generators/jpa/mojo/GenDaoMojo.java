@@ -152,7 +152,7 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
                                        boolean appendPagerParam,
                                        boolean appendSortingParam ) {
         JClass returnType;
-        if ( entityClazz.isAbstract() ) {
+        if ( entityClazz.isAbstract() && daoClazz.typeParams().length != 0 ) {
             returnType = codeModel.ref( daoClazz.typeParams()[0].fullName() );
         } else {
             returnType = codeModel.ref( entityClazz.getFullyQualifiedName() );

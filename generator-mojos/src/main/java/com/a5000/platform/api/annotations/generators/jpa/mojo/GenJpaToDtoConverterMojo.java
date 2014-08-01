@@ -9,6 +9,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -28,8 +29,17 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
     private static final String CONVERSATION_METHOD_NOT_FOUND_EXCEPTION = "Conversion method not found: %s";
     private static final String LIST_CONVERTER_METHOD_NAME = "convertToDtoList";
     private static final String CONVERT_TO_IDS_LIST_METHOD_NAME = "convertToIdsList";
-    private static final String ISTORED_BEAN_CLASS_NAME = "com.a5000.platform.api.model.domain.api.IStoredBean";
-    private static final String A5_READONLY_TRANSACTIONAL_ANNOTATION_CLASS = "com.a5000.platform.api.services.A5TransactionalReadOnly";
+
+    @Parameter( property = "jpaEntityInterface", required = true )
+    protected String jpaEntityInterface = "com.a5000.platform.api.model.domain.api.IStoredBean";
+
+    @Parameter( property = "jpaEntityInterface", required = true,
+            defaultValue = "com.a5000.platform.api.model.domain.api.IStoredBean")
+    protected String transactionalAnnotation;
+
+    @Parameter( property = "transactionAnnotationOnConverterMethods",
+            required = true, defaultValue = "com.a5000.platform.api.services.A5TransactionalReadOnly")
+    protected boolean transactionAnnotationOnConverterMethods;
 
     private final AtomicBoolean initialized = new AtomicBoolean(false);
 
@@ -78,7 +88,7 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
         JMethod converterMethod = converterClazz.method(JMod.PRIVATE | JMod.STATIC,
                 codeModel.ref(List.class).narrow(Long.class),
                 CONVERT_TO_IDS_LIST_METHOD_NAME );
-        JClass entityTypeRef = codeModel.ref(ISTORED_BEAN_CLASS_NAME);
+        JClass entityTypeRef = codeModel.ref(jpaEntityInterface);
         JClass listTypeRef = codeModel.ref(List.class);
         JVar inputArg = converterMethod.param( listTypeRef.narrow( entityTypeRef.wildcard() ), "arg" );
         JBlock block = converterMethod.body();
@@ -286,7 +296,9 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
             LIST_CONVERTER_METHOD_NAME
         );
 
-        method.annotate(codeModel.ref(A5_READONLY_TRANSACTIONAL_ANNOTATION_CLASS));
+        if ( transactionAnnotationOnConverterMethods ) {
+            method.annotate(codeModel.ref(transactionalAnnotation));
+        }
 
         JTypeVar returnType = method.generify("T");
         JTypeVar methodParamType = method.generify("V");
