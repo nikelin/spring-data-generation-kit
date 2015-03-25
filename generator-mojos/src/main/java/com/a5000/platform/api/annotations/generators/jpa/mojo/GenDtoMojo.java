@@ -15,7 +15,7 @@ import java.util.*;
 /**
  * Created by cyril on 8/28/13.
  */
-@Mojo( name = "gen-dto", defaultPhase = LifecyclePhase.PROCESS_SOURCES, threadSafe = true)
+@Mojo( name = "gen-dto", defaultPhase = LifecyclePhase.PROCESS_SOURCES, threadSafe = false)
 public class GenDtoMojo extends AbstractGeneratorMojo {
 
     @Parameter( property = "dtoAnnotationClasses")
@@ -233,7 +233,7 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
             }
         }
 
-        _generateClassField( dtoClazz, JMod.PRIVATE,
+        _generateClassField( null, dtoClazz, JMod.PRIVATE,
                 new ArrayList<Annotation>(),
                 typeParameters.isEmpty() ? fieldTypeClass :
                         fieldTypeClass.narrow(typeParameters), null, fieldName );
@@ -367,11 +367,11 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
             fieldAnnotations.add( annotation );
         }
 
-        _generateClassField( dtoClazz, flags, fieldAnnotations, Commons.select(realType, fieldType), initializeExpression,
+        _generateClassField( field, dtoClazz, flags, fieldAnnotations, Commons.select(realType, fieldType), initializeExpression,
                 fieldName );
     }
 
-    private void _generateClassField( JDefinedClass dtoClazz, int flags,
+    private void _generateClassField( JavaField originalField, JDefinedClass dtoClazz, int flags,
                                       List<Annotation> annotations,
                                       JClass type, String initializeExpression,
                                       String fieldName ) throws MojoExecutionException {
@@ -398,7 +398,7 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
         }
 
         if ( (flags & JMod.STATIC) == 0 ) {
-            generateAccessors(dtoClazz, clazzField);
+            generateAccessors(originalField, dtoClazz, clazzField);
         } else if ( initializeExpression != null ) {
             clazzField.init( JExpr.direct(initializeExpression) );
         }

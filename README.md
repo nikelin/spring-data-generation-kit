@@ -1,6 +1,76 @@
 ## Spring Data Generation Kit
 -----
-Version: 1.1.4-SNAPSHOT
+Version: 1.1.5-SNAPSHOT
+
+1.1.5 changes
+
+- @DtoDefaultValue - new annotation to provide the user with an ability to define the default value for the field of a simple type
+ 
+ ```
+ class Person ... 
+ 
+    @DtoDefaultValue(value = "20", type = Integer.class)
+    Integer age;
+    
+    @DtoDefaultValue(value="Michael", type = String.class )
+    String firstName;
+    
+    @DtoDefaultValue(value="false", type = Boolean.class )
+    Boolean atHome;
+    
+    @DtoDefaultValue(value="false", type = Boolean.class )
+        Boolean atHome;
+    
+ ```
+
+- Ability to make queries cacheable 
+
+To achieve this you need to provide positive value for isCachable parameter of @NativeQuery or @ConventionalQuery annotation 
+like in this example:
+
+```
+@NativeQuery(
+    name = "doFindAllPersons",
+    value = "select x from Person x",
+    isCacheable = true
+)
+public class Person {
+
+    ....
+
+}
+```
+
+Its will results in next Spring Data code:
+```
+public interface IPersonDAO extends JpaRepository<Person, Long> {
+ 
+    @NativeQuery("select x from Person x")
+    @QueryHints( value = javax.persistence.QueryHint( name = "org.hibernate.cacheable", value = true ) )
+    public List<Person> doFindAllPersons();
+ 
+}
+```
+
+- Conversion service rewritten (to encapsulate particular type conversion) to avoid reflection usage
+- Converters profiling implemented 
+
+To turn on profiling on the converters side, you need to provide value for generator plugin @profilingEnabled property.
+```
+<plugin>
+    <groupId>com.a5000.platform.plugins.generation-kit</groupId>
+    <artifactId>generator-mojos</artifactId>
+    <version>${project.version}</version>
+    <configuration>
+        <!-- .... -->
+        <profilingEnabled>true</profilingEnabled>
+        <!-- .... -->
+    </configuration>
+</plugin>
+```
+
+When a positive value has been provided, the plugin will generates converters which when invoked will print time they spent on particular 
+transformation.
 
 1.1.4 changes
 

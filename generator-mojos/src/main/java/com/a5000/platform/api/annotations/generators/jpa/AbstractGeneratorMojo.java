@@ -39,6 +39,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
     public static final String DTO_EXTENDS_ANNOTATION_CLASS_NAME = "DtoExtend";
     public static final String DTO_METHOD_ANNOTATION_CLASS_NAME = "DtoMethod";
     private static final String MAPPED_SUPERCLASS_ANNOTATION_CLASS_NAME = "javax.persistence.MappedSuperclass";
+    private static final String DTO_DEFAULT_VALUE_ANNOTATION_CLASS_NAME = "com.a5000.platform.api.annotations.dto.DtoDefaultValue";
     private static final String INHERITANCE_ANNOTATION_CLASS_NAME = "javax.persistence.Inheritance";
     private static final String BOOLEAN_TYPE_NAME = "java.lang.Boolean";
     private static final String DOUBLE_TYPE_NAME = "java.lang.Double";
@@ -46,6 +47,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
     private static final String BYTE_TYPE_NAME = "java.lang.Byte";
     private static final String FLOAT_TYPE_NAME = "java.lang.Float";
     private static final String LONG_TYPE_NAME = "java.lang.Long";
+    private static final String STRING_TYPE_NAME = "java.lang.String";
 
     protected final JCodeModel codeModel;
     protected JavaDocBuilder classMetaBuilder;
@@ -146,7 +148,6 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
         return sources;
     }
 
-    @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         getLog().info( String.format(WELCOME_MESSAGE, generatorName) );
         getLog().info("Looking for classes matching '" + entityPattern + "' pattern in " + sourceRoot );
@@ -162,11 +163,15 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
             }
         }
 
+        onExecutionFinished();
+
         getLog().info( processed + " classes has been processed...");
 
         getLog().info( "Flushing code model contents..." );
         writeClasses();
     }
+
+    protected void onExecutionFinished() {}
 
     protected void writeClasses() throws MojoExecutionException {
         File outputDirectory = new File(outputPath);
@@ -489,9 +494,9 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
         return result;
     }
 
-    protected void generateAccessors(JDefinedClass clazz, JFieldVar clazzField) {
+    protected void generateAccessors(JavaField originalField, JDefinedClass clazz, JFieldVar clazzField) {
         generateSetter( clazz, clazzField);
-        generateGetter( clazz, clazzField);
+        generateGetter( originalField, clazz, clazzField);
     }
 
     protected String generateSetterName( String fieldName ) {
@@ -509,7 +514,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
         return "get" + StringUtils.ucfirst(name);
     }
 
-    protected void generateGetter( JDefinedClass clazz, JFieldVar clazzField ) {
+    protected void generateGetter( JavaField originalField, JDefinedClass clazz, JFieldVar clazzField ) {
         JMethod getterMethod = clazz.method(JMod.PUBLIC, clazzField.type(),
                generateGetterName(clazzField.name()) );
 
@@ -520,21 +525,49 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
 
             String typeName = clazzField.type().fullName();
 
-            JExpression lit;
-            if (typeName.equals(BOOLEAN_TYPE_NAME) ) {
-                lit = JExpr.lit(false);
-            } else if ( typeName.equals(INTEGER_TYPE_NAME) ) {
-                lit = JExpr.lit(0);
-            } else if ( typeName.equals(BYTE_TYPE_NAME) ) {
-                lit = JExpr.lit((byte) 0);
-            } else if ( typeName.equals(FLOAT_TYPE_NAME) ) {
-                lit = JExpr.lit(0.0f);
-            } else if ( typeName.equals(DOUBLE_TYPE_NAME) ) {
-                lit = JExpr.lit(0.0d);
-            } else if ( typeName.equals(LONG_TYPE_NAME) ) {
-                lit = JExpr.lit(0L);
-            } else {
-                lit = JExpr._null();
+            JExpression lit = null;
+            if ( originalField != null && hasAnnotation(originalField, DTO_DEFAULT_VALUE_ANNOTATION_CLASS_NAME) ) {
+                for ( Annotation annotation : originalField.getAnnotations() ) {
+                    if ( !isA(annotation.getType().getJavaClass(), DTO_DEFAULT_VALUE_ANNOTATION_CLASS_NAME) ) {
+                        continue;
+                    }
+
+                    String defaultValue = normalizeAnnotationValue( (String) annotation.getNamedParameter("value") );
+                    String type = normalizeAnnotationValue(
+                            (String) annotation.getNamedParameter("type") ).replace(".class", "");
+
+                    if ( type.equals(INTEGER_TYPE_NAME) ) {
+                        lit = JExpr.lit(Integer.parseInt(defaultValue));
+                    } else if ( type.equals(DOUBLE_TYPE_NAME) ) {
+                        lit = JExpr.lit(Double.parseDouble(defaultValue));
+                    } else if ( type.equals(FLOAT_TYPE_NAME) ) {
+                        lit = JExpr.lit(Float.parseFloat(defaultValue));
+                    } else if ( type.equals(BOOLEAN_TYPE_NAME) ) {
+                        lit = JExpr.lit(Boolean.parseBoolean(defaultValue));
+                    } else if ( type.equals(LONG_TYPE_NAME) ) {
+                        lit = JExpr.lit(Long.parseLong(defaultValue));
+                    } else if ( type.equals(BYTE_TYPE_NAME) ) {
+                        lit = JExpr.lit(Byte.parseByte(defaultValue));
+                    }
+                }
+            }
+
+            if ( lit == null ) {
+                if (typeName.equals(BOOLEAN_TYPE_NAME)) {
+                    lit = JExpr.lit(false);
+                } else if (typeName.equals(INTEGER_TYPE_NAME)) {
+                    lit = JExpr.lit(0);
+                } else if (typeName.equals(BYTE_TYPE_NAME)) {
+                    lit = JExpr.lit((byte) 0);
+                } else if (typeName.equals(FLOAT_TYPE_NAME)) {
+                    lit = JExpr.lit(0.0f);
+                } else if (typeName.equals(DOUBLE_TYPE_NAME)) {
+                    lit = JExpr.lit(0.0d);
+                } else if (typeName.equals(LONG_TYPE_NAME)) {
+                    lit = JExpr.lit(0L);
+                } else {
+                    lit = JExpr._null();
+                }
             }
 
             nullHandler._then()._return( lit );
