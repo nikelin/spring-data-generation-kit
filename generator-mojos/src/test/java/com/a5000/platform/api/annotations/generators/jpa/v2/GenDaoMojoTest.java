@@ -266,7 +266,7 @@ public class GenDaoMojoTest extends AbstractMojoTestCase {
 
     public interface Matcher<T> {
 
-        public MatchResult match( T object );
+        public MatchResult match(T object);
 
     }
 

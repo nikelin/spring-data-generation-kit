@@ -15,12 +15,16 @@ import java.util.*;
 /**
  * Created by cyril on 8/28/13.
  */
-@Mojo( name = "gen-dao", defaultPhase = LifecyclePhase.PROCESS_SOURCES, threadSafe = true )
+@Mojo( name = "gen-dao", defaultPhase = LifecyclePhase.PROCESS_SOURCES, threadSafe = false )
 public class GenDaoMojo extends AbstractGeneratorMojo {
 
     public static final String JPA_REPOSITORY_CLASS_NAME
             =  "org.springframework.data.jpa.repository.JpaRepository";
 
+    public static final String QUERY_HINT_ANNOTATION_CLASS_NAME
+            = "javax.persistence.QueryHint";
+    public static final String QUERY_HINTS_ANNOTATION_CLASS_NAME
+            = "org.springframework.data.jpa.repository.QueryHints";
     public static final String JPA_REPOSITORY_ANNOTATION_CLASS_NAME
             = "org.springframework.stereotype.Repository";
     public static final String PARAM_ANNOTATION_CLASS_NAME
@@ -152,7 +156,7 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
                                        boolean appendPagerParam,
                                        boolean appendSortingParam ) {
         JClass returnType;
-        if ( entityClazz.isAbstract() ) {
+        if ( entityClazz.isAbstract() && daoClazz.typeParams().length != 0 ) {
             returnType = codeModel.ref( daoClazz.typeParams()[0].fullName() );
         } else {
             returnType = codeModel.ref( entityClazz.getFullyQualifiedName() );
@@ -189,6 +193,17 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
 
         if ( spec.isTransactional ) {
             method.annotate( codeModel.ref(TRANSACTIONAL_ANNOTATION_CLASS_NAME) );
+        }
+
+        if ( spec.isCacheable ) {
+            JAnnotationUse hintsAnnotation = method.annotate(
+                    codeModel.ref(QUERY_HINTS_ANNOTATION_CLASS_NAME)
+            );
+
+            hintsAnnotation.paramArray("value")
+                    .annotate( codeModel.ref(QUERY_HINT_ANNOTATION_CLASS_NAME) )
+                    .param("name", "org.hibernate.cacheable")
+                    .param("value", "true");
         }
 
         Set<String> processedParaNames = new HashSet<String>();
@@ -241,7 +256,7 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
     protected QuerySpec createQuerySpec( Annotation annotation ) {
         QuerySpec spec = new QuerySpec();
         spec.name = normalizeAnnotationValue(
-                Commons.select((String) annotation.getNamedParameter("name"), "") );
+                Commons.select((String) annotation.getNamedParameter("name"), ""));
         spec.isNative = isNativeQuery(annotation);
         spec.resultType = normalizeAnnotationValue(
                 Commons.select((String) annotation.getNamedParameter("resultType"), "") )
@@ -257,6 +272,8 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
 
         spec.isModifying = Boolean.valueOf(
                 Commons.select((String) annotation.getNamedParameter("isModifying"), "false")) ;
+        spec.isCacheable = Boolean.valueOf(
+                Commons.select((String) annotation.getNamedParameter("isCacheable"), "false")) ;
         spec.isSortable = Boolean.valueOf(
                 Commons.select((String) annotation.getNamedParameter("isSortable"), "false")) ;
         spec.isTransactional = Boolean.valueOf(
@@ -328,6 +345,7 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
     public class QuerySpec {
         boolean isCollection;
         boolean isNative;
+        boolean isCacheable;
         boolean isPageable;
         boolean isTransactional;
         boolean isSortable;

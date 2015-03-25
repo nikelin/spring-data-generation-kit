@@ -55,6 +55,7 @@ public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo 
     }
 
     protected String normalizeAnnotationValue( String value ) {
+        value = StringUtils.trim(value, " ");
         value = StringUtils.trim(value, "\"");
         value = StringUtils.trim(value, "/");
         value = StringUtils.trim(value, "\\");

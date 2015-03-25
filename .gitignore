@@ -1,12 +1,8 @@
 .idea/
 .settings/
 .classpath
-gwt-unitCache/
 *.project
 *.time
-*.ser
-static/app
-Application/
 pom.properties
 *tmp
 build
@@ -20,9 +16,7 @@ interpolated-pom.xml
 *.ipr
 *.iws
 *.iml
-apidocs/
 assemblies/
 build/
-*/maven-archiver/
-/web/api/src/main/webapp/WEB-INF/spring/config/config.xml
-/web/api/src/main/webapp/WEB-INF/spring/env.properties
+maven-archiver/
+maven-status/
