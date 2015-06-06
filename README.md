@@ -58,7 +58,7 @@ public interface IPersonDAO extends JpaRepository<Person, Long> {
 To turn on profiling on the converters side, you need to provide value for generator plugin @profilingEnabled property.
 ```
 <plugin>
-    <groupId>com.a5000.platform.plugins.generation-kit</groupId>
+    <groupId>com.a5000.platform.opensource.generation-kit</groupId>
     <artifactId>generator-mojos</artifactId>
     <version>${project.version}</version>
     <configuration>
@@ -161,7 +161,7 @@ the DTOs and the repositories for your domain objects.
 Example maven configuration:
 ```
             <plugin>
-                <groupId>com.a5000.platform.utils.generation-kit</groupId>
+                <groupId>com.a5000.platform.opensource.generation-kit</groupId>
                 <artifactId>generator-mojos</artifactId>
                 <configuration>
                     <sourceRoot>${project.build.sourceDirectory}</sourceRoot>
