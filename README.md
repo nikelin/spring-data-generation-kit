@@ -1,6 +1,24 @@
 ## Spring Data Generation Kit
 -----
-Version: 1.1.5-SNAPSHOT
+Version: 1.1.6-SNAPSHOT
+
+1.1.6 changes
+
+```
+- Ability to resolve DTO objects by an expression of parameter in @DtoExtend section (@see issue #13)
+
+@DtoExtend({
+    @Parameter( value = "company", type = CompanyDTO.class, expression = "participant.company" ),
+})
+class User ... {
+
+    @ManyToOne
+    @JoinColumn("idParticipant")
+    @DtoInclude(AggregationType.ID)
+    private CompanyParticipant participant;
+
+}
+```
 
 1.1.5 changes
 

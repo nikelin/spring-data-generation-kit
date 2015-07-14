@@ -278,7 +278,7 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                             JExpr._this().invoke(CONVERT_TO_IDS_LIST_METHOD_NAME).arg( valueAccessInvocation );
                 }
             } else  {
-                resultType = codeModel.ref( field.getType().getFullyQualifiedName() );
+                resultType = codeModel.ref( field.getType().getFullyQualifiedName().replace(".class", ""));
 
                 fieldName = field.getName();
                 if ( !collectedField.isSynthetic ) {
@@ -329,16 +329,18 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                         }
                     }
 
-                    /**
-                     * Add NPE check for multi-level getters
-                     *
-                     * getTranslation().getLanguage().getId() -> !(getTranslation() == null) and !(getTranslation().getLanguage() == null)
-                     */
-                    valueExpr = JOp.cond( npeCheckExpr,
+                    valueExpr = JExpr.cast(
+                        resultType,
+                        JOp.cond(
+                            npeCheckExpr,
                             isConvertibleCollection ?
                                     JExpr._this().invoke(CONVERTER_METHOD_NAME).arg(valueExpr)
-                                    : valueExpr,
-                            JExpr._null() );
+                                    : (collectedField.isConvertible ?
+                                    JExpr._this().invoke(CONVERTER_METHOD_NAME).arg(valueExpr)
+                                    : valueExpr),
+                            JExpr._null()
+                        )
+                    );
 
                     getterName = null;
                 }
@@ -593,42 +595,10 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                 Object value = annotation.getNamedParameter("value");
                 if ( value instanceof List ) {
                     for ( Annotation paramAnnotation : (List<Annotation>) value ) {
-                        JavaField field = new JavaField(
-                            classMetaBuilder.getClassByName(
-                                normalizeAnnotationValue( (String) paramAnnotation.getNamedParameter("type") )
-                                    .replace(".class", "")
-                            ).asType(),
-                            normalizeAnnotationValue( (String) paramAnnotation.getNamedParameter("value") )
-                        );
-
-                        field.setParentClass(javaClass);
-
-                        result.add(
-                            new CollectedJavaField(true, true,
-                                    paramAnnotation.getNamedParameter("isArray") == null ? false :
-                                            paramAnnotation.getNamedParameter("isArray").equals("true"),
-                                    paramAnnotation, field)
-                        );
+                        result.add( collectSyntheticField(javaClass, paramAnnotation) );
                     }
                 } else {
-                    JavaField field = new JavaField(
-                        classMetaBuilder.getClassByName(
-                                normalizeAnnotationValue(
-                                        (String) ( (Annotation) value).getNamedParameter("type")
-                                )
-                        ).asType(),
-                        normalizeAnnotationValue(
-                                (String) ( (Annotation) value ).getNamedParameter("value")
-                        )
-                    );
-
-                    field.setParentClass(javaClass);
-
-                    result.add(
-                        new CollectedJavaField(true, true,
-                                ( (Annotation) value).getNamedParameter("isArray") == null ? false :
-                                    ( (Annotation) value).getNamedParameter("isArray").equals("true"), (Annotation) value, field)
-                    );
+                    result.add(collectSyntheticField(javaClass, value));
                 }
             }
 
@@ -636,6 +606,26 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
         }
 
         return result;
+    }
+
+    protected CollectedJavaField collectSyntheticField(JavaClass javaClass, Object value) {
+        JavaField field = new JavaField(
+                classMetaBuilder.getClassByName(
+                        normalizeAnnotationValue(
+                                (String) ( (Annotation) value).getNamedParameter("type")
+                        )
+                ).asType(),
+                normalizeAnnotationValue(
+                        (String) ( (Annotation) value ).getNamedParameter("value")
+                )
+        );
+
+        field.setParentClass(javaClass);
+
+        return new CollectedJavaField(true, true,
+                ((Annotation) value).getNamedParameter("isArray") != null
+                        && ((Annotation) value).getNamedParameter("isArray").equals("true"),
+                (Annotation) value, field);
     }
 
     class CollectedJavaField {
