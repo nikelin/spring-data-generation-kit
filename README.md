@@ -1,6 +1,12 @@
 ## Spring Data Generation Kit
 -----
-Version: 1.1.6-SNAPSHOT
+Version: 1.1.6_1-SNAPSHOT
+
+1.1.6_1 changes
+
+```
+- Fixed the problem with an enumeration as a type for the synthetic field
+```
 
 1.1.6 changes
 

@@ -55,6 +55,10 @@ public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo 
     }
 
     protected String normalizeAnnotationValue( String value ) {
+        if ( value == null ) {
+            return null;
+        }
+
         value = StringUtils.trim(value, " ");
         value = StringUtils.trim(value, "\"");
         value = StringUtils.trim(value, "/");
@@ -73,8 +77,10 @@ public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo 
     protected JavaDocBuilder createJavaDocBuilder() throws MojoExecutionException {
         try {
             JavaDocBuilder builder = new JavaDocBuilder();
+            builder.addSourceTree(new File("target/classes"));
             builder.getClassLibrary().addClassLoader( getProjectClassLoader() );
             for ( String sourceRoot : project.getCompileSourceRoots() ) {
+                getLog().info("Sources root = " + sourceRoot );
                 builder.addSourceTree( new File( sourceRoot ) );
             }
             return builder;

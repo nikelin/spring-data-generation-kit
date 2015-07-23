@@ -21,14 +21,14 @@ public @interface Parameter {
      *
      * @return
      */
-    public String value() default "";
+    String value() default "";
 
     /**
      * Type of requested parameter referenced by {@link Parameter#value()}
      *
      * @return {@link Class}
      */
-    public Class<?> type();
+    Class<?> type();
 
     /**
      * Needs because of problem in Thoughtworks QDox annotation parser which ignore "[]" in annotation
@@ -39,9 +39,12 @@ public @interface Parameter {
      *
      * @return
      */
-    public boolean isArray() default false;
+    boolean isArray() default false;
 
-    public String expression() default "";
+    boolean isEnum() default false;
+
+    String expression() default "";
 
     Class<?>[] typeParameters() default {};
+
 }
