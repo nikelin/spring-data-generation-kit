@@ -52,14 +52,8 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
     protected final JCodeModel codeModel;
     protected JavaDocBuilder classMetaBuilder;
 
-    @Parameter( property = "outputPath", required = true, defaultValue = "target/")
-    protected String outputPath = "target/";
-
     @Parameter( property = "entityPattern", required = true )
     protected String entityPattern = "";
-
-    @Parameter( property = "sourceRoot", defaultValue = "src/main/java" )
-    protected String sourceRoot = "src/main/java";
 
     @Parameter( property = "basePackage", required = true)
     protected String basePackage;

@@ -22,6 +22,12 @@ public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo 
     @Parameter( property = "project" )
     protected MavenProject project;
 
+    @Parameter( property = "outputPath", required = true, defaultValue = "target/")
+    protected String outputPath = "target/";
+
+    @Parameter( property = "sourceRoot" )
+    protected String sourceRoot;
+
     public void setProject(MavenProject project) {
         this.project = project;
     }
@@ -77,6 +83,7 @@ public abstract class AbstractMojo extends org.apache.maven.plugin.AbstractMojo 
     protected JavaDocBuilder createJavaDocBuilder() throws MojoExecutionException {
         try {
             JavaDocBuilder builder = new JavaDocBuilder();
+            builder.addSourceTree(new File(sourceRoot));
             builder.addSourceTree(new File("target/classes"));
             builder.getClassLibrary().addClassLoader( getProjectClassLoader() );
             for ( String sourceRoot : project.getCompileSourceRoots() ) {
