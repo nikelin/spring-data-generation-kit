@@ -2,10 +2,7 @@ package com.a5000.platform.api.annotations.generators.jpa.mojo;
 
 import com.a5000.platform.api.annotations.generators.jpa.AbstractGeneratorMojo;
 import com.sun.codemodel.*;
-import com.thoughtworks.qdox.model.Annotation;
-import com.thoughtworks.qdox.model.JavaClass;
-import com.thoughtworks.qdox.model.JavaField;
-import com.thoughtworks.qdox.model.Type;
+import com.thoughtworks.qdox.model.*;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -16,7 +13,19 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * Created by cyril on 8/28/13.
+ * Copyright 2016 Cyril A. Karpenko <self@nikelin.ru>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 @Mojo( name = "gen-jpa-converter", defaultPhase = LifecyclePhase.PROCESS_SOURCES, threadSafe = false)
 public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
@@ -195,8 +204,8 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
             JClass resultType;
             if ( collectedField.isConvertible && !collectedField.isSynthetic ) {
                 String aggregationType = "AggregationType.ID";
-                for ( Annotation annotation : collectedField.annotations ) {
-                    if ( !isA(annotation.getType().getJavaClass(), DTO_INCLUDE_ANNOTATION_CLASS_NAME ) ) {
+                for ( JavaAnnotation annotation : collectedField.annotations ) {
+                    if ( !isA(annotation.getType(), DTO_INCLUDE_ANNOTATION_CLASS_NAME ) ) {
                         continue;
                     }
 
@@ -208,10 +217,10 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                 boolean isList = false;
                 if ("AggregationType.DTO".equals(aggregationType)) {
                         fieldName = collectedField.name;
-                        if (isCollectionType(collectedField.type.getJavaClass())) {
-                            if (isListType(collectedField.type.getJavaClass())) {
+                        if (isCollectionType(collectedField.type)) {
+                            if (isListType(collectedField.type)) {
                                 resultType = codeModel.ref(List.class);
-                            } else if (isSetType(collectedField.type.getJavaClass())) {
+                            } else if (isSetType(collectedField.type)) {
                                 resultType = codeModel.ref(Set.class);
                             } else {
                                 resultType = codeModel.ref(Collection.class);
@@ -220,7 +229,9 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                             resultType = resultType.narrow(
                                     codeModel.ref(
                                         prepareClassName(dtoPackage,
-                                            collectedField.type.getActualTypeArguments()[0].getFullyQualifiedName(),
+                                                // check
+                                            ((JavaParameterizedType)collectedField.type).getActualTypeArguments()
+                                                    .get(0).getFullyQualifiedName(),
                                             DTO_GENERATOR_PREFIX, DTO_GENERATOR_SUFFIX, DTO_GENERATOR_POSTFIX)
                                     )
                             );
@@ -240,10 +251,10 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                 } else if ( "AggregationType.ENUM".equals(aggregationType)) {
                         fieldName = collectedField.name;
                         getterName = generateGetterName(collectedField.name);
-                        if (isCollectionType(collectedField.type.getJavaClass())) {
-                            if (isListType(collectedField.type.getJavaClass())) {
+                        if (isCollectionType(collectedField.type)) {
+                            if (isListType(collectedField.type)) {
                                 resultType = codeModel.ref(List.class);
-                            } else if (isSetType(collectedField.type.getJavaClass())) {
+                            } else if (isSetType(collectedField.type)) {
                                 resultType = codeModel.ref(Set.class);
                             } else {
                                 resultType = codeModel.ref(Collection.class);
@@ -258,7 +269,8 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                 } else {
                     fieldName = collectedField.name + "Id";
 
-                    if (collectedField.type.getJavaClass().isA(List.class.getCanonicalName()) ) {
+                    if (classMetaBuilder.getClassByName(collectedField.type.getFullyQualifiedName())
+                            .isA(List.class.getCanonicalName()) ) {
                         resultType = codeModel.ref(List.class).narrow(Long.class);
                         isList = true;
                     } else {
@@ -282,7 +294,7 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                 if ( !collectedField.isSynthetic ) {
                     valueExpr = converterMethodParam.invoke( getterName = generateGetterName(fieldName) );
                 } else {
-                    Annotation syntheticFieldAnnotation = collectedField.annotation;
+                    JavaAnnotation syntheticFieldAnnotation = collectedField.annotation;
 
                     boolean isConvertibleCollection = false;
                     if ( syntheticFieldAnnotation != null ) {
@@ -354,22 +366,22 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
 
             JInvocation setterInvocation = dtoInstance.invoke( setterName );
             if ( collectedField.isConvertible ) {
-                getLog().info("Generation value setter for convertible field " + collectedField.name + " of type " + collectedField.type.getJavaClass().getName()
-                        + " = isEnum(" + collectedField.type.getJavaClass().isEnum() + ") = annotations (" + Arrays.toString(collectedField.type.getJavaClass().getAnnotations())
+                getLog().info("Generation value setter for convertible field " + collectedField.name + " of type " + collectedField.type.getCanonicalName()
+                        + " = isEnum(" + collectedField.type.isEnum() + ") = annotations (" + collectedField.type.getAnnotations()
                         + ") = synthetic(" + collectedField.isSynthetic + ") " +
                         " = convertible( " + collectedField.isConvertible + ") = isArray(" + collectedField.isArray + ")" +
-                        " = parent ( " + collectedField.type.getJavaClassParent() + ")");
+                        " = parent ( " + collectedField.type.getFullyQualifiedName() + ")");
                 JVar convertedValueVar = block.decl( resultType, fieldName + "Converted" )
                         .init( valueExpr );
 
                 block._if( JOp.not( convertedValueVar.eq(JExpr._null()) ) )
                         ._then().add( setterInvocation.arg(convertedValueVar) );
             } else {
-                getLog().info("Generation value setter for non-convertible field " + collectedField.name + " of type " + collectedField.type.getJavaClass().getName()
-                        + " = isEnum(" + collectedField.type.getJavaClass().isEnum() + ") = annotations (" + Arrays.toString(collectedField.type.getJavaClass().getAnnotations())
+                getLog().info("Generation value setter for non-convertible field " + collectedField.name + " of type " + collectedField.type.getCanonicalName()
+                        + " = isEnum(" + collectedField.type.isEnum() + ") = annotations (" + collectedField.type.getAnnotations()
                         + ") = synthetic(" + collectedField.isSynthetic + ") " +
                         " = convertible( " + collectedField.isConvertible + ") = isArray(" + collectedField.isArray + ")" +
-                        " = parent ( " + collectedField.type.getJavaClassParent() + ")");
+                        " = parent ( " + collectedField.type.getSuperClass().getFullyQualifiedName() + ")");
                 block.add( setterInvocation.arg( valueExpr ) );
             }
         }
@@ -557,13 +569,14 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
                 continue;
             }
 
-            boolean isConvertible = isConvertibleField(field.getType().getJavaClass());
-            if ( !isConvertible && !isSimpleType(field.getType().getJavaClass()) ) {
+            boolean isConvertible = isConvertibleField(field.getType());
+            if ( !isConvertible && !isSimpleType(field.getType()) ) {
                 continue;
             }
 
             result.add( new CollectedJavaField(null, field.getType(), field.getName(), field.getType().isArray(),
-                    isConvertible, false, field.getAnnotations()) );
+                    isConvertible, false,
+                    field.getAnnotations().toArray(new JavaAnnotation[field.getAnnotations().size()])) );
         }
 
         result.addAll( collectSyntheticFields(javaClass) );
@@ -576,15 +589,15 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
 
         JavaClass parent = javaClass;
         while ( parent != null ) {
-            for ( Annotation annotation : parent.getAnnotations() ) {
-                if ( !isA(annotation.getType().getJavaClass(),
+            for ( JavaAnnotation annotation : parent.getAnnotations() ) {
+                if ( !isA(annotation.getType(),
                         DTO_EXTENDS_ANNOTATION_CLASS_NAME) ) {
                     continue;
                 }
 
                 Object value = annotation.getNamedParameter("value");
                 if ( value instanceof List ) {
-                    for ( Annotation paramAnnotation : (List<Annotation>) value ) {
+                    for ( JavaAnnotation paramAnnotation : (List<JavaAnnotation>) value ) {
                         result.add( collectSyntheticField(javaClass, paramAnnotation) );
                     }
                 } else {
@@ -601,23 +614,23 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
     protected CollectedJavaField collectSyntheticField(JavaClass javaClass, Object value) {
         JavaClass fieldType = classMetaBuilder.getClassByName(
             normalizeAnnotationValue(
-                (String) ( (Annotation) value).getNamedParameter("type")
+                (String) ((JavaAnnotation) value).getNamedParameter("type")
             )
         );
         String fieldName = normalizeAnnotationValue(
-            (String) ( (Annotation) value ).getNamedParameter("value")
+            (String) ((JavaAnnotation) value).getNamedParameter("value")
         );
         boolean isEnum = Boolean.valueOf(normalizeAnnotationValue(
-                (String) ((Annotation) value).getNamedParameter("isEnum")
+                (String) ((JavaAnnotation) value).getNamedParameter("isEnum")
         ));
 
-        return new CollectedJavaField((Annotation)value,
-            fieldType.asType(), fieldName,
-            ((Annotation) value).getNamedParameter("isArray") != null
-                    && ((Annotation) value).getNamedParameter("isArray").equals("true"),
+        return new CollectedJavaField((JavaAnnotation)value,
+            fieldType, fieldName,
+            ((JavaAnnotation) value).getNamedParameter("isArray") != null
+                    && ((JavaAnnotation) value).getNamedParameter("isArray").equals("true"),
             !isEnum && isConvertibleField(fieldType),
             true,
-            new Annotation[] {});
+            new JavaAnnotation[] {});
     }
 
     class CollectedJavaField {
@@ -625,12 +638,16 @@ public class GenJpaToDtoConverterMojo extends AbstractGeneratorMojo {
         final boolean isConvertible;
         final boolean isArray;
         final String name;
-        final Type type;
-        final Annotation annotation;
-        final Annotation[] annotations;
+        final JavaClass type;
+        final JavaAnnotation annotation;
+        final JavaAnnotation[] annotations;
 
-        public CollectedJavaField(Annotation annotation, Type type, String name, boolean isArray, boolean isConvertible, boolean isSynthetic,
-                                  Annotation[] annotations) {
+        public CollectedJavaField(JavaAnnotation annotation,
+                                  JavaClass type, String name,
+                                  boolean isArray,
+                                  boolean isConvertible,
+                                  boolean isSynthetic,
+                                  JavaAnnotation[] annotations) {
             this.annotation = annotation;
             this.type = type;
             this.name = name;

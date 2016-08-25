@@ -6,13 +6,41 @@
     </option>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86caa5b0-c43b-487d-a1ab-df36788cc359" name="Default" comment="- Version: 1.1.6: Ability to resolve DTO objects by an expression of parameter in @DtoExtend section">
-      <change type="DELETED" beforePath="C:\projects\spring-data-generation-kit\.idea\workspace.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenJpaToDtoConverterMojo.java" afterPath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenJpaToDtoConverterMojo.java" />
+    <list default="true" id="86caa5b0-c43b-487d-a1ab-df36788cc359" name="Default" comment="- Migration to QDox 2.0.0-M4&#10;- Fix for a fields with a full-qualified type name (https://github.com/paul-hammant/qdox/issues/6)&#10;- Source/target Java version updated to 1.8&#10;- LICENSE updated">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/LICENSE" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/pom.xml" afterPath="$PROJECT_DIR$/generator-annotations/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/AggregationType.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/AggregationType.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoExclude.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoExclude.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoExtend.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoExtend.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoInclude.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoInclude.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoMethod.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoMethod.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoTransient.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoTransient.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/SkipDao.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/SkipDao.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/ConventionalQueries.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/ConventionalQueries.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/ConventionalQuery.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/ConventionalQuery.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/NativeQuery.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/NativeQuery.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/Parameter.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/Parameter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageRequest.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageRequest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageResponse.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageResponse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageSize.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageSize.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/SortDirection.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/SortDirection.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/Sorting.java" afterPath="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/Sorting.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/pom.xml" afterPath="$PROJECT_DIR$/generator-mojos/pom.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractGeneratorMojo.java" afterPath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractGeneratorMojo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractMojo.java" afterPath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractMojo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/ClasspathBuilder.java" afterPath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/ClasspathBuilder.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/ClasspathBuilderException.java" afterPath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/ClasspathBuilderException.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDaoMojo.java" afterPath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDaoMojo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoMojo.java" afterPath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoMojo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoToJpaConverterMojo.java" afterPath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoToJpaConverterMojo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenJpaToDtoConverterMojo.java" afterPath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenJpaToDtoConverterMojo.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/utils/Commons.java" afterPath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/utils/Commons.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/utils/StringUtils.java" afterPath="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/utils/StringUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/entities/Test.java" afterPath="$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/entities/Test.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/v2/GenDaoMojoTest.java" afterPath="$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/v2/GenDaoMojoTest.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
     </list>
     <ignored path="generation-kit.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,7 +55,6 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
@@ -76,104 +103,82 @@
     <favorites_list name="generation-kit" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="GenDtoMojo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoMojo.java">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="PageRequest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageRequest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="282" column="0" selection-start-line="282" selection-start-column="0" selection-end-line="282" selection-end-column="0" />
+            <state relative-caret-position="272">
+              <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenJpaToDtoConverterMojo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenJpaToDtoConverterMojo.java">
+      <file leaf-file-name="PageResponse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageResponse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-8.793103">
-              <caret line="341" column="25" selection-start-line="341" selection-start-column="25" selection-end-line="341" selection-end-column="25" />
+            <state relative-caret-position="306">
+              <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AbstractMojo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractMojo.java">
+      <file leaf-file-name="PageSize.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageSize.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="56" column="21" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
+            <state relative-caret-position="272">
+              <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GenDaoMojo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDaoMojo.java">
+      <file leaf-file-name="SortDirection.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/SortDirection.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="85" column="39" selection-start-line="85" selection-start-column="39" selection-end-line="85" selection-end-column="39" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#2597#2613#0" expanded="false" />
-                <element signature="e#5837#5848#0" expanded="false" />
-                <element signature="e#8878#8886#0" expanded="false" />
-                <element signature="e#10154#10165#0" expanded="false" />
-                <element signature="e#15150#15166#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AbstractGeneratorMojo.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractGeneratorMojo.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#8715#8723#0" expanded="false" />
-                <element signature="e#15851#15859#0" expanded="false" />
-                <element signature="e#18780#18791#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pom.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2361111">
-              <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+            <state relative-caret-position="272">
+              <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator-mojos/pom.xml">
+      <file leaf-file-name="Sorting.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/Sorting.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+            <state relative-caret-position="272">
+              <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+      <file leaf-file-name="GeneratorAnnotations.gwt.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/GeneratorAnnotations.gwt.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.8888888">
-              <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+            <state relative-caret-position="0">
+              <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pom.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generator-annotations/pom.xml">
+      <file leaf-file-name="PagingAnnotations.gwt.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/PagingAnnotations.gwt.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -181,12 +186,19 @@
       </file>
       <file leaf-file-name="README.md" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
-          <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.732143">
-              <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+            <state relative-caret-position="119">
+              <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="10" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LICENSE" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/LICENSE">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="204">
+              <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -201,6 +213,11 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
   </component>
   <component name="GradleLocalSettings">
     <option name="externalProjectsViewState">
@@ -210,19 +227,48 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/entities/Test.java" />
+        <option value="$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/v2/GenDaoMojoTest.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/generator-mojos/pom.xml" />
         <option value="$PROJECT_DIR$/generator-annotations/pom.xml" />
+        <option value="$PROJECT_DIR$/LICENSE" />
         <option value="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractGeneratorMojo.java" />
-        <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractMojo.java" />
+        <option value="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/ClasspathBuilder.java" />
+        <option value="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/ClasspathBuilderException.java" />
+        <option value="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/utils/Commons.java" />
+        <option value="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/utils/StringUtils.java" />
+        <option value="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDaoMojo.java" />
+        <option value="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoMojo.java" />
+        <option value="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoToJpaConverterMojo.java" />
         <option value="$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenJpaToDtoConverterMojo.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/AggregationType.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoExclude.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoExtend.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoInclude.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoMethod.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoTransient.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/SkipDao.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/ConventionalQueries.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/ConventionalQuery.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/NativeQuery.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/Parameter.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageRequest.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageResponse.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageSize.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/SortDirection.java" />
+        <option value="$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/Sorting.java" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" />
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -236,14 +282,19 @@
       </MavenImportingSettings>
     </option>
   </component>
-  <component name="NamedScopeManager">
-    <order />
+  <component name="MavenProjectNavigator">
+    <treeState>
+      <PATH>
+        <PATH_ELEMENT>
+          <option name="myItemId" value="" />
+          <option name="myItemType" value="org.jetbrains.idea.maven.navigator.MavenProjectsStructure$RootNode" />
+        </PATH_ELEMENT>
+      </PATH>
+    </treeState>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -271,8 +322,12 @@
       <autoscrollToSource />
       <autoscrollFromSource />
       <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -283,38 +338,12 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
             <PATH_ELEMENT>
               <option name="myItemId" value="spring-data-generation-kit" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring-data-generation-kit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring-data-generation-kit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring-data-generation-kit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="spring-data-generation-kit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="generator-mojos" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -328,10 +357,9 @@
     <property name="MemberChooser.sorted" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="restartRequiresConfirmation" value="true" />
     <property name="options.lastSelected" value="MavenSettings" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -354,12 +382,16 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="960" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
-    <property name="FullScreen" value="false" />
+    <property name="FullScreen" value="true" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.javacompiler" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -370,7 +402,7 @@
       <recent name="C:\projects\maven-spring-generation-kit\generator-annotations\src\main\java\com\a5000\platform\api\annotations\generators" />
     </key>
   </component>
-  <component name="RunManager" selected="Maven.Version Update">
+  <component name="RunManager" selected="Maven.Install (1)">
     <configuration default="false" name="GenDaoMojoTest.testGenDaoGoal" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -422,7 +454,7 @@
       </extension>
       <module name="generator-mojos" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" value="" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="com.a5000.platform.api.annotations.generators.jpa.v2" />
       <option name="MAIN_CLASS_NAME" value="com.a5000.platform.api.annotations.generators.jpa.v2.GenDaoMojoTest" />
       <option name="METHOD_NAME" value="testGenDtoGoal" />
@@ -455,24 +487,54 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
+    <configuration default="false" name="GenDaoMojoTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="com.a5000.platform.api.annotations.generators.jpa.v2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <module name="generator-mojos" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="ALTERNATIVE_JRE_PATH" value="1.8" />
+      <option name="PACKAGE_NAME" value="com.a5000.platform.api.annotations.generators.jpa.v2" />
+      <option name="MAIN_CLASS_NAME" value="com.a5000.platform.api.annotations.generators.jpa.v2.GenDaoMojoTest" />
+      <option name="METHOD_NAME" value="" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" value="" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/generator-mojos" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
       <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
       <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -482,18 +544,20 @@
       <option name="METHOD_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
       <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="DEBUGGER_TYPE" value="Java" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <Java />
+      <Profilers>
+        <option name="GAPID_DISABLE_PCS" value="false" />
+      </Profilers>
       <method />
     </configuration>
     <configuration default="true" type="Applet" factoryName="Applet">
@@ -520,82 +584,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="CabalRunConfiguration" factoryName="Haskell">
-      <module name="" />
-      <setting name="executableName" value="" />
-      <setting name="parameters" value="" />
-      <setting name="workingDir" value="" />
-      <environmetVariables />
-      <method />
-    </configuration>
-    <configuration default="true" type="CucumberJavaRunConfigurationType" factoryName="Cucumber java">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <option name="myFilePath" />
-      <option name="GLUE" />
-      <option name="myNameFilter" />
-      <option name="myGeneratedName" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="FlashRunConfigurationType" factoryName="Flash App">
-      <option name="BCName" value="" />
-      <option name="IOSSimulatorSdkPath" value="" />
-      <option name="adlOptions" value="" />
-      <option name="airProgramParameters" value="" />
-      <option name="appDescriptorForEmulator" value="Android" />
-      <option name="debugTransport" value="USB" />
-      <option name="debuggerSdkRaw" value="BC SDK" />
-      <option name="emulator" value="NexusOne" />
-      <option name="emulatorAdlOptions" value="" />
-      <option name="fastPackaging" value="true" />
-      <option name="fullScreenHeight" value="0" />
-      <option name="fullScreenWidth" value="0" />
-      <option name="launchUrl" value="false" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="mobileRunTarget" value="Emulator" />
-      <option name="moduleName" value="" />
-      <option name="overriddenMainClass" value="" />
-      <option name="overriddenOutputFileName" value="" />
-      <option name="overrideMainClass" value="false" />
-      <option name="runTrusted" value="true" />
-      <option name="screenDpi" value="0" />
-      <option name="screenHeight" value="0" />
-      <option name="screenWidth" value="0" />
-      <option name="url" value="http://" />
-      <option name="usbDebugPort" value="7936" />
-      <method />
-    </configuration>
-    <configuration default="true" type="FlexUnitRunConfigurationType" factoryName="FlexUnit" appDescriptorForEmulator="Android" class_name="" emulatorAdlOptions="" method_name="" package_name="" scope="Class">
-      <option name="BCName" value="" />
-      <option name="launcherParameters">
-        <LauncherParameters>
-          <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
-          <option name="launcherType" value="OSDefault" />
-          <option name="newPlayerInstance" value="false" />
-          <option name="playerPath" value="FlashPlayerDebugger.exe" />
-        </LauncherParameters>
-      </option>
-      <option name="moduleName" value="" />
-      <option name="trusted" value="true" />
-      <method />
-    </configuration>
     <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -610,16 +598,6 @@
         </option>
         <option name="vmOptions" />
       </ExternalSystemSettings>
-      <method />
-    </configuration>
-    <configuration default="true" type="GrailsRunConfigurationType" factoryName="Grails">
-      <module name="" />
-      <setting name="vmparams" value="" />
-      <setting name="cmdLine" value="run-app" />
-      <setting name="depsClasspath" value="false" />
-      <setting name="passParentEnv" value="true" />
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <setting name="launchBrowser" value="false" />
       <method />
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
@@ -643,8 +621,45 @@
       <patterns />
       <method />
     </configuration>
+    <configuration default="true" type="JUnitTestDiscovery" factoryName="JUnit Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
     <configuration default="true" type="JarApplication" factoryName="JAR Application">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Java Scratch" factoryName="Java Scratch">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="SCRATCH_FILE_ID" value="0" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
       <envs />
       <method />
     </configuration>
@@ -683,7 +698,6 @@
     </configuration>
     <configuration default="true" type="ScalaTestRunConfiguration" factoryName="ScalaTest">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <extension name="scalaCoverage" />
       <module name="" />
       <setting name="path" value="" />
       <setting name="package" value="" />
@@ -699,7 +713,6 @@
     </configuration>
     <configuration default="true" type="Specs2RunConfiguration" factoryName="Specs2">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <extension name="scalaCoverage" />
       <module name="" />
       <setting name="path" value="" />
       <setting name="package" value="" />
@@ -710,12 +723,6 @@
       <setting name="testName" value="" />
       <setting name="testKind" value="Class" />
       <setting name="showProgressMessages" value="true" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="" />
       <envs />
       <method />
     </configuration>
@@ -747,7 +754,36 @@
       <listeners />
       <method />
     </configuration>
+    <configuration default="true" type="TestNGTestDiscovery" factoryName="TestNG Test Discovery" changeList="All">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="SUITE_NAME" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="GROUP_NAME" />
+      <option name="TEST_OBJECT" value="CLASS" />
+      <option name="VM_PARAMETERS" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="OUTPUT_DIRECTORY" />
+      <option name="ANNOTATION_TYPE" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <option name="USE_DEFAULT_REPORTERS" value="false" />
+      <option name="PROPERTIES_FILE" />
+      <envs />
+      <properties />
+      <listeners />
+      <method />
+    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
       <node-options />
       <gulpfile />
       <tasks />
@@ -756,15 +792,15 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="osgi.bnd.run" factoryName="Run Launcher">
-      <method />
-    </configuration>
-    <configuration default="true" type="osgi.bnd.run" factoryName="Test Launcher (JUnit)">
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="uTestRunConfiguration" factoryName="utest">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <extension name="scalaCoverage" />
       <module name="" />
       <setting name="path" value="" />
       <setting name="package" value="" />
@@ -835,6 +871,46 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
+    <configuration default="false" name="Install (1)" type="MavenRunConfiguration" factoryName="Maven">
+      <MavenSettings>
+        <option name="myGeneralSettings">
+          <MavenGeneralSettings>
+            <option name="alwaysUpdateSnapshots" value="false" />
+            <option name="checksumPolicy" value="NOT_SET" />
+            <option name="failureBehavior" value="NOT_SET" />
+            <option name="localRepository" value="" />
+            <option name="mavenHome" value="/usr/local/Cellar/maven/3.3.3/libexec" />
+            <option name="nonRecursive" value="false" />
+            <option name="outputLevel" value="INFO" />
+            <option name="pluginUpdatePolicy" value="DEFAULT" />
+            <option name="printErrorStackTraces" value="false" />
+            <option name="threads" />
+            <option name="usePluginRegistry" value="false" />
+            <option name="userSettingsFile" value="" />
+            <option name="workOffline" value="false" />
+          </MavenGeneralSettings>
+        </option>
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="test" />
+              </list>
+            </option>
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method />
+    </configuration>
     <configuration default="false" name="Version Update" type="MavenRunConfiguration" factoryName="Maven">
       <MavenSettings>
         <option name="myGeneralSettings" />
@@ -869,16 +945,19 @@
       <ConfigurationWrapper RunnerId="Run" />
       <method />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="JUnit.GenDaoMojoTest.testGenDaoGoal" />
-      <item index="1" class="java.lang.String" itemvalue="JUnit.GenDaoMojoTest.testGenDtoGoal" />
-      <item index="2" class="java.lang.String" itemvalue="Maven.Install" />
-      <item index="3" class="java.lang.String" itemvalue="Maven.Version Update" />
+    <list size="6">
+      <item index="0" class="java.lang.String" itemvalue="Maven.Install" />
+      <item index="1" class="java.lang.String" itemvalue="Maven.Install (1)" />
+      <item index="2" class="java.lang.String" itemvalue="Maven.Version Update" />
+      <item index="3" class="java.lang.String" itemvalue="JUnit.GenDaoMojoTest.testGenDaoGoal" />
+      <item index="4" class="java.lang.String" itemvalue="JUnit.GenDaoMojoTest.testGenDtoGoal" />
+      <item index="5" class="java.lang.String" itemvalue="JUnit.GenDaoMojoTest" />
     </list>
     <recent_temporary>
-      <list size="2">
-        <item index="0" class="java.lang.String" itemvalue="JUnit.GenDaoMojoTest.testGenDtoGoal" />
-        <item index="1" class="java.lang.String" itemvalue="JUnit.GenDaoMojoTest.testGenDaoGoal" />
+      <list size="3">
+        <item index="0" class="java.lang.String" itemvalue="JUnit.GenDaoMojoTest" />
+        <item index="1" class="java.lang.String" itemvalue="JUnit.GenDaoMojoTest.testGenDtoGoal" />
+        <item index="2" class="java.lang.String" itemvalue="JUnit.GenDaoMojoTest.testGenDaoGoal" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
@@ -891,10 +970,15 @@
       <projects_view />
     </option>
   </component>
-  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
   <component name="StatisticProjectComponent">
     <option name="excludeCompilerOutput" value="true" />
     <option name="excludeIdea9ArtifactDirectory" value="true" />
+    <option name="excludeGitArtifactDirectory" value="true" />
+    <option name="excludeSubversionArtifactDirectory" value="true" />
+    <option name="excludeDotArtifactDirectory" value="false" />
     <option name="excludeTargetDirectories" value="true" />
     <option name="activateWhenOpenProject" value="true" />
     <option name="excludedDirectories">
@@ -912,6 +996,7 @@
       <changelist id="86caa5b0-c43b-487d-a1ab-df36788cc359" name="Default" comment="" />
       <created>1393911259070</created>
       <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
       <updated>1393911259070</updated>
       <workItem from="1393911261564" duration="720000" />
       <workItem from="1393912170932" duration="1064000" />
@@ -923,89 +1008,130 @@
       <workItem from="1406837911473" duration="2896000" />
       <workItem from="1427276443021" duration="2444000" />
       <workItem from="1436892841275" duration="1431000" />
+      <workItem from="1472080492581" duration="3404000" />
+      <workItem from="1472084034879" duration="1765000" />
     </task>
     <task id="LOCAL-00001" summary="- Versions &amp; artifact coordinates fixed&#10;- README updated">
       <created>1393912641198</created>
       <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
       <updated>1393912641198</updated>
     </task>
     <task id="LOCAL-00002" summary="- Improved NPE handling by the DTO getters&#10;- Generation kit extended with an ability to generate parametrized synthetic fields in the result DTO class&#10;- Improved domain class interfaces handling: now all of them would be inherited by the DTO class, except of those who is marked by @DtoExclude&#10;- Handling of @DtoInclude(ID) on the collection fields implemented (including the conversion logic)">
       <created>1406225033693</created>
       <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
       <updated>1406225033693</updated>
     </task>
     <task id="LOCAL-00003" summary="- Version 1.1.2 -&gt; 1.1.3&#10;- Added some unit tests to check the correctness of generated classes&#10;- Fixing issue #11 (if no type information provided as a value of targetEntity for JPA relation (one-to-many, many-to-many, etc., then the list generic value would be used )">
       <created>1406725214028</created>
       <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
       <updated>1406725214028</updated>
     </task>
     <task id="LOCAL-00004" summary="- Additional check to prevent NPE">
       <created>1406728247567</created>
       <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
       <updated>1406728247567</updated>
     </task>
     <task id="LOCAL-00005" summary="- Little fix (removed break left after switch{} construction )">
       <created>1406729537670</created>
       <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
       <updated>1406729537670</updated>
     </task>
     <option name="localTasksCounter" value="6" />
     <servers />
   </component>
+  <component name="TestHistory">
+    <history-entry file="GenDaoMojoTest - 2016.08.25 at 12h 24m 31s.xml">
+      <configuration name="GenDaoMojoTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GenDaoMojoTest - 2016.08.25 at 12h 26m 02s.xml">
+      <configuration name="GenDaoMojoTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GenDaoMojoTest - 2016.08.25 at 12h 30m 03s.xml">
+      <configuration name="GenDaoMojoTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GenDaoMojoTest - 2016.08.25 at 12h 30m 12s.xml">
+      <configuration name="GenDaoMojoTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GenDaoMojoTest - 2016.08.25 at 12h 31m 35s.xml">
+      <configuration name="GenDaoMojoTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GenDaoMojoTest - 2016.08.25 at 12h 32m 07s.xml">
+      <configuration name="GenDaoMojoTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GenDaoMojoTest - 2016.08.25 at 12h 32m 13s.xml">
+      <configuration name="GenDaoMojoTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GenDaoMojoTest - 2016.08.25 at 12h 32m 42s.xml">
+      <configuration name="GenDaoMojoTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GenDaoMojoTest - 2016.08.25 at 12h 33m 43s.xml">
+      <configuration name="GenDaoMojoTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="GenDaoMojoTest - 2016.08.25 at 12h 33m 58s.xml">
+      <configuration name="GenDaoMojoTest" configurationId="JUnit" />
+    </history-entry>
+  </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27584000" />
+    <option name="totallyTimeSpent" value="32753000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291714" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32739422" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="GhcMod" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18603411" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Cabal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850778" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3984109" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Kotlin Bytecode" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="JRebel Executor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3291714" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
-      <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32995737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32962137" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
-      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32960597" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3232162" sideWeight="0.5007899" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
-      <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
-      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3283582" sideWeight="0.5" order="20" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33452722" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32587063" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291714" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18553008" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Statistic" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39800996" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Kotlin Bytecode" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="CDI" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="JRebel Executor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Cabal" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32995737" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="13" side_tool="true" content_ui="tabs" />
+      <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32962137" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="GhcMod" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="18" side_tool="false" content_ui="tabs" />
+      <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32960597" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3232162" sideWeight="0.5007899" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="JRebel" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="JProfiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32954547" sideWeight="0.5" order="19" side_tool="false" content_ui="tabs" />
+      <window_info id="IDEtalk Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32850778" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -1025,24 +1151,25 @@
     <MESSAGE value="- Version 1.1.2 -&gt; 1.1.3&#10;- Added some unit tests to check the correctness of generated classes&#10;- Fixing issue #11 (if no type information provided as a value of targetEntity for JPA relation (one-to-many, many-to-many, etc., then the list generic value would be used )" />
     <MESSAGE value="- Additional check to prevent NPE" />
     <MESSAGE value="- Little fix (removed break left after switch{} construction )" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Little fix (removed break left after switch{} construction )" />
+    <MESSAGE value="- Migration to QDox 2.0.0-M4&#10;- Fix for a fields with a full-qualified type name (https://github.com/paul-hammant/qdox/issues/6)&#10;- Source/target Java version updated to 1.8&#10;- LICENSE updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Migration to QDox 2.0.0-M4&#10;- Fix for a fields with a full-qualified type name (https://github.com/paul-hammant/qdox/issues/6)&#10;- Source/target Java version updated to 1.8&#10;- LICENSE updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/v2/GenDaoMojoTest.java</url>
-          <line>179</line>
+          <line>290</line>
           <properties />
-          <option name="timeStamp" value="2" />
+          <option name="timeStamp" value="30" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="26" />
+      <option name="time" value="37" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="JUnit">
-        <watch expression="builder.getClassByName(&quot;com.a5000.platform.api.annotations.generators.jpa.TestDTO&quot;)" language="JAVA" custom="" />
-        <watch expression="field.getType().getActualTypeArguments()" language="JAVA" custom="" />
+        <watch expression="collectedField.type.getTypeParameters()" />
+        <watch expression="field.getType().getCanonicalName()" language="JAVA" />
       </configuration>
     </watches-manager>
   </component>
@@ -1051,413 +1178,536 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractGeneratorMojo.java">
+    <entry file="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/2.0-M4/qdox-2.0-M4.jar!/com/thoughtworks/qdox/model/JavaMethod.class">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+        <state relative-caret-position="-512">
+          <caret line="18" column="17" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/2.0-M4/qdox-2.0-M4.jar!/com/thoughtworks/qdox/model/impl/DefaultJavaTypeVariable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/2.0-M4/qdox-2.0-M4.jar!/com/thoughtworks/qdox/model/impl/DefaultJavaParameterizedType.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="219">
+          <caret line="107" column="0" selection-start-line="107" selection-start-column="0" selection-end-line="107" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/2.0-M4/qdox-2.0-M4.jar!/com/thoughtworks/qdox/model/JavaGenericDeclaration.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="11" column="65" selection-start-line="11" selection-start-column="65" selection-end-line="11" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/2.0-M4/qdox-2.0-M4.jar!/com/thoughtworks/qdox/model/JavaParameterizedType.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="11" column="41" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/2.0-M4/qdox-2.0-M4.jar!/com/thoughtworks/qdox/model/JavaClass.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="50" column="14" selection-start-line="50" selection-start-column="14" selection-end-line="50" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/2.0-M4/qdox-2.0-M4.jar!/com/thoughtworks/qdox/model/impl/DefaultJavaType.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="626" column="21" selection-start-line="626" selection-start-column="21" selection-end-line="626" selection-end-column="21" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#8715#8723#0" expanded="false" />
-            <element signature="e#15851#15859#0" expanded="false" />
-            <element signature="e#18780#18791#0" expanded="false" />
+            <element signature="e#21412#21413#0" expanded="true" />
+            <element signature="e#21478#21479#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-annotations/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="22" selection-start-line="5" selection-start-column="22" selection-end-line="5" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/entities/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="72" column="35" selection-start-line="72" selection-start-column="35" selection-end-line="72" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/v2/GenDaoMojoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="58" column="104" selection-start-line="58" selection-start-column="104" selection-end-line="58" selection-end-column="104" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/entities/ITest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
+        <state relative-caret-position="85">
           <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-mojos/generator-mojos.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-mojos/target/com/a5000/platform/api/annotations/generators/jpa/entities/ITestParentDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-mojos/target/com/a5000/platform/api/annotations/generators/jpa/entities/ITestDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-mojos/target/com/a5000/platform/api/annotations/generators/jpa/entities/TestParentDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/entities/TestParent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_65.jdk/Contents/Home/src.zip!/java/util/Date.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="130" column="13" selection-start-line="130" selection-start-column="13" selection-end-line="130" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/v2/GenDaoMojoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="140" column="19" selection-start-line="140" selection-start-column="19" selection-end-line="140" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/entities/Test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="191">
+          <caret line="84" column="23" selection-start-line="84" selection-start-column="23" selection-end-line="84" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoToJpaConverterMojo.java">
+    <entry file="file://$PROJECT_DIR$/generator-mojos/target/com/a5000/platform/api/annotations/generators/jpa/entities/TestDTO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
+        <state relative-caret-position="51">
+          <caret line="3" column="7" selection-start-line="3" selection-start-column="7" selection-end-line="3" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#668#669#0" expanded="false" />
+            <element signature="e#701#702#0" expanded="false" />
+            <element signature="e#1197#1198#0" expanded="false" />
+            <element signature="e#1240#1241#0" expanded="false" />
+            <element signature="e#2098#2099#0" expanded="false" />
+            <element signature="e#2131#2132#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoMojo.java">
+    <entry file="file://$PROJECT_DIR$/generator-mojos/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+        <state relative-caret-position="-68">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="28" selection-start-line="12" selection-start-column="28" selection-end-line="12" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractGeneratorMojo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="170" column="19" selection-start-line="170" selection-start-column="19" selection-end-line="170" selection-end-column="19" />
+        <state relative-caret-position="162">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="33" selection-end-column="3" />
           <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#8715#8723#0" expanded="false" />
-            <element signature="e#15851#15859#0" expanded="false" />
-            <element signature="e#18780#18791#0" expanded="false" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#14078#14079#0" expanded="true" />
+            <element signature="e#14147#14148#0" expanded="true" />
+            <element signature="e#14340#14341#0" expanded="true" />
+            <element signature="e#14408#14409#0" expanded="true" />
+            <element signature="e#14463#14464#0" expanded="true" />
+            <element signature="e#14541#14542#0" expanded="true" />
+            <element signature="e#17204#17212#0" expanded="true" />
+            <element signature="e#20024#20035#0" expanded="true" />
+            <element signature="e#20527#20528#0" expanded="true" />
+            <element signature="e#20588#20589#0" expanded="true" />
+            <element signature="e#21037#21038#0" expanded="true" />
+            <element signature="e#21093#21094#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/ClasspathBuilderException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDaoMojo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="11" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/Parameter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/v2/GenDaoMojoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/entities/ITest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/entities/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="12" column="24" selection-start-line="12" selection-start-column="24" selection-end-line="12" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="50" selection-start-line="92" selection-start-column="50" selection-end-line="92" selection-end-column="50" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-annotations/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="42" selection-start-line="9" selection-start-column="42" selection-end-line="9" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="62" column="21" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-annotations/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="100" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/AggregationType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/NativeQuery.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/SortDirection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/utils/Commons.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="3" selection-start-line="8" selection-start-column="3" selection-end-line="8" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/ClasspathBuilderException.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/Parameter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="18" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/entities/ITest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoToJpaConverterMojo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="13" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/1.12/qdox-1.12.jar!/com/thoughtworks/qdox/model/Type.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.08">
-          <caret line="16" column="5" selection-start-line="16" selection-start-column="5" selection-end-line="16" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/com/thoughtworks/qdox/qdox/1.12/qdox-1.12.jar!/com/thoughtworks/qdox/model/JavaClass.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.84">
-          <caret line="231" column="0" selection-start-line="231" selection-start-column="0" selection-end-line="231" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/javax/persistence/persistence-api/1.0/persistence-api-1.0.jar!/javax/persistence/OneToMany.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/javax/persistence/OneToMany.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="53" selection-start-line="7" selection-start-column="53" selection-end-line="7" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/entities/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="72" column="35" selection-start-line="72" selection-start-column="35" selection-end-line="72" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/test/java/com/a5000/platform/api/annotations/generators/jpa/v2/GenDaoMojoTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="289" column="20" selection-start-line="289" selection-start-column="20" selection-end-line="289" selection-end-column="20" />
+        <state relative-caret-position="289">
+          <caret line="19" column="2" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDaoMojo.java">
+    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/ClasspathBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="85" column="39" selection-start-line="85" selection-start-column="39" selection-end-line="85" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2597#2613#0" expanded="false" />
-            <element signature="e#5837#5848#0" expanded="false" />
-            <element signature="e#8878#8886#0" expanded="false" />
-            <element signature="e#10154#10165#0" expanded="false" />
-            <element signature="e#15150#15166#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-annotations/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="4" column="22" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractGeneratorMojo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#8715#8723#0" expanded="false" />
-            <element signature="e#15851#15859#0" expanded="false" />
-            <element signature="e#18780#18791#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.8888888">
-          <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoMojo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="282" column="0" selection-start-line="282" selection-start-column="0" selection-end-line="282" selection-end-column="0" />
+        <state relative-caret-position="323">
+          <caret line="27" column="3" selection-start-line="27" selection-start-column="3" selection-end-line="27" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/AbstractMojo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="56" column="21" selection-start-line="56" selection-start-column="21" selection-end-line="56" selection-end-column="21" />
+        <state relative-caret-position="136">
+          <caret line="20" column="47" selection-start-line="20" selection-start-column="47" selection-end-line="20" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/ClasspathBuilderException.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/utils/StringUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="0" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
+          <folding>
+            <element signature="e#760#792#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDaoMojo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="28" column="3" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+          <folding>
+            <element signature="e#9447#9455#0" expanded="true" />
+            <element signature="e#10727#10738#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoMojo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="28" column="3" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+          <folding>
+            <element signature="e#9802#9810#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenDtoToJpaConverterMojo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="24" column="3" selection-start-line="24" selection-start-column="3" selection-end-line="24" selection-end-column="3" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generator-mojos/src/main/java/com/a5000/platform/api/annotations/generators/jpa/mojo/GenJpaToDtoConverterMojo.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.793103">
-          <caret line="341" column="25" selection-start-line="341" selection-start-column="25" selection-end-line="341" selection-end-column="25" />
+        <state relative-caret-position="-10257">
+          <caret line="28" column="3" selection-start-line="28" selection-start-column="3" selection-end-line="28" selection-end-column="3" />
+          <folding>
+            <element signature="e#14566#14574#0" expanded="true" />
+            <element signature="e#27183#27203#0" expanded="true" />
+            <element signature="e#28049#28069#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/AggregationType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoExclude.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" column="2" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoExtend.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="22" column="2" selection-start-line="22" selection-start-column="2" selection-end-line="22" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoInclude.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" column="2" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoMethod.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" column="3" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/DtoTransient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" column="3" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/dto/SkipDao.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="35" column="3" selection-start-line="35" selection-start-column="3" selection-end-line="35" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/ConventionalQueries.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/ConventionalQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="19" column="2" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/NativeQuery.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" column="2" selection-start-line="19" selection-start-column="2" selection-end-line="19" selection-end-column="2" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/generators/Parameter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="19" column="3" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageResponse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="3" selection-start-line="18" selection-start-column="3" selection-end-line="18" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/PageSize.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/SortDirection.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/paging/Sorting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="3" selection-start-line="16" selection-start-column="3" selection-end-line="16" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/GeneratorAnnotations.gwt.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generator-annotations/src/main/java/com/a5000/platform/api/annotations/PagingAnnotations.gwt.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="21" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/README.md">
-      <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.732143">
-          <caret line="15" column="32" selection-start-line="15" selection-start-column="32" selection-end-line="15" selection-end-column="32" />
+        <state relative-caret-position="119">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="10" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2361111">
-          <caret line="8" column="18" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+        <state relative-caret-position="0">
+          <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>scala-sdk-2.11.7</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>generation-kit</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+                <option value="0.6" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <last-edited>Maven: com.google.collections:google-collections:1.0</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

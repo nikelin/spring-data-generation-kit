@@ -4,7 +4,7 @@ import com.a5000.platform.api.annotations.generators.jpa.AbstractGeneratorMojo;
 import com.a5000.platform.api.annotations.generators.jpa.utils.Commons;
 import com.a5000.platform.api.annotations.generators.jpa.utils.StringUtils;
 import com.sun.codemodel.*;
-import com.thoughtworks.qdox.model.Annotation;
+import com.thoughtworks.qdox.model.JavaAnnotation;
 import com.thoughtworks.qdox.model.JavaClass;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -13,7 +13,19 @@ import org.apache.maven.plugins.annotations.Mojo;
 import java.util.*;
 
 /**
- * Created by cyril on 8/28/13.
+ * Copyright 2016 Cyril A. Karpenko <self@nikelin.ru>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 @Mojo( name = "gen-dao", defaultPhase = LifecyclePhase.PROCESS_SOURCES, threadSafe = false )
 public class GenDaoMojo extends AbstractGeneratorMojo {
@@ -131,8 +143,8 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
 
     protected void generateQueryMethods(JavaClass entityClazz, JDefinedClass daoClazz) {
         List<QuerySpec> querySpecList = new ArrayList<QuerySpec>();
-        for ( Annotation annotation : entityClazz.getAnnotations() ) {
-            if ( !isSupportedAnnotation(annotation.getType().getJavaClass()) ) {
+        for ( JavaAnnotation annotation : entityClazz.getAnnotations() ) {
+            if ( !isSupportedAnnotation(annotation.getType()) ) {
                 continue;
             }
 
@@ -235,16 +247,16 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
         }
     }
 
-    protected List<QuerySpec> processAnnotation( Annotation annotation ) {
+    protected List<QuerySpec> processAnnotation( JavaAnnotation annotation ) {
         List<QuerySpec> querySpec = new ArrayList<QuerySpec>();
-        if ( isAnnotationsList(annotation.getType().getJavaClass()) ) {
+        if ( isAnnotationsList(annotation.getType()) ) {
             Object value = annotation.getNamedParameter("value");
             if ( value instanceof List) {
-                for ( Annotation childAnnotation : (List<Annotation>) value) {
+                for ( JavaAnnotation childAnnotation : (List<JavaAnnotation>) value) {
                     querySpec.add( createQuerySpec( childAnnotation ) );
                 }
             } else {
-               querySpec.add(createQuerySpec((Annotation) value));
+               querySpec.add(createQuerySpec((JavaAnnotation) value));
             }
         } else {
             querySpec.add( createQuerySpec(annotation) );
@@ -253,7 +265,7 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
         return querySpec;
     }
 
-    protected QuerySpec createQuerySpec( Annotation annotation ) {
+    protected QuerySpec createQuerySpec( JavaAnnotation annotation ) {
         QuerySpec spec = new QuerySpec();
         spec.name = normalizeAnnotationValue(
                 Commons.select((String) annotation.getNamedParameter("name"), ""));
@@ -284,19 +296,19 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
                 Commons.select((String) annotation.getNamedParameter("isPageable"), "false"));
 
         Object parametersValue = Commons.select(annotation.getNamedParameter("parameters"),
-                new ArrayList<Annotation>());
+                new ArrayList<JavaAnnotation>());
         if ( parametersValue instanceof List) {
-            for ( Annotation parameterAnnotation : (List<Annotation>) parametersValue ) {
+            for ( JavaAnnotation parameterAnnotation : (List<JavaAnnotation>) parametersValue ) {
                 spec.parameters.add( createQuerySpecParam(parameterAnnotation) );
             }
         } else {
-            spec.parameters.add( createQuerySpecParam((Annotation) parametersValue) );
+            spec.parameters.add( createQuerySpecParam((JavaAnnotation) parametersValue) );
         }
 
         return spec;
     }
 
-    protected QuerySpecParam createQuerySpecParam( Annotation annotation ) {
+    protected QuerySpecParam createQuerySpecParam( JavaAnnotation annotation ) {
         QuerySpecParam result = new QuerySpecParam();
         result.isArray = Boolean.valueOf(Commons.select((String) annotation.getNamedParameter("isArray"), "false"));
         result.name = normalizeAnnotationValue(Commons.select((String) annotation.getNamedParameter("value"), ""));
@@ -306,8 +318,9 @@ public class GenDaoMojo extends AbstractGeneratorMojo {
         return result;
     }
 
-    protected boolean isNativeQuery( Annotation annotation ) {
-        return isA(annotation.getType().getJavaClass(), NATIVE_QUERY_ANNOTATION_CLASS_NAME);
+    protected boolean isNativeQuery( JavaAnnotation annotation ) {
+        return isA(annotation.getType(),
+                NATIVE_QUERY_ANNOTATION_CLASS_NAME);
     }
 
     protected boolean isAnnotationsList( JavaClass annotationClassName  ) {

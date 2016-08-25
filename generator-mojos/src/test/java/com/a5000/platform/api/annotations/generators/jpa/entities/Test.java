@@ -9,6 +9,7 @@ import com.a5000.platform.api.annotations.generators.*;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import java.util.List;
+import java.util.Date;
 
 @javax.persistence.Entity
 @ConventionalQueries({
@@ -80,6 +81,8 @@ public class Test extends TestParent {
     @ManyToOne( targetEntity = Test.class )
     @DtoInclude(AggregationType.DTO)
     private ITest relatedTestByInterface;
+
+    private java.util.Date date;
 
     @DtoMethod
     public Test getRelatedTestX() {

@@ -1,6 +1,15 @@
 ## Spring Data Generation Kit
 -----
-Version: 1.1.6_1-SNAPSHOT
+Version: 1.1.7-SNAPSHOT
+
+1.1.7 changes
+
+```
+- Migration to QDox 2.0.0-M4
+- Fix for a fields with a full-qualified type name (https://github.com/paul-hammant/qdox/issues/6)
+- Source/target Java version updated to 1.8
+- LICENSE updated
+```
 
 1.1.6_1 changes
 

@@ -13,7 +13,19 @@ import java.lang.reflect.Method;
 import java.util.*;
 
 /**
- * Created by cyril on 8/28/13.
+ * Copyright 2016 Cyril A. Karpenko <self@nikelin.ru>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 @Mojo( name = "gen-dto", defaultPhase = LifecyclePhase.PROCESS_SOURCES, threadSafe = false)
 public class GenDtoMojo extends AbstractGeneratorMojo {
@@ -47,9 +59,9 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
                         )
                     );
 
-                Type[] actualTypeArguments = entityClazz.getSuperClass().getActualTypeArguments();
-                if ( actualTypeArguments != null && actualTypeArguments.length > 0 ) {
-                    for ( Type narrow : actualTypeArguments ) {
+                List<JavaType> actualTypeArguments = ((JavaParameterizedType)entityClazz.getSuperClass()).getActualTypeArguments();
+                if ( actualTypeArguments != null && actualTypeArguments.size() > 0 ) {
+                    for ( JavaType narrow : actualTypeArguments ) {
                         parentClass = parentClass.narrow(
                             codeModel.ref(
                                 /**
@@ -79,8 +91,8 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
                 }
             }
 
-            if ( entityClazz.getTypeParameters().length > 0 ) {
-                for ( TypeVariable type : entityClazz.getTypeParameters() ) {
+            if ( entityClazz.getTypeParameters().size() > 0 ) {
+                for ( JavaTypeVariable type : entityClazz.getTypeParameters() ) {
                     dtoClazz.generify(
                         type.getName(),
                         codeModel.ref(
@@ -181,8 +193,8 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
     protected void processClassAnnotations( JDefinedClass dtoClazz,
                                             JavaClass entityClazz )
         throws MojoExecutionException {
-        for ( Annotation annotation : entityClazz.getAnnotations() ) {
-            if ( isA( annotation.getType().getJavaClass(),
+        for ( JavaAnnotation annotation : entityClazz.getAnnotations() ) {
+            if ( isA( annotation.getType(),
                     DTO_EXTENDS_ANNOTATION_CLASS_NAME) ) {
                 processExtendsAnnotation( dtoClazz, annotation );
             }
@@ -190,7 +202,7 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
     }
 
     protected void processExtendsAnnotation( JDefinedClass dtoClazz,
-                                             Annotation extendsAnnotation )
+                                             JavaAnnotation extendsAnnotation )
         throws MojoExecutionException {
         Object value = extendsAnnotation.getNamedParameter("value");
         if ( value == null ) {
@@ -198,16 +210,16 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
         }
 
         if ( value instanceof List) {
-            for ( Annotation parameterAnnotation : (List<Annotation>) value ) {
+            for ( JavaAnnotation parameterAnnotation : (List<JavaAnnotation>) value ) {
                 processExtendsParameterAnnotation(dtoClazz, parameterAnnotation);
             }
         } else {
-            processExtendsParameterAnnotation( dtoClazz, (Annotation) value );
+            processExtendsParameterAnnotation( dtoClazz, (JavaAnnotation) value );
         }
     }
 
     protected void processExtendsParameterAnnotation( JDefinedClass dtoClazz,
-                                                      Annotation annotation )
+                                                      JavaAnnotation annotation )
         throws MojoExecutionException {
         String fieldName = normalizeAnnotationValue(
                 (String) annotation.getNamedParameter("value"));
@@ -234,7 +246,7 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
         }
 
         _generateClassField( null, dtoClazz, JMod.PRIVATE,
-                new ArrayList<Annotation>(),
+                new ArrayList<JavaAnnotation>(),
                 typeParameters.isEmpty() ? fieldTypeClass :
                         fieldTypeClass.narrow(typeParameters), null, fieldName );
     }
@@ -257,18 +269,18 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
         String fieldName = field.getName();
         String aggregationType = "ID";
 
-        JClass fieldType = codeModel.ref(field.getType().getFullyQualifiedName() );
+        JClass fieldType = codeModel.ref(field.getType().getCanonicalName() );
 
         JClass realType = null;
 
         boolean ignoreField = false;
-        boolean isComplexType = !isSimpleType( field.getType().getJavaClass() );
+        boolean isComplexType = !isSimpleType( field.getType() );
         boolean isInclude = false;
-        for ( Annotation annotation : field.getAnnotations() ) {
-            if ( isA(annotation.getType().getJavaClass(), DTO_EXCLUDE_ANNOTATION_CLASS_NAME) ) {
+        for ( JavaAnnotation annotation : field.getAnnotations() ) {
+            if ( isA(annotation.getType(), DTO_EXCLUDE_ANNOTATION_CLASS_NAME) ) {
                 ignoreField = true;
                 break;
-            } else if ( isJpaRelationType(annotation.getType().getJavaClass()) ) {
+            } else if ( isJpaRelationType(annotation.getType()) ) {
                 isComplexType = true;
                 if ( annotation.getNamedParameter("targetEntity") != null ) {
                     String className = normalizeAnnotationValue(
@@ -285,20 +297,21 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
                         prepareClassName(dtoPackage, className)
                     );
                 } else {
-                    if ( field.getType().getActualTypeArguments() != null
-                            && field.getType().getActualTypeArguments().length != 0
-                            && field.getType().getActualTypeArguments()[0] != null ) {
+                    List<JavaType> actualTypeArguments = ((JavaParameterizedType)field.getType()).getActualTypeArguments();
+                    if ( actualTypeArguments != null
+                            && !actualTypeArguments.isEmpty()
+                            && actualTypeArguments.get(0) != null ) {
                         realType = codeModel.ref(
-                                prepareClassName(dtoPackage, field.getType().getActualTypeArguments()[0].getFullyQualifiedName())
+                                prepareClassName(dtoPackage, actualTypeArguments.get(0).getFullyQualifiedName())
                         );
                     }
                 }
 
-                if ( isCollectionType( field.getType().getJavaClass() ) )  {
+                if ( isCollectionType( field.getType() ) )  {
                     realType = codeModel.ref(field.getType().getFullyQualifiedName())
                             .narrow( Commons.select(realType, fieldType) );
                 }
-            } else if ( isA( annotation.getType().getJavaClass(), DTO_INCLUDE_ANNOTATION_CLASS_NAME ) ) {
+            } else if ( isA( annotation.getType(), DTO_INCLUDE_ANNOTATION_CLASS_NAME ) ) {
                 isInclude = true;
                 if ( annotation.getNamedParameter("value") != null ) {
                     aggregationType = normalizeAnnotationValue(
@@ -321,16 +334,17 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
                     realType = codeModel.ref( Long.class );
                 }
             } else {
+                List<JavaType> actualTypeArguments = ((JavaParameterizedType)field.getType()).getActualTypeArguments();
                 if (aggregationType.equals("AggregationType.ENUM")) {
                     fieldType = fieldType.narrow(
-                        codeModel.ref(field.getType().getActualTypeArguments()[0].getFullyQualifiedName())
+                        codeModel.ref((actualTypeArguments.get(0)).getFullyQualifiedName())
                     );
                 } else {
                     if ( !aggregationType.equals("AggregationType.ID") ) {
                         fieldType = fieldType.narrow(
                             codeModel.ref(
                                 prepareClassName(dtoPackage,
-                                    field.getType().getActualTypeArguments()[0].getFullyQualifiedName()
+                                    actualTypeArguments.get(0).getFullyQualifiedName()
                                 )
                             )
                         );
@@ -357,8 +371,8 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
             initializeExpression = field.getInitializationExpression();
         }
 
-        List<Annotation> fieldAnnotations = new ArrayList<Annotation>();
-        for ( Annotation annotation : field.getAnnotations() ) {
+        List<JavaAnnotation> fieldAnnotations = new ArrayList<JavaAnnotation>();
+        for ( JavaAnnotation annotation : field.getAnnotations() ) {
             if ( !annotation.getType().getFullyQualifiedName()
                     .matches(annotationInclusionMask) ) {
                 continue;
@@ -372,7 +386,7 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
     }
 
     private void _generateClassField( JavaField originalField, JDefinedClass dtoClazz, int flags,
-                                      List<Annotation> annotations,
+                                      List<JavaAnnotation> annotations,
                                       JClass type, String initializeExpression,
                                       String fieldName ) throws MojoExecutionException {
         JFieldVar clazzField = dtoClazz.field(flags, type, fieldName );
@@ -389,7 +403,7 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
             clazzField.init( JExpr._new( type ) );
         }
 
-        for ( Annotation annotation : annotations ) {
+        for ( JavaAnnotation annotation : annotations ) {
             JAnnotationUse annotationUse = clazzField.annotate(
                 codeModel.ref(annotation.getType().getFullyQualifiedName())
             );
@@ -404,7 +418,7 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
         }
     }
 
-    protected void transformAnnotation( Annotation annotation,
+    protected void transformAnnotation( JavaAnnotation annotation,
                                         JAnnotationUse annotationUse )
         throws MojoExecutionException {
         Map<String, Object> annotationParameters = annotation.getNamedParameterMap();
@@ -413,26 +427,26 @@ public class GenDtoMojo extends AbstractGeneratorMojo {
             if ( value instanceof List) {
                 JAnnotationArrayMember paramArray = annotationUse.paramArray(entry.getKey());
                 for ( Object listItem : (List) value ) {
-                    if ( listItem instanceof Annotation ) {
+                    if ( listItem instanceof JavaAnnotation ) {
                         transformAnnotation(
-                                (Annotation) listItem,
+                                (JavaAnnotation) listItem,
                                 paramArray.annotate(
                                         codeModel.ref(
-                                                ((Annotation) listItem).getType().getFullyQualifiedName()
+                                                ((JavaAnnotation) listItem).getType().getFullyQualifiedName()
                                         )
                                 )
                         );
                     }
                 }
-            } else if ( value instanceof Annotation ) {
+            } else if ( value instanceof JavaAnnotation ) {
                 try {
                     transformAnnotation(
-                        (Annotation) value,
+                        (JavaAnnotation) value,
                         annotationUse.annotate(
                             (Class<? extends java.lang.annotation.Annotation>)
                                 Thread.currentThread().getContextClassLoader()
                                     .loadClass(
-                                        ((Annotation) value)
+                                        ((JavaAnnotation) value)
                                             .getType().getFullyQualifiedName()
                                     )
                         )
