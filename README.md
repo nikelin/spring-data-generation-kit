@@ -386,7 +386,7 @@ public class Proposition implements Serializable {
 
 === License
 
-Copyright 2013-2014, Cyril A. Karpenko
+Copyright 2013 - 2016, Cyril A. Karpenko
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
