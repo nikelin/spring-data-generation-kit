@@ -5,11 +5,12 @@ import com.a5000.platform.api.annotations.generators.jpa.mojo.GenDaoMojo;
 import com.a5000.platform.api.annotations.generators.jpa.mojo.GenDtoMojo;
 import com.a5000.platform.api.annotations.generators.jpa.mojo.GenJpaToDtoConverterMojo;
 import com.a5000.platform.api.annotations.generators.jpa.utils.Commons;
-import com.thoughtworks.qdox.JavaDocBuilder;
-import com.thoughtworks.qdox.model.Annotation;
+import com.thoughtworks.qdox.JavaProjectBuilder;
+import com.thoughtworks.qdox.model.JavaAnnotation;
 import com.thoughtworks.qdox.model.JavaClass;
 import com.thoughtworks.qdox.model.JavaMethod;
 import com.thoughtworks.qdox.model.JavaParameter;
+import com.thoughtworks.qdox.model.expression.AnnotationValue;
 import org.apache.maven.model.Build;
 import org.apache.maven.model.Plugin;
 import org.apache.maven.plugin.MojoExecution;
@@ -53,9 +54,9 @@ public class GenDaoMojoTest extends AbstractMojoTestCase {
         mojo.execute();
         assertNotNull( mojo );
 
-        JavaDocBuilder builder = new JavaDocBuilder();
+        JavaProjectBuilder builder = new JavaProjectBuilder();
         builder.addSourceTree(new File("target/"));
-        JavaClass[] classes = builder.getClasses();
+        Collection<JavaClass> classes = builder.getClasses();
 
         JavaClass testDaoClass = builder.getClassByName("com.a5000.platform.api.annotations.generators.jpa.entities.ITestDAO");
         assertClassMethod( builder, testDaoClass, "findByName", new ParameterMatcher[] { new ParameterMatcher(String.class) },
@@ -76,30 +77,30 @@ public class GenDaoMojoTest extends AbstractMojoTestCase {
 
     }
 
-    private static void assertClassMethod( JavaDocBuilder builder,
+    private static void assertClassMethod( JavaProjectBuilder builder,
                                            JavaClass clazz,
                                            String methodName,
                                            Matcher<JavaParameter>[] parameters,
                                            Matcher<JavaClass> returnType,
-                                           Matcher<Annotation>[] annotationsExpected ) {
+                                           Matcher<JavaAnnotation>[] annotationsExpected ) {
         JavaMethod javaMethod = null;
         boolean found = false;
         for ( JavaMethod method : clazz.getMethods() ) {
-            if ( !method.getName().equals(methodName) || method.getParameters().length != parameters.length ) {
+            if ( !method.getName().equals(methodName) || method.getParameters().size() != parameters.length ) {
                 continue;
             }
 
-            for ( int i = 0; i < method.getParameters().length; i++ ) {
-                MatchResult parameterMatch = parameters[i].match(method.getParameters()[i]);
+            for ( int i = 0; i < method.getParameters().size(); i++ ) {
+                MatchResult parameterMatch = parameters[i].match(method.getParameters().get(i));
                 found = parameterMatch.isResult();
                 if ( !found ) {
-                    log.severe("Failed to match parameter " + method.getParameters()[i].getName()
+                    log.severe("Failed to match parameter " + method.getParameters().get(i).getName()
                             + " due to the next errors: " + parameterMatch.getMessage());
                     break;
                 }
             }
 
-            if ( method.getParameters().length == 0 && parameters.length == 0 ) {
+            if ( method.getParameters().size() == 0 && parameters.length == 0 ) {
                 found = true;
             }
 
@@ -109,13 +110,13 @@ public class GenDaoMojoTest extends AbstractMojoTestCase {
         }
 
         assertTrue("Method " + methodName + " not found by the given signature", found);
-        assertTrue("Unexpected return type: " + javaMethod.getReturnType().getJavaClass().getFullyQualifiedName(),
-                returnType.match(javaMethod.getReturnType().getJavaClass()).isResult());
+        assertTrue("Unexpected return type: " + javaMethod.getReturnType().getFullyQualifiedName(),
+                returnType.match(builder.getClassByName(javaMethod.getReturnType().getFullyQualifiedName())).isResult());
 
         List<String> notResolved = new ArrayList<String>();
         for ( int i = 0; i < annotationsExpected.length; i++ ) {
             boolean resolved = false;
-            for ( Annotation annotation : javaMethod.getAnnotations() ) {
+            for ( JavaAnnotation annotation : javaMethod.getAnnotations() ) {
                 MatchResult resolveResult = annotationsExpected[i].match(annotation);
                 if ( resolveResult.isResult() ) {
                     resolved = true;
@@ -144,7 +145,7 @@ public class GenDaoMojoTest extends AbstractMojoTestCase {
         mojo.execute();
         assertNotNull( mojo );
 
-        JavaDocBuilder builder = new JavaDocBuilder();
+        JavaProjectBuilder builder = new JavaProjectBuilder();
         builder.addSourceTree(new File("target/"));
         JavaClass testDtoClass = builder.getClassByName(Test.class.getCanonicalName() + "DTO");
         assertNotNull(testDtoClass);
@@ -175,10 +176,10 @@ public class GenDaoMojoTest extends AbstractMojoTestCase {
         mojo.execute();
         assertNotNull( mojo );
 
-        JavaDocBuilder builder = new JavaDocBuilder();
+        JavaProjectBuilder builder = new JavaProjectBuilder();
         builder.addSourceTree(new File("target/"));
-        JavaClass[] classes = builder.getClasses();
-        assertFalse(classes.length == 0);
+        Collection<JavaClass> classes = builder.getClasses();
+        assertFalse(classes.isEmpty());
     }
 
     protected Xpp3Dom createConfiguration() {
@@ -286,19 +287,18 @@ public class GenDaoMojoTest extends AbstractMojoTestCase {
 
         @Override
         public MatchResult match(JavaParameter object) {
-            if ( !parameterType.getCanonicalName().equals(object.getType().isArray() ?
-                    object.getType().getFullyQualifiedName() + "[]" : object.getType().getFullyQualifiedName()) ) {
+            if ( !parameterType.getCanonicalName().equals(object.getType().getFullyQualifiedName()) ) {
                 return new MatchResult(false, "Wrong parameter " + object.getName() + " type: "
                         + object.getType().getFullyQualifiedName() + "; expected: " + parameterType.getCanonicalName() );
             }
 
             if ( annotationMatchers.length > 0 ) {
-                if (object.getAnnotations().length != annotationMatchers.length) {
+                if (object.getAnnotations().size() != annotationMatchers.length) {
                     return new MatchResult(false, "Some of expected annotations not presents on parameter '" + object.getName() + "'");
                 }
 
-                for (int i = 0; i < object.getAnnotations().length; i++) {
-                    if (!annotationMatchers[i].match(object.getAnnotations()[i]).isResult()) {
+                for (int i = 0; i < object.getAnnotations().size(); i++) {
+                    if (!annotationMatchers[i].match(object.getAnnotations().get(i)).isResult()) {
                         return new MatchResult(false, "Failed to match annotation " + annotationMatchers[i].annotationName
                                 + " on parameter " + object.getName());
                     }
@@ -324,7 +324,7 @@ public class GenDaoMojoTest extends AbstractMojoTestCase {
         }
     }
 
-    public class AnnotationMatcher implements Matcher<Annotation> {
+    public class AnnotationMatcher implements Matcher<JavaAnnotation> {
 
         private final String annotationName;
         private final Map parameters;
@@ -339,12 +339,12 @@ public class GenDaoMojoTest extends AbstractMojoTestCase {
         }
 
         @Override
-        public MatchResult match(Annotation object) {
+        public MatchResult match(JavaAnnotation object) {
             if ( !(object.getType().getFullyQualifiedName().equals(annotationName)) ) {
                 return new MatchResult(false, "Wrong annotation type " + object.getType().getFullyQualifiedName() + "; expected: " + annotationName );
             }
 
-            Set<Map.Entry> entrySet = object.getPropertyMap().entrySet();
+            Set<Map.Entry<String, AnnotationValue>> entrySet = object.getPropertyMap().entrySet();
             boolean result = true;
             for ( Map.Entry entryItem : entrySet ) {
                 result = result && parameters.containsKey(entryItem.getKey());

@@ -3,7 +3,7 @@
     <parent>
         <artifactId>generation-kit</artifactId>
         <groupId>com.a5000.platform.opensource</groupId>
-        <version>1.1.6_1-SNAPSHOT</version>
+        <version>1.1.7-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
@@ -19,7 +19,7 @@
         <maven.version>3.0.4</maven.version>
         <codemodel.version>2.4.1</codemodel.version>
         <junit.version>4.9</junit.version>
-        <qdox.version>1.12</qdox.version>
+        <qdox.version>2.0-M4</qdox.version>
     </properties>
 
     <build>

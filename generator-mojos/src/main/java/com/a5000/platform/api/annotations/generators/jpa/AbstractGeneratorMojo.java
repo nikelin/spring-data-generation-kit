@@ -2,7 +2,7 @@ package com.a5000.platform.api.annotations.generators.jpa;
 
 import com.a5000.platform.api.annotations.generators.jpa.utils.StringUtils;
 import com.sun.codemodel.*;
-import com.thoughtworks.qdox.JavaDocBuilder;
+import com.thoughtworks.qdox.JavaProjectBuilder;
 import com.thoughtworks.qdox.model.*;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -17,6 +17,21 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Pattern;
 
+/**
+ * Copyright 2016 Cyril A. Karpenko <self@nikelin.ru>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 public abstract class AbstractGeneratorMojo extends AbstractMojo {
 
     public static final String DTO_GENERATOR_PREFIX = "";
@@ -50,7 +65,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
     private static final String STRING_TYPE_NAME = "java.lang.String";
 
     protected final JCodeModel codeModel;
-    protected JavaDocBuilder classMetaBuilder;
+    protected JavaProjectBuilder classMetaBuilder;
 
     @Parameter( property = "entityPattern", required = true )
     protected String entityPattern = "";
@@ -106,7 +121,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
         this.codeModel = new JCodeModel();
     }
 
-    protected JavaDocBuilder getClassMetaBuilder() {
+    protected JavaProjectBuilder getClassMetaBuilder() {
         if ( classMetaBuilderCreated.compareAndSet(false, true) ) {
             try {
                 this.classMetaBuilder = createJavaDocBuilder();
@@ -206,7 +221,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
         return result;
     }
 
-    protected List<String> resolveSyntheticFieldGetter(Annotation syntheticFieldAnnotation) {
+    protected List<String> resolveSyntheticFieldGetter(JavaAnnotation syntheticFieldAnnotation) {
         String expression = normalizeAnnotationValue(
                 (String) syntheticFieldAnnotation.getNamedParameter("expression")
         );
@@ -220,19 +235,19 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
         return gettersStack;
     }
 
-    protected boolean isResolvableSyntheticField(Annotation syntheticFieldAnnotation) {
+    protected boolean isResolvableSyntheticField(JavaAnnotation syntheticFieldAnnotation) {
         return syntheticFieldAnnotation != null
                 && syntheticFieldAnnotation.getNamedParameter("expression") != null
                 && !normalizeAnnotationValue(
                 (String) syntheticFieldAnnotation.getNamedParameter("expression") ).isEmpty();
     }
 
-    protected Annotation getSyntheticFieldMethod( JavaField field ) {
-        JavaClass fieldContext = field.getParentClass();
-        Annotation extendsAnnotation = null;
+    protected JavaAnnotation getSyntheticFieldMethod( JavaField field ) {
+        JavaClass fieldContext = field.getDeclaringClass();
+        JavaAnnotation extendsAnnotation = null;
         while ( extendsAnnotation == null && fieldContext != null ) {
-            for ( Annotation annotation : fieldContext.getAnnotations() ) {
-                if ( !isA(annotation.getType().getJavaClass(),
+            for ( JavaAnnotation annotation : fieldContext.getAnnotations() ) {
+                if ( !isA(annotation.getType(),
                         DTO_EXTENDS_ANNOTATION_CLASS_NAME) ) {
                     continue;
                 }
@@ -248,12 +263,12 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
             return null;
         }
 
-        Annotation targetAnnotation = null;
+        JavaAnnotation targetAnnotation = null;
         Object annotationValue = extendsAnnotation.getNamedParameter("value");
-        if ( annotationValue instanceof Annotation ) {
-            targetAnnotation = (Annotation) annotationValue;
+        if ( annotationValue instanceof JavaAnnotation ) {
+            targetAnnotation = (JavaAnnotation) annotationValue;
         } else if ( annotationValue instanceof List) {
-            for ( Annotation annotation : (List<Annotation>) annotationValue ) {
+            for ( JavaAnnotation annotation : (List<JavaAnnotation>) annotationValue ) {
                 if ( normalizeAnnotationValue(
                         (String) annotation.getNamedParameter("value") )
                         .equals( field.getName() ) ) {
@@ -277,15 +292,23 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
                 || isA( annotationTypeName, OneToOne.class.getSimpleName());
     }
 
+    protected boolean isSimpleType( JavaType type ) {
+        return this.isSimpleType(classMetaBuilder.getClassByName(type.getFullyQualifiedName()));
+    }
+
     protected boolean isSimpleType( JavaClass type ) {
         try {
             JType.parse(codeModel, type.getFullyQualifiedName());
             return true;
         } catch ( IllegalArgumentException e ) {
             return type.isEnum()
-                    || type.isA( Date.class.getCanonicalName() )
+                    || type.getCanonicalName().equals( Date.class.getCanonicalName() )
                     || type.getFullyQualifiedName().startsWith("java.lang");
         }
+    }
+
+    protected boolean isDtoType( JavaType type ) {
+        return this.isDtoType(classMetaBuilder.getClassByName(type.getFullyQualifiedName()));
     }
 
     protected boolean isDtoType( JavaClass type ) {
@@ -370,19 +393,27 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
                 || hasAnnotation(clazz, MAPPED_SUPERCLASS_ANNOTATION_CLASS_NAME);
     }
 
+    protected boolean isJpaEntity(JavaType clazz) {
+        return hasAnnotation(clazz.getCanonicalName(), ENTITY_ANNOTATION_CLASS_NAME )
+                || hasAnnotation(clazz.getCanonicalName(), MAPPED_SUPERCLASS_ANNOTATION_CLASS_NAME);
+    }
+
     protected boolean isInheritanceClass(JavaClass clazz){
         return hasAnnotation(clazz, INHERITANCE_ANNOTATION_CLASS_NAME);
     }
 
+    protected boolean hasAnnotation(String clazz, String className ) {
+        return hasAnnotation( classMetaBuilder.getClassByName(className), className, false );
+    }
 
-    protected boolean hasAnnotation(AbstractBaseJavaEntity clazz, String className ) {
+    protected boolean hasAnnotation(JavaAnnotatedElement clazz, String className ) {
         return hasAnnotation( clazz, className, false );
     }
 
-    protected boolean hasAnnotation(AbstractBaseJavaEntity clazz, String className, boolean checkParent ) {
+    protected boolean hasAnnotation(JavaAnnotatedElement clazz, String className, boolean checkParent ) {
         boolean result = false;
-        for ( Annotation annotation : clazz.getAnnotations() ) {
-            if ( !isA( annotation.getType().getJavaClass(), className) ) {
+        for ( JavaAnnotation annotation : clazz.getAnnotations() ) {
+            if ( !isA( annotation.getType(), className) ) {
                 continue;
             }
 
@@ -393,21 +424,26 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
         return result;
     }
 
-    protected JType convertType( JavaClass context, Type originalType ) {
-        return convertType( context, originalType, generatorPrefix, generatorSuffix, generatorPostfix);
+    protected JType convertType( JavaClass context,
+                                 JavaType originalType ) {
+        return convertType( context, originalType, generatorPrefix,
+                generatorSuffix, generatorPostfix);
     }
 
-    protected JType convertType( JavaClass context, Type originalType, String generatorPrefix,
+    protected JType convertType( JavaClass context,
+                                 JavaType originalType,
+                                 String generatorPrefix,
                                  String generatorSuffix, String generatorPostfix ) {
         JClass returnType = null;
-        if ( isCollectionType(originalType.getJavaClass()) ) {
-            if ( originalType.getActualTypeArguments().length == 0 ) {
+        if ( isCollectionType(originalType.getFullyQualifiedName()) ) {
+            List<JavaType> actualArguments = ((JavaParameterizedType)originalType).getActualTypeArguments();
+            if ( actualArguments.size() == 0 ) {
                 returnType = codeModel.ref(originalType.getFullyQualifiedName());
             } else {
                 List<JClass> narrowsList = new ArrayList<JClass>();
-                for ( Type type : originalType.getActualTypeArguments() ) {
+                for ( JavaType type : actualArguments ) {
                     boolean found = false;
-                    for ( TypeVariable typeVariable : context.getTypeParameters() ) {
+                    for ( JavaTypeVariable typeVariable : context.getTypeParameters() ) {
                         if ( typeVariable.getName().equals( type.getFullyQualifiedName() ) ) {
                             narrowsList.add( codeModel.ref( typeVariable.getName() ) );
                             found = true;
@@ -415,7 +451,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
                     }
 
                     if ( !found ) {
-                        if ( isJpaEntity(type.getJavaClass()) ) {
+                        if ( isJpaEntity(type) ) {
                             narrowsList.add(
                                 codeModel.ref(
                                     prepareClassName(dtoPackage, type.getFullyQualifiedName(), generatorPrefix,
@@ -431,14 +467,14 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
 
                 returnType = codeModel.ref(originalType.getFullyQualifiedName());
 
-                if ( narrowsList.size() == originalType.getActualTypeArguments().length ) {
+                if ( narrowsList.size() == actualArguments.size() ) {
                     returnType = returnType.narrow( narrowsList );
                 }
             }
-        } else if ( isSimpleType( originalType.getJavaClass() )
-                || isDtoType(originalType.getJavaClass()) ) {
+        } else if ( isSimpleType(originalType)
+                || isDtoType(originalType) ) {
             returnType = codeModel.ref( originalType.getFullyQualifiedName() );
-        } else if ( isJpaEntity( originalType.getJavaClass() ) ) {
+        } else if ( isJpaEntity( originalType ) ) {
             returnType = codeModel.ref(
                 prepareClassName(dtoPackage, originalType.getFullyQualifiedName(), generatorPrefix,
                         generatorSuffix, generatorPostfix)
@@ -453,8 +489,8 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
 
         for ( JavaField field : entityClass.getFields() ) {
             boolean isId = false;
-            for (Annotation annotation : field.getAnnotations()) {
-                if ( !isA( annotation.getType().getJavaClass(), Id.class.getName() ) ) {
+            for (JavaAnnotation annotation : field.getAnnotations()) {
+                if ( !isA( annotation.getType(), Id.class.getName() ) ) {
                     continue;
                 }
 
@@ -481,7 +517,7 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
 
         JavaClass parent = javaClass;
         while ( parent != null ) {
-            result.addAll( Arrays.asList(parent.getFields()) );
+            result.addAll(parent.getFields());
             parent = parent.getSuperJavaClass();
         }
 
@@ -521,8 +557,8 @@ public abstract class AbstractGeneratorMojo extends AbstractMojo {
 
             JExpression lit = null;
             if ( originalField != null && hasAnnotation(originalField, DTO_DEFAULT_VALUE_ANNOTATION_CLASS_NAME) ) {
-                for ( Annotation annotation : originalField.getAnnotations() ) {
-                    if ( !isA(annotation.getType().getJavaClass(), DTO_DEFAULT_VALUE_ANNOTATION_CLASS_NAME) ) {
+                for ( JavaAnnotation annotation : originalField.getAnnotations() ) {
+                    if ( !isA(annotation.getType(), DTO_DEFAULT_VALUE_ANNOTATION_CLASS_NAME) ) {
                         continue;
                     }
 
